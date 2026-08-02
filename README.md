@@ -5,7 +5,7 @@ This repository contains a public presentation notebook for the Artificial Intel
 - GitHub Pages: https://dialvebe.github.io/IA/
 - Repository: https://github.com/DIALVEBE/IA
 
-The presentation is designed for students and introduces the main ideas, vocabulary, visuals, and relationships between core Artificial Intelligence topics. English is the primary language, and Spanish is available from the language switch in the presentation.
+The presentation is designed as a student notebook with definitions, visuals, examples, study checks, and relationships between core Artificial Intelligence topics. English is the primary language, and Spanish is available from the language switch in the presentation.
 
 ## Topics
 

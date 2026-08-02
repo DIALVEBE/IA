@@ -12,6 +12,22 @@ const slides = [
         "AI is not one single technology; it is a family of methods for reasoning, learning, and acting.",
         "An intelligent agent receives input from an environment and chooses actions that move it closer to an objective.",
         "The central question is not only whether a system is powerful, but whether it is useful, reliable, fair, and safe."
+      ],
+      notebook: [
+        {
+          title: "Mental model",
+          items: [
+            "Think of AI as a toolbox. A chatbot, a route planner, a spam filter, and a recommendation system may use different tools, but all try to make useful decisions from information.",
+            "The word intelligent does not mean conscious. In this course, it means that a system can select actions or outputs that fit a goal."
+          ]
+        },
+        {
+          title: "Student check",
+          items: [
+            "When you see an AI product, ask: What is the input? What is the output? What goal is it optimizing?",
+            "A strong answer separates the model from the complete system around it: interface, data, rules, safety checks, and human review."
+          ]
+        }
       ]
     },
     es: {
@@ -23,6 +39,22 @@ const slides = [
         "La IA no es una sola tecnología; es una familia de métodos para razonar, aprender y actuar.",
         "Un agente inteligente recibe información de un entorno y elige acciones para acercarse a un objetivo.",
         "La pregunta central no es solo si un sistema es potente, sino si es útil, confiable, justo y seguro."
+      ],
+      notebook: [
+        {
+          title: "Modelo mental",
+          items: [
+            "Piense la IA como una caja de herramientas. Un chatbot, un planificador de rutas, un filtro de spam y un recomendador pueden usar técnicas distintas, pero todos intentan tomar decisiones útiles desde información.",
+            "La palabra inteligente no significa consciente. En este curso, significa que un sistema puede seleccionar acciones o salidas que se ajustan a un objetivo."
+          ]
+        },
+        {
+          title: "Chequeo de estudio",
+          items: [
+            "Cuando vea un producto de IA, pregunte: ¿cuál es la entrada?, ¿cuál es la salida?, ¿qué objetivo está optimizando?",
+            "Una buena respuesta separa el modelo del sistema completo: interfaz, datos, reglas, controles de seguridad y revisión humana."
+          ]
+        }
       ]
     }
   },
@@ -39,6 +71,22 @@ const slides = [
         "Examples include route planning, puzzle solving, scheduling, robotics, and game strategies.",
         "Breadth-first and depth-first search explore without domain knowledge; A* uses a heuristic to move toward promising paths.",
         "A good representation can make a hard problem easier because it controls what the algorithm can see and compare."
+      ],
+      notebook: [
+        {
+          title: "How to read a search problem",
+          items: [
+            "A state is one possible situation. An action moves from one state to another. A path is a sequence of actions.",
+            "The same real problem can become easy or difficult depending on how states and actions are defined."
+          ]
+        },
+        {
+          title: "Example",
+          items: [
+            "In a maze, the current position is the state, moving up/down/left/right are actions, and reaching the exit is the goal.",
+            "In route planning, the heuristic might be straight-line distance to the destination."
+          ]
+        }
       ]
     },
     es: {
@@ -50,6 +98,22 @@ const slides = [
         "Ejemplos: planeación de rutas, rompecabezas, horarios, robótica y estrategias de juego.",
         "La búsqueda en amplitud y la búsqueda en profundidad exploran sin conocimiento del dominio; A* usa una heurística para seguir rutas prometedoras.",
         "Una buena representación puede volver más fácil un problema difícil porque define qué puede ver y comparar el algoritmo."
+      ],
+      notebook: [
+        {
+          title: "Cómo leer un problema de búsqueda",
+          items: [
+            "Un estado es una situación posible. Una acción mueve el sistema de un estado a otro. Una ruta es una secuencia de acciones.",
+            "El mismo problema real puede volverse fácil o difícil según cómo se definan los estados y las acciones."
+          ]
+        },
+        {
+          title: "Ejemplo",
+          items: [
+            "En un laberinto, la posición actual es el estado, moverse arriba/abajo/izquierda/derecha son acciones y llegar a la salida es la meta.",
+            "En planeación de rutas, la heurística puede ser la distancia en línea recta hasta el destino."
+          ]
+        }
       ]
     }
   },
@@ -66,6 +130,22 @@ const slides = [
         "Logic represents facts and rules so a system can derive new conclusions.",
         "Knowledge graphs connect concepts such as people, places, courses, symptoms, products, or events.",
         "The quality of reasoning depends on the quality of the modeled assumptions and relationships."
+      ],
+      notebook: [
+        {
+          title: "Why structure matters",
+          items: [
+            "Knowledge lets a system explain why something follows from known facts instead of only returning a similarity score.",
+            "Structured knowledge is useful when correctness, traceability, and consistency are more important than creative generation."
+          ]
+        },
+        {
+          title: "Common forms",
+          items: [
+            "Logic: IF a course has prerequisites AND the student completed them, THEN the student can enroll.",
+            "Graph: Course -> belongs to -> Program; Student -> completed -> Course; Skill -> required by -> Job."
+          ]
+        }
       ]
     },
     es: {
@@ -77,6 +157,22 @@ const slides = [
         "La lógica representa hechos y reglas para que un sistema derive nuevas conclusiones.",
         "Los grafos de conocimiento conectan conceptos como personas, lugares, cursos, síntomas, productos o eventos.",
         "La calidad del razonamiento depende de la calidad de los supuestos y relaciones modeladas."
+      ],
+      notebook: [
+        {
+          title: "Por qué importa la estructura",
+          items: [
+            "El conocimiento permite explicar por qué algo se deduce de hechos conocidos, en lugar de devolver solo un puntaje de similitud.",
+            "El conocimiento estructurado es útil cuando la corrección, la trazabilidad y la consistencia importan más que la generación creativa."
+          ]
+        },
+        {
+          title: "Formas comunes",
+          items: [
+            "Lógica: SI una asignatura tiene prerrequisitos Y el estudiante los aprobó, ENTONCES puede inscribirse.",
+            "Grafo: Asignatura -> pertenece a -> Programa; Estudiante -> aprobó -> Asignatura; Habilidad -> requerida por -> Trabajo."
+          ]
+        }
       ]
     }
   },
@@ -93,6 +189,22 @@ const slides = [
         "Instead of only true or false, probability represents how likely something is.",
         "Bayesian reasoning updates beliefs when new evidence changes what is most plausible.",
         "Decision-making under uncertainty compares possible actions by expected outcomes and risk."
+      ],
+      notebook: [
+        {
+          title: "The key idea",
+          items: [
+            "Uncertainty does not mean ignorance. It means the system represents limited confidence and can update that confidence.",
+            "A probability is useful only when it is connected to evidence, assumptions, and a decision."
+          ]
+        },
+        {
+          title: "Example",
+          items: [
+            "A weather app may say 70% chance of rain. That number should change if new satellite data appears.",
+            "A medical model may rank several possible diagnoses instead of pretending that one answer is absolutely certain."
+          ]
+        }
       ]
     },
     es: {
@@ -104,6 +216,22 @@ const slides = [
         "En lugar de solo verdadero o falso, la probabilidad representa qué tan probable es algo.",
         "El razonamiento bayesiano actualiza creencias cuando nueva evidencia cambia lo más plausible.",
         "Decidir bajo incertidumbre implica comparar acciones según resultados esperados y riesgo."
+      ],
+      notebook: [
+        {
+          title: "Idea clave",
+          items: [
+            "Incertidumbre no significa ignorancia. Significa que el sistema representa confianza limitada y puede actualizarla.",
+            "Una probabilidad es útil solo cuando está conectada con evidencia, supuestos y una decisión."
+          ]
+        },
+        {
+          title: "Ejemplo",
+          items: [
+            "Una app del clima puede decir 70% de probabilidad de lluvia. Ese número debería cambiar si aparece nueva información satelital.",
+            "Un modelo médico puede ordenar varios diagnósticos posibles en lugar de fingir que una respuesta es absolutamente segura."
+          ]
+        }
       ]
     }
   },
@@ -120,6 +248,22 @@ const slides = [
         "A solution is evaluated by how well it satisfies the objective and respects the constraints.",
         "Local search improves a current solution step by step; gradient methods improve model parameters during training.",
         "Real optimization is about tradeoffs: speed, quality, cost, fairness, and available data."
+      ],
+      notebook: [
+        {
+          title: "Objective + constraints",
+          items: [
+            "The objective says what better means. The constraints say what is allowed.",
+            "A model can optimize the wrong thing if the objective is poorly designed, even when the algorithm works correctly."
+          ]
+        },
+        {
+          title: "Where it appears",
+          items: [
+            "Training a neural network is optimization: reduce error by changing parameters.",
+            "Scheduling exams is optimization: avoid conflicts, respect rooms, and use time efficiently."
+          ]
+        }
       ]
     },
     es: {
@@ -131,6 +275,22 @@ const slides = [
         "Una solución se evalúa según qué tan bien cumple el objetivo y respeta las restricciones.",
         "La búsqueda local mejora una solución paso a paso; los métodos de gradiente ajustan parámetros durante el entrenamiento.",
         "La optimización real maneja compromisos: velocidad, calidad, costo, justicia y datos disponibles."
+      ],
+      notebook: [
+        {
+          title: "Objetivo + restricciones",
+          items: [
+            "El objetivo define qué significa mejorar. Las restricciones definen qué está permitido.",
+            "Un modelo puede optimizar algo equivocado si el objetivo está mal diseñado, incluso cuando el algoritmo funciona correctamente."
+          ]
+        },
+        {
+          title: "Dónde aparece",
+          items: [
+            "Entrenar una red neuronal es optimización: reducir el error cambiando parámetros.",
+            "Programar exámenes es optimización: evitar cruces, respetar salones y usar el tiempo de forma eficiente."
+          ]
+        }
       ]
     }
   },
@@ -147,6 +307,22 @@ const slides = [
         "Supervised learning uses labeled examples, such as images with categories or emails marked as spam.",
         "Unsupervised learning finds hidden structure, such as clusters of similar customers or documents.",
         "Reinforcement learning improves actions through feedback from rewards and penalties."
+      ],
+      notebook: [
+        {
+          title: "Generalization",
+          items: [
+            "The real test of learning is performance on new examples, not examples the system has already seen.",
+            "Overfitting happens when a model memorizes training data instead of learning a useful pattern."
+          ]
+        },
+        {
+          title: "Learning pipeline",
+          items: [
+            "Collect data, clean it, split it, train a model, evaluate it, deploy it, and monitor it.",
+            "Bad data can create bad predictions even if the algorithm is advanced."
+          ]
+        }
       ]
     },
     es: {
@@ -158,6 +334,22 @@ const slides = [
         "El aprendizaje supervisado usa ejemplos etiquetados, como imágenes con categorías o correos marcados como spam.",
         "El aprendizaje no supervisado encuentra estructura oculta, como grupos de clientes o documentos similares.",
         "El aprendizaje por refuerzo mejora acciones mediante retroalimentación de recompensas y penalizaciones."
+      ],
+      notebook: [
+        {
+          title: "Generalización",
+          items: [
+            "La prueba real del aprendizaje es el desempeño en ejemplos nuevos, no en ejemplos que el sistema ya vio.",
+            "El sobreajuste ocurre cuando un modelo memoriza los datos de entrenamiento en lugar de aprender un patrón útil."
+          ]
+        },
+        {
+          title: "Flujo de aprendizaje",
+          items: [
+            "Recolectar datos, limpiarlos, dividirlos, entrenar un modelo, evaluarlo, desplegarlo y monitorearlo.",
+            "Datos malos pueden crear predicciones malas aunque el algoritmo sea avanzado."
+          ]
+        }
       ]
     }
   },
@@ -174,6 +366,22 @@ const slides = [
         "Each layer can learn a different level of abstraction, from simple signals to complex concepts.",
         "Backpropagation is the process that tells the network how to adjust its weights after an error.",
         "The architecture matters: different networks are designed for images, sequences, language, or multimodal data."
+      ],
+      notebook: [
+        {
+          title: "Inside the network",
+          items: [
+            "Weights control how strongly one unit influences another. Training changes those weights.",
+            "Activation functions let the network learn nonlinear patterns instead of only straight-line relationships."
+          ]
+        },
+        {
+          title: "Why deep layers help",
+          items: [
+            "Early layers may detect simple patterns. Later layers combine them into more abstract features.",
+            "For images, that can mean edges -> shapes -> objects. For text, tokens -> phrases -> meaning patterns."
+          ]
+        }
       ]
     },
     es: {
@@ -185,6 +393,22 @@ const slides = [
         "Cada capa puede aprender un nivel de abstracción diferente, desde señales simples hasta conceptos complejos.",
         "La retropropagación indica a la red cómo ajustar sus pesos después de un error.",
         "La arquitectura importa: distintas redes se diseñan para imágenes, secuencias, lenguaje o datos multimodales."
+      ],
+      notebook: [
+        {
+          title: "Dentro de la red",
+          items: [
+            "Los pesos controlan qué tanto influye una unidad sobre otra. El entrenamiento cambia esos pesos.",
+            "Las funciones de activación permiten aprender patrones no lineales, no solo relaciones en línea recta."
+          ]
+        },
+        {
+          title: "Por qué ayudan las capas profundas",
+          items: [
+            "Las primeras capas pueden detectar patrones simples. Las capas posteriores los combinan en características más abstractas.",
+            "En imágenes: bordes -> formas -> objetos. En texto: tokens -> frases -> patrones de significado."
+          ]
+        }
       ]
     }
   },
@@ -201,6 +425,22 @@ const slides = [
         "Tokenization splits text into units that a model can process.",
         "Embeddings place words, phrases, or documents in a vector space where similar meanings are close.",
         "Useful language systems need context, grounding, and evaluation, not only fluent sentences."
+      ],
+      notebook: [
+        {
+          title: "Why language is hard",
+          items: [
+            "Language carries meaning, intention, culture, ambiguity, and context at the same time.",
+            "The same sentence can be a question, a joke, a command, or a warning depending on the situation."
+          ]
+        },
+        {
+          title: "Representation",
+          items: [
+            "Tokens are the pieces the system reads. Embeddings are numerical positions that help compare meaning.",
+            "Context changes interpretation: bank can mean a financial institution or the side of a river."
+          ]
+        }
       ]
     },
     es: {
@@ -212,6 +452,22 @@ const slides = [
         "La tokenización divide el texto en unidades que el modelo puede procesar.",
         "Los embeddings ubican palabras, frases o documentos en un espacio vectorial donde significados similares quedan cerca.",
         "Un sistema de lenguaje útil necesita contexto, fundamento y evaluación, no solo frases fluidas."
+      ],
+      notebook: [
+        {
+          title: "Por qué el lenguaje es difícil",
+          items: [
+            "El lenguaje mezcla significado, intención, cultura, ambigüedad y contexto al mismo tiempo.",
+            "La misma frase puede ser pregunta, chiste, orden o advertencia según la situación."
+          ]
+        },
+        {
+          title: "Representación",
+          items: [
+            "Los tokens son las piezas que el sistema lee. Los embeddings son posiciones numéricas que ayudan a comparar significado.",
+            "El contexto cambia la interpretación: banco puede ser una entidad financiera o una banca para sentarse."
+          ]
+        }
       ]
     }
   },
@@ -228,6 +484,22 @@ const slides = [
         "Generation is useful for drafting, brainstorming, simulation, summarization, translation, design, and programming.",
         "Because generated content can be wrong or misleading, human review and factual checking remain necessary.",
         "Responsible use requires attention to privacy, bias, authorship, academic integrity, and social impact."
+      ],
+      notebook: [
+        {
+          title: "Generation is guided",
+          items: [
+            "A prompt does not control the model perfectly. It guides the space of likely outputs.",
+            "Good generation often needs constraints: format, audience, tone, examples, sources, and verification."
+          ]
+        },
+        {
+          title: "Useful skepticism",
+          items: [
+            "Generated content can look polished while still being false, incomplete, or biased.",
+            "Treat generation as a draft or assistant process, not as automatic truth."
+          ]
+        }
       ]
     },
     es: {
@@ -239,6 +511,22 @@ const slides = [
         "La generación sirve para borradores, lluvia de ideas, simulación, resumen, traducción, diseño y programación.",
         "Como el contenido generado puede ser incorrecto o engañoso, la revisión humana y la verificación factual siguen siendo necesarias.",
         "El uso responsable exige cuidar privacidad, sesgos, autoría, integridad académica e impacto social."
+      ],
+      notebook: [
+        {
+          title: "La generación se guía",
+          items: [
+            "Un prompt no controla el modelo de forma perfecta. Guía el espacio de salidas probables.",
+            "Una buena generación suele necesitar restricciones: formato, audiencia, tono, ejemplos, fuentes y verificación."
+          ]
+        },
+        {
+          title: "Escepticismo útil",
+          items: [
+            "El contenido generado puede verse pulido y aun así ser falso, incompleto o sesgado.",
+            "Trate la generación como borrador o proceso de asistencia, no como verdad automática."
+          ]
+        }
       ]
     }
   },
@@ -255,6 +543,22 @@ const slides = [
         "An LLM predicts likely next tokens; it does not automatically know whether a statement is true.",
         "Prompting, examples, retrieval, tools, and system design shape the quality of the final application.",
         "Common limitations include hallucinations, outdated knowledge, hidden bias, weak math reliability, and context limits."
+      ],
+      notebook: [
+        {
+          title: "What the model sees",
+          items: [
+            "The model receives a context window: instructions, user message, examples, retrieved documents, and previous conversation.",
+            "It predicts text token by token. The surrounding application decides what documents, tools, and safety rules are available."
+          ]
+        },
+        {
+          title: "System patterns",
+          items: [
+            "RAG adds retrieved documents so answers can be grounded in course material or current sources.",
+            "Tool use lets an LLM request actions such as search, calculation, file editing, or API calls."
+          ]
+        }
       ]
     },
     es: {
@@ -266,6 +570,22 @@ const slides = [
         "Un LLM predice tokens probables; no sabe automáticamente si una afirmación es verdadera.",
         "Prompts, ejemplos, recuperación de información, herramientas y diseño del sistema moldean la calidad de la aplicación final.",
         "Limitaciones comunes: alucinaciones, conocimiento desactualizado, sesgos ocultos, baja confiabilidad matemática y límites de contexto."
+      ],
+      notebook: [
+        {
+          title: "Qué ve el modelo",
+          items: [
+            "El modelo recibe una ventana de contexto: instrucciones, mensaje del usuario, ejemplos, documentos recuperados y conversación previa.",
+            "Predice texto token por token. La aplicación alrededor decide qué documentos, herramientas y reglas de seguridad están disponibles."
+          ]
+        },
+        {
+          title: "Patrones de sistema",
+          items: [
+            "RAG agrega documentos recuperados para fundamentar respuestas en material del curso o fuentes actuales.",
+            "El uso de herramientas permite que un LLM solicite acciones como búsqueda, cálculo, edición de archivos o llamadas a una API."
+          ]
+        }
       ]
     }
   },
@@ -282,6 +602,22 @@ const slides = [
         "Good AI-assisted coding starts with clear requirements, examples, constraints, and acceptance criteria.",
         "The most important skills are reading diffs, running tests, checking edge cases, and asking precise follow-up questions.",
         "Vibe coding is strongest when used as a feedback loop: prompt, inspect, run, verify, refine."
+      ],
+      notebook: [
+        {
+          title: "Practical workflow",
+          items: [
+            "Start with a small goal. Ask for a change. Inspect the diff. Run the code. Keep or reject the result.",
+            "The faster the assistant writes, the more important it becomes to verify behavior with tests and real examples."
+          ]
+        },
+        {
+          title: "Good student habit",
+          items: [
+            "Do not submit code you cannot explain. Use the assistant to accelerate learning, not to skip understanding.",
+            "Keep notes about what changed, why it changed, and how you verified it."
+          ]
+        }
       ]
     },
     es: {
@@ -293,6 +629,22 @@ const slides = [
         "Un buen trabajo asistido por IA comienza con requisitos claros, ejemplos, restricciones y criterios de aceptación.",
         "Las habilidades más importantes son leer diffs, ejecutar pruebas, revisar casos borde y hacer preguntas precisas.",
         "Vibe coding funciona mejor como ciclo de retroalimentación: pedir, inspeccionar, ejecutar, verificar y refinar."
+      ],
+      notebook: [
+        {
+          title: "Flujo práctico",
+          items: [
+            "Comience con una meta pequeña. Pida un cambio. Revise el diff. Ejecute el código. Conserve o rechace el resultado.",
+            "Mientras más rápido escribe el asistente, más importante es verificar el comportamiento con pruebas y ejemplos reales."
+          ]
+        },
+        {
+          title: "Buen hábito de estudiante",
+          items: [
+            "No entregue código que no pueda explicar. Use el asistente para acelerar el aprendizaje, no para saltarse la comprensión.",
+            "Mantenga notas sobre qué cambió, por qué cambió y cómo lo verificó."
+          ]
+        }
       ]
     }
   }
@@ -480,6 +832,21 @@ function renderVisual(type, language) {
   return `<aside class="visual-panel" aria-hidden="true">${visuals[type]}</aside>`;
 }
 
+function renderNotebook(sections) {
+  return `
+    <div class="notebook-grid">
+      ${sections.map((section) => `
+        <section class="notebook-card">
+          <h3>${section.title}</h3>
+          <ul>
+            ${section.items.map((item) => `<li>${item}</li>`).join("")}
+          </ul>
+        </section>
+      `).join("")}
+    </div>
+  `;
+}
+
 function renderSlides() {
   deck.innerHTML = slides.map((slide, index) => {
     const content = slide[currentLanguage];
@@ -499,6 +866,7 @@ function renderSlides() {
             ${chips}
           </div>
           ${renderVisual(slide.visual, currentLanguage)}
+          ${renderNotebook(content.notebook)}
         </div>
       </article>
     `;
