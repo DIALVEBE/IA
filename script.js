@@ -650,23 +650,60 @@ const slides = [
   }
 ];
 
-const deck = document.querySelector("#deck");
-const topicList = document.querySelector("#topicList");
-const counter = document.querySelector("#slideCounter");
-const languageButtons = document.querySelectorAll("[data-lang]");
-let currentIndex = Math.max(0, slides.findIndex((slide) => `#${slide.id}` === window.location.hash));
-let currentLanguage = localStorage.getItem("language") || "en";
+const VERSION = "genai-layout-20260802";
 
-function renderNavigation() {
-  topicList.innerHTML = slides.map((slide, index) => {
-    const title = slide[currentLanguage].title;
-    return `<li><button type="button" data-index="${index}">${String(index + 1).padStart(2, "0")} ${title}</button></li>`;
-  }).join("");
-
-  topicList.querySelectorAll("button").forEach((button) => {
-    button.addEventListener("click", () => showSlide(Number(button.dataset.index)));
-  });
-}
+const ui = {
+  en: {
+    navTopics: "Topics",
+    courseLabel: "Course notebook",
+    heroTitle: "Artificial Intelligence",
+    heroText:
+      "A student-facing notebook for understanding intelligent agents, search, knowledge, uncertainty, optimization, learning, neural networks, language, generative AI, LLMs, and AI-assisted coding.",
+    startLearning: "Start learning",
+    viewMap: "View study map",
+    mapLabel: "Notebook route",
+    mapTitle: "From reasoning foundations to modern AI systems",
+    map1Title: "Reasoning foundations",
+    map1Text: "Agents, search, knowledge representation, uncertainty, and optimization.",
+    map2Title: "Learning systems",
+    map2Text: "Machine learning, neural networks, language representations, and model evaluation.",
+    map3Title: "Modern practice",
+    map3Text: "Generative AI, LLMs, prompt workflows, verification, and responsible AI-assisted coding.",
+    topicsLabel: "Course modules",
+    topicsTitle: "Student notebook",
+    indexTitle: "Jump to",
+    footerText: "Artificial Intelligence course notebook",
+    labels: {
+      keyIdeas: "Key ideas",
+      details: "Notebook details"
+    }
+  },
+  es: {
+    navTopics: "Temas",
+    courseLabel: "Cuaderno del curso",
+    heroTitle: "Inteligencia artificial",
+    heroText:
+      "Un cuaderno para estudiantes sobre agentes inteligentes, búsqueda, conocimiento, incertidumbre, optimización, aprendizaje, redes neuronales, lenguaje, IA generativa, LLMs y programación asistida por IA.",
+    startLearning: "Empezar",
+    viewMap: "Ver mapa",
+    mapLabel: "Ruta del cuaderno",
+    mapTitle: "De fundamentos de razonamiento a sistemas modernos de IA",
+    map1Title: "Fundamentos de razonamiento",
+    map1Text: "Agentes, búsqueda, representación de conocimiento, incertidumbre y optimización.",
+    map2Title: "Sistemas de aprendizaje",
+    map2Text: "Aprendizaje automático, redes neuronales, representaciones de lenguaje y evaluación de modelos.",
+    map3Title: "Práctica moderna",
+    map3Text: "IA generativa, LLMs, flujos con prompts, verificación y programación asistida por IA responsable.",
+    topicsLabel: "Módulos del curso",
+    topicsTitle: "Cuaderno del estudiante",
+    indexTitle: "Ir a",
+    footerText: "Cuaderno del curso de inteligencia artificial",
+    labels: {
+      keyIdeas: "Ideas clave",
+      details: "Detalles del cuaderno"
+    }
+  }
+};
 
 function renderVisual(type, language) {
   const labels = {
@@ -829,15 +866,15 @@ function renderVisual(type, language) {
     `
   };
 
-  return `<aside class="visual-panel" aria-hidden="true">${visuals[type]}</aside>`;
+  return visuals[type];
 }
 
-function renderNotebook(sections) {
+function renderNotebook(sections, labels) {
   return `
-    <div class="notebook-grid">
+    <div class="detail-grid" aria-label="${labels.details}">
       ${sections.map((section) => `
-        <section class="notebook-card">
-          <h3>${section.title}</h3>
+        <section class="detail-card">
+          <span class="label">${section.title}</span>
           <ul>
             ${section.items.map((item) => `<li>${item}</li>`).join("")}
           </ul>
@@ -847,71 +884,59 @@ function renderNotebook(sections) {
   `;
 }
 
-function renderSlides() {
-  deck.innerHTML = slides.map((slide, index) => {
-    const content = slide[currentLanguage];
-    const points = content.points.map((point) => `<li>${point}</li>`).join("");
-    const chips = index === 0
-      ? `<div class="module-meta"><span class="chip">AI</span><span class="chip">Course</span><span class="chip">Visual Deck</span></div>`
-      : "";
-    return `
-      <article class="slide ${index === 0 ? "hero" : ""}" id="${slide.id}" style="--slide-image: url('assets/template/${slide.image}')">
-        <div class="slide-inner">
-          <div class="slide-copy">
-            <p class="kicker">${content.kicker}</p>
-            <h${index === 0 ? "1" : "2"}>${content.title}</h${index === 0 ? "1" : "2"}>
-            <p class="summary">${content.summary}</p>
-            <p class="explanation">${content.body}</p>
-            <ul class="points">${points}</ul>
-            ${chips}
-          </div>
-          ${renderVisual(slide.visual, currentLanguage)}
-          ${renderNotebook(content.notebook)}
+function topicCard(slide, index, language) {
+  const content = slide[language];
+  const labels = ui[language].labels;
+  return `
+    <article class="topic-card" id="${slide.id}">
+      <div class="topic-top">
+        <div>
+          <div class="topic-number">${String(index + 1).padStart(2, "0")} / ${slides.length}</div>
+          <p class="eyebrow">${content.kicker}</p>
+          <h3>${content.title}</h3>
+          <p class="topic-summary">${content.summary}</p>
+          <p class="topic-deep">${content.body}</p>
         </div>
-      </article>
-    `;
-  }).join("");
+        <div class="visual-card">${renderVisual(slide.visual, language)}</div>
+      </div>
+      <div class="detail-grid key-grid">
+        <section class="detail-card key-card">
+          <span class="label">${labels.keyIdeas}</span>
+          <ul>${content.points.map((point) => `<li>${point}</li>`).join("")}</ul>
+        </section>
+      </div>
+      ${renderNotebook(content.notebook, labels)}
+    </article>
+  `;
 }
 
-function showSlide(index, updateHash = true) {
-  currentIndex = (index + slides.length) % slides.length;
-  document.querySelectorAll(".slide").forEach((slide, slideIndex) => {
-    slide.classList.toggle("active", slideIndex === currentIndex);
-  });
-  topicList.querySelectorAll("button").forEach((button, buttonIndex) => {
-    button.classList.toggle("active", buttonIndex === currentIndex);
-  });
-  counter.textContent = `${String(currentIndex + 1).padStart(2, "0")} / ${String(slides.length).padStart(2, "0")}`;
-  if (updateHash) {
-    history.replaceState(null, "", `#${slides[currentIndex].id}`);
-  }
-}
-
-function setLanguage(language) {
-  currentLanguage = language;
-  localStorage.setItem("language", language);
+function render(language) {
   document.documentElement.lang = language;
-  languageButtons.forEach((button) => button.classList.toggle("active", button.dataset.lang === language));
-  renderNavigation();
-  renderSlides();
-  showSlide(currentIndex, false);
+  document.querySelectorAll("[data-i18n]").forEach((node) => {
+    node.textContent = ui[language][node.dataset.i18n];
+  });
+
+  document.querySelectorAll(".lang-button").forEach((button) => {
+    button.classList.toggle("is-active", button.dataset.lang === language);
+  });
+
+  document.getElementById("topicIndex").innerHTML = slides
+    .map((slide, index) => `<a href="#${slide.id}"><span>${String(index + 1).padStart(2, "0")}</span>${slide[language].title}</a>`)
+    .join("");
+
+  document.getElementById("topicList").innerHTML = slides
+    .map((slide, index) => topicCard(slide, index, language))
+    .join("");
 }
 
-document.querySelector("#prevSlide").addEventListener("click", () => showSlide(currentIndex - 1));
-document.querySelector("#nextSlide").addEventListener("click", () => showSlide(currentIndex + 1));
-
-languageButtons.forEach((button) => {
-  button.addEventListener("click", () => setLanguage(button.dataset.lang));
+document.querySelectorAll(".lang-button").forEach((button) => {
+  button.addEventListener("click", () => {
+    const language = button.dataset.lang;
+    localStorage.setItem("ia-language", language);
+    render(language);
+  });
 });
 
-window.addEventListener("keydown", (event) => {
-  if (event.key === "ArrowRight" || event.key === "PageDown") showSlide(currentIndex + 1);
-  if (event.key === "ArrowLeft" || event.key === "PageUp") showSlide(currentIndex - 1);
-});
+render(localStorage.getItem("ia-language") || "en");
 
-window.addEventListener("hashchange", () => {
-  const index = slides.findIndex((slide) => `#${slide.id}` === window.location.hash);
-  if (index >= 0) showSlide(index, false);
-});
-
-setLanguage(currentLanguage);
+console.info(`Artificial Intelligence notebook version ${VERSION}`);
