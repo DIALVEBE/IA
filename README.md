@@ -1,8 +1,11 @@
 # Artificial Intelligence Course Notebook
 
-Public GitHub Pages notebook for an Artificial Intelligence course.
+This repository contains a public presentation notebook for the Artificial Intelligence course.
 
-The first version is a student-facing presentation in a dark neon futuristic style, guided by `template.pptx`.
+- GitHub Pages: https://dialvebe.github.io/IA/
+- Repository: https://github.com/DIALVEBE/IA
+
+The presentation is designed for students and introduces the main ideas, vocabulary, and relationships between core Artificial Intelligence topics. English is the primary language, and Spanish is available from the language switch in the presentation.
 
 ## Topics
 
@@ -17,48 +20,12 @@ The first version is a student-facing presentation in a dark neon futuristic sty
 - Generative Artificial Intelligence
 - Large Language Models (LLMs)
 - Vibe Coding
-- Repository workflow for class notes
+- Public Notebook For The Course
 
-## Local Preview
+## Purpose
 
-Open `index.html` directly in a browser, or serve the folder with any static server.
+The goal of this notebook is to give students a clear starting point for understanding how AI systems are built and why different techniques are used. Each topic gives a general explanation before going deeper into specific algorithms, examples, and class activities.
 
-## GitHub Pages
+Use the GitHub Pages link to view the presentation directly in the browser:
 
-This repository is intended to publish from the `main` branch root:
-
-```bash
-gh repo create IA --public --source=. --push
-gh api repos/:owner/IA/pages -X POST -f source[branch]=main -f source[path]=/
-```
-
-If Pages already exists, update the source instead:
-
-```bash
-gh api repos/:owner/IA/pages -X PUT -f source[branch]=main -f source[path]=/
-```
-
-## Class Branch Workflow
-
-Keep `main` stable and deployable. For each new class or subtopic, create a topic branch:
-
-```bash
-git switch -c class-02-search
-```
-
-Add or edit pages, slides, exercises, or notes. Commit the work:
-
-```bash
-git add .
-git commit -m "Add class 02 search notes"
-git push -u origin class-02-search
-```
-
-Open a pull request, review the material, and merge into `main` when it is ready to publish.
-
-## Suggested Structure For Future Classes
-
-- `index.html`, `styles.css`, `script.js`: published presentation app.
-- `assets/template/`: visual assets extracted from the PPTX template.
-- `classes/`: optional future folder for deeper class notes.
-- `labs/`: optional future folder for exercises and notebooks.
+https://dialvebe.github.io/IA/
