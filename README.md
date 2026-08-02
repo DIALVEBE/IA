@@ -20,7 +20,6 @@ The presentation is designed for students and introduces the main ideas, vocabul
 - Generative Artificial Intelligence
 - Large Language Models (LLMs)
 - Vibe Coding
-- Public Notebook For The Course
 
 ## Purpose
 

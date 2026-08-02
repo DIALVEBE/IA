@@ -284,32 +284,6 @@ const slides = [
         "Vibe coding funciona mejor como ciclo de retroalimentación: pedir, inspeccionar, ejecutar, verificar y refinar."
       ]
     }
-  },
-  {
-    id: "notebook",
-    image: "image31.png",
-    en: {
-      kicker: "Course Repository",
-      title: "Public Notebook For The Course",
-      summary: "A public repository can work as a living notebook where class material grows over time.",
-      body: "Instead of treating the course as a fixed document, the repository can show how ideas evolve. Each class can add examples, exercises, explanations, branches, and small experiments. This also lets students see a professional workflow: version control, commits, branches, review, and publication.",
-      points: [
-        "The published site is the stable version students can always access.",
-        "Branches can be used for new lessons, subtopics, experiments, and class activities before they are merged.",
-        "The history of commits becomes part of the learning process because it shows how the material was built."
-      ]
-    },
-    es: {
-      kicker: "Repositorio del curso",
-      title: "Notebook público para el curso",
-      summary: "Un repositorio público puede funcionar como un notebook vivo donde el material de clase crece con el tiempo.",
-      body: "En lugar de tratar el curso como un documento fijo, el repositorio puede mostrar cómo evolucionan las ideas. Cada clase puede agregar ejemplos, ejercicios, explicaciones, ramas y pequeños experimentos. Esto también permite que los estudiantes vean un flujo profesional: control de versiones, commits, ramas, revisión y publicación.",
-      points: [
-        "El sitio publicado es la versión estable que los estudiantes siempre pueden consultar.",
-        "Las ramas pueden usarse para nuevas lecciones, subtemas, experimentos y actividades antes de integrarlas.",
-        "El historial de commits se vuelve parte del aprendizaje porque muestra cómo se construyó el material."
-      ]
-    }
   }
 ];
 
