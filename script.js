@@ -2,6 +2,7 @@ const slides = [
   {
     id: "intro",
     image: "image1.jpg",
+    visual: "agent",
     en: {
       kicker: "Class 01",
       title: "Introduction to Artificial Intelligence",
@@ -28,6 +29,7 @@ const slides = [
   {
     id: "search",
     image: "image14.jpg",
+    visual: "search",
     en: {
       kicker: "Problem Solving",
       title: "Search",
@@ -54,6 +56,7 @@ const slides = [
   {
     id: "knowledge",
     image: "image7.jpg",
+    visual: "knowledge",
     en: {
       kicker: "Symbolic Reasoning",
       title: "Knowledge",
@@ -80,6 +83,7 @@ const slides = [
   {
     id: "uncertainty",
     image: "image15.jpg",
+    visual: "uncertainty",
     en: {
       kicker: "Probabilistic AI",
       title: "Uncertainty",
@@ -106,6 +110,7 @@ const slides = [
   {
     id: "optimization",
     image: "image23.jpg",
+    visual: "optimization",
     en: {
       kicker: "Better Decisions",
       title: "Optimization",
@@ -132,6 +137,7 @@ const slides = [
   {
     id: "learning",
     image: "image3.jpg",
+    visual: "learning",
     en: {
       kicker: "From Data To Models",
       title: "Learning",
@@ -158,6 +164,7 @@ const slides = [
   {
     id: "neural-networks",
     image: "image17.jpg",
+    visual: "neural",
     en: {
       kicker: "Deep Learning",
       title: "Neural Networks",
@@ -184,6 +191,7 @@ const slides = [
   {
     id: "language",
     image: "image10.jpg",
+    visual: "language",
     en: {
       kicker: "Natural Language",
       title: "Language",
@@ -210,6 +218,7 @@ const slides = [
   {
     id: "generative-ai",
     image: "image11.jpg",
+    visual: "generative",
     en: {
       kicker: "Creative Systems",
       title: "Generative Artificial Intelligence",
@@ -236,6 +245,7 @@ const slides = [
   {
     id: "llms",
     image: "image22.jpg",
+    visual: "llm",
     en: {
       kicker: "Foundation Models",
       title: "Large Language Models (LLMs)",
@@ -262,6 +272,7 @@ const slides = [
   {
     id: "vibe-coding",
     image: "image25.jpg",
+    visual: "vibe",
     en: {
       kicker: "AI-Assisted Software",
       title: "Vibe Coding",
@@ -305,12 +316,176 @@ function renderNavigation() {
   });
 }
 
+function renderVisual(type, language) {
+  const labels = {
+    en: {
+      input: "Input",
+      perceive: "Perceive",
+      reason: "Reason",
+      act: "Act",
+      goal: "Goal",
+      start: "Start",
+      goalNode: "Goal",
+      facts: "Facts",
+      rules: "Rules",
+      inference: "Inference",
+      belief: "Belief",
+      evidence: "Evidence",
+      update: "Update",
+      data: "Data",
+      train: "Train",
+      model: "Model",
+      predict: "Predict",
+      prompt: "Prompt",
+      generate: "Generate",
+      verify: "Verify",
+      context: "Context",
+      attention: "Attention",
+      answer: "Answer",
+      code: "Code",
+      test: "Test"
+    },
+    es: {
+      input: "Entrada",
+      perceive: "Percibir",
+      reason: "Razonar",
+      act: "Actuar",
+      goal: "Meta",
+      start: "Inicio",
+      goalNode: "Meta",
+      facts: "Hechos",
+      rules: "Reglas",
+      inference: "Inferencia",
+      belief: "Creencia",
+      evidence: "Evidencia",
+      update: "Actualizar",
+      data: "Datos",
+      train: "Entrenar",
+      model: "Modelo",
+      predict: "Predecir",
+      prompt: "Prompt",
+      generate: "Generar",
+      verify: "Verificar",
+      context: "Contexto",
+      attention: "Atención",
+      answer: "Respuesta",
+      code: "Código",
+      test: "Prueba"
+    }
+  }[language];
+
+  const visuals = {
+    agent: `
+      <div class="visual-card agent-loop">
+        <div class="orbit">
+          <span>${labels.input}</span>
+          <span>${labels.perceive}</span>
+          <span>${labels.reason}</span>
+          <span>${labels.act}</span>
+        </div>
+        <div class="core">${labels.goal}</div>
+      </div>
+    `,
+    search: `
+      <div class="visual-card search-tree">
+        <div class="tree-level"><span>${labels.start}</span></div>
+        <div class="tree-level"><span>A</span><span>B</span><span>C</span></div>
+        <div class="tree-level"><span>A1</span><span>A2</span><span>B1</span><span class="goal-node">${labels.goalNode}</span></div>
+        <div class="path-line"></div>
+      </div>
+    `,
+    knowledge: `
+      <div class="visual-card knowledge-graph">
+        <span class="node large">${labels.facts}</span>
+        <span class="node">${labels.rules}</span>
+        <span class="node accent">${labels.inference}</span>
+        <span class="node">Graph</span>
+        <span class="edge e1"></span>
+        <span class="edge e2"></span>
+        <span class="edge e3"></span>
+      </div>
+    `,
+    uncertainty: `
+      <div class="visual-card probability-visual">
+        <div class="prob-row"><span>${labels.belief}</span><i style="--w: 62%"></i><b>0.62</b></div>
+        <div class="prob-row"><span>${labels.evidence}</span><i style="--w: 84%"></i><b>0.84</b></div>
+        <div class="prob-row"><span>${labels.update}</span><i style="--w: 73%"></i><b>0.73</b></div>
+        <div class="dice">?</div>
+      </div>
+    `,
+    optimization: `
+      <div class="visual-card optimization-visual">
+        <svg viewBox="0 0 420 260" role="img" aria-label="Optimization curve">
+          <path class="axis" d="M38 224H390M42 28V226"/>
+          <path class="curve" d="M46 202 C90 120 130 116 162 170 S242 240 286 110 S350 42 386 80"/>
+          <circle class="best-point" cx="342" cy="61" r="9"/>
+          <path class="step-arrow" d="M206 184 L244 148 L282 114 L330 70"/>
+        </svg>
+      </div>
+    `,
+    learning: `
+      <div class="visual-card learning-pipeline">
+        <span>${labels.data}</span>
+        <i></i>
+        <span>${labels.train}</span>
+        <i></i>
+        <span>${labels.model}</span>
+        <i></i>
+        <span>${labels.predict}</span>
+      </div>
+    `,
+    neural: `
+      <div class="visual-card neural-visual">
+        <div class="layer">${"<span></span>".repeat(4)}</div>
+        <div class="layer">${"<span></span>".repeat(5)}</div>
+        <div class="layer">${"<span></span>".repeat(4)}</div>
+        <div class="layer">${"<span></span>".repeat(2)}</div>
+      </div>
+    `,
+    language: `
+      <div class="visual-card language-visual">
+        <div class="sentence"><span>Artificial</span><span>Intelligence</span><span>learns</span><span>patterns</span></div>
+        <div class="vectors"><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="meaning-map"><span></span><span></span><span></span></div>
+      </div>
+    `,
+    generative: `
+      <div class="visual-card generative-visual">
+        <span>${labels.prompt}</span>
+        <i></i>
+        <span>${labels.generate}</span>
+        <i></i>
+        <div class="outputs"><b>Text</b><b>Image</b><b>Code</b></div>
+        <span class="verify">${labels.verify}</span>
+      </div>
+    `,
+    llm: `
+      <div class="visual-card llm-visual">
+        <span>${labels.context}</span>
+        <div class="attention-grid">${"<i></i>".repeat(25)}</div>
+        <span>${labels.attention}</span>
+        <span>${labels.answer}</span>
+      </div>
+    `,
+    vibe: `
+      <div class="visual-card vibe-visual">
+        <span>${labels.prompt}</span>
+        <span>${labels.code}</span>
+        <span>${labels.test}</span>
+        <span>${labels.verify}</span>
+      </div>
+    `
+  };
+
+  return `<aside class="visual-panel" aria-hidden="true">${visuals[type]}</aside>`;
+}
+
 function renderSlides() {
   deck.innerHTML = slides.map((slide, index) => {
     const content = slide[currentLanguage];
     const points = content.points.map((point) => `<li>${point}</li>`).join("");
     const chips = index === 0
-      ? `<div class="module-meta"><span class="chip">AI</span><span class="chip">Course</span><span class="chip">Notebook</span></div>`
+      ? `<div class="module-meta"><span class="chip">AI</span><span class="chip">Course</span><span class="chip">Visual Deck</span></div>`
       : "";
     return `
       <article class="slide ${index === 0 ? "hero" : ""}" id="${slide.id}" style="--slide-image: url('assets/template/${slide.image}')">
@@ -323,6 +498,7 @@ function renderSlides() {
             <ul class="points">${points}</ul>
             ${chips}
           </div>
+          ${renderVisual(slide.visual, currentLanguage)}
         </div>
       </article>
     `;
