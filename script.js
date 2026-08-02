@@ -3,234 +3,234 @@ const slides = [
     id: "intro",
     image: "image1.jpg",
     en: {
-      kicker: "Class 01 / Orientation",
+      kicker: "Class 01",
       title: "Introduction to Artificial Intelligence",
-      summary: "AI studies how to build systems that perceive, reason, learn, and act toward goals.",
+      summary: "Artificial Intelligence is the field that studies how to build systems capable of performing tasks that normally require human intelligence.",
+      body: "An AI system can perceive information, represent a situation, make decisions, learn from data, and act toward a goal. Some systems follow explicit rules, while others learn patterns from examples. Modern AI combines search, probability, optimization, learning, language, and generative models.",
       points: [
-        "Distinguish automation, machine learning, and modern generative systems.",
-        "Recognize intelligent agents: sensors, actions, environment, objectives.",
-        "Discuss social impact: productivity, bias, accountability, and academic integrity."
-      ],
-      note: "Start from everyday examples: maps, search engines, recommendation systems, translators, assistants, and coding tools."
+        "AI is not one single technology; it is a family of methods for reasoning, learning, and acting.",
+        "An intelligent agent receives input from an environment and chooses actions that move it closer to an objective.",
+        "The central question is not only whether a system is powerful, but whether it is useful, reliable, fair, and safe."
+      ]
     },
     es: {
-      kicker: "Clase 01 / Orientacion",
+      kicker: "Clase 01",
       title: "Introduccion a la Inteligencia Artificial",
-      summary: "La IA estudia como construir sistemas que perciben, razonan, aprenden y actuan para cumplir objetivos.",
+      summary: "La Inteligencia Artificial estudia como construir sistemas capaces de realizar tareas que normalmente requieren inteligencia humana.",
+      body: "Un sistema de IA puede percibir informacion, representar una situacion, tomar decisiones, aprender de datos y actuar para cumplir un objetivo. Algunos sistemas siguen reglas explicitas, mientras otros aprenden patrones desde ejemplos. La IA moderna combina busqueda, probabilidad, optimizacion, aprendizaje, lenguaje y modelos generativos.",
       points: [
-        "Diferenciar automatizacion, aprendizaje automatico y sistemas generativos modernos.",
-        "Reconocer agentes inteligentes: sensores, acciones, entorno y objetivos.",
-        "Discutir impacto social: productividad, sesgos, responsabilidad e integridad academica."
-      ],
-      note: "Comience con ejemplos cotidianos: mapas, buscadores, recomendadores, traductores, asistentes y herramientas de programacion."
+        "La IA no es una sola tecnologia; es una familia de metodos para razonar, aprender y actuar.",
+        "Un agente inteligente recibe informacion de un entorno y elige acciones para acercarse a un objetivo.",
+        "La pregunta central no es solo si un sistema es potente, sino si es util, confiable, justo y seguro."
+      ]
     }
   },
   {
     id: "search",
     image: "image14.jpg",
     en: {
-      kicker: "Reasoning Under Structure",
+      kicker: "Problem Solving",
       title: "Search",
-      summary: "Search turns a problem into states, actions, costs, and goals, then explores possible paths.",
+      summary: "Search is a way to solve problems by exploring possible states until a goal is reached.",
+      body: "Many AI problems can be described as a starting state, a set of possible actions, a cost for each action, and a goal condition. Search algorithms compare possible paths and decide which one to explore next. This is useful when the solution is not immediately visible but can be found by systematically exploring alternatives.",
       points: [
-        "Uninformed methods: breadth-first, depth-first, uniform-cost search.",
-        "Informed methods: greedy search and A* with useful heuristics.",
-        "Tradeoffs: completeness, optimality, branching factor, and memory."
-      ],
-      note: "Use route planning, puzzle solving, and game trees to show why representation affects performance."
+        "Examples include route planning, puzzle solving, scheduling, robotics, and game strategies.",
+        "Breadth-first and depth-first search explore without domain knowledge; A* uses a heuristic to move toward promising paths.",
+        "A good representation can make a hard problem easier because it controls what the algorithm can see and compare."
+      ]
     },
     es: {
-      kicker: "Razonamiento Con Estructura",
+      kicker: "Resolucion De Problemas",
       title: "Busqueda",
-      summary: "La busqueda convierte un problema en estados, acciones, costos y metas, y explora rutas posibles.",
+      summary: "La busqueda resuelve problemas explorando estados posibles hasta encontrar una meta.",
+      body: "Muchos problemas de IA pueden describirse con un estado inicial, un conjunto de acciones posibles, un costo por accion y una condicion de meta. Los algoritmos de busqueda comparan rutas posibles y deciden cual explorar. Esto sirve cuando la solucion no es inmediata, pero puede encontrarse al revisar alternativas de forma sistematica.",
       points: [
-        "Metodos no informados: amplitud, profundidad y costo uniforme.",
-        "Metodos informados: busqueda voraz y A* con heuristicas utiles.",
-        "Compromisos: completitud, optimalidad, factor de ramificacion y memoria."
-      ],
-      note: "Use planeacion de rutas, rompecabezas y arboles de juego para mostrar por que la representacion cambia el rendimiento."
+        "Ejemplos: planeacion de rutas, rompecabezas, horarios, robotica y estrategias de juego.",
+        "Busqueda en amplitud y profundidad exploran sin conocimiento del dominio; A* usa una heuristica para seguir rutas prometedoras.",
+        "Una buena representacion puede volver mas facil un problema dificil porque define que puede ver y comparar el algoritmo."
+      ]
     }
   },
   {
     id: "knowledge",
     image: "image7.jpg",
     en: {
-      kicker: "Symbolic AI",
+      kicker: "Symbolic Reasoning",
       title: "Knowledge",
-      summary: "Knowledge representation gives machines a way to store facts, rules, constraints, and relationships.",
+      summary: "Knowledge representation gives an AI system a structured way to store facts, relationships, rules, and constraints.",
+      body: "When a system has explicit knowledge, it can reason with information instead of only memorizing data. For example, if it knows that all mammals are animals and that whales are mammals, it can infer that whales are animals. Knowledge-based systems are useful when explanations, consistency, and traceable reasoning matter.",
       points: [
-        "Logic represents propositions and lets systems infer new conclusions.",
-        "Ontologies and graphs connect entities through explicit relationships.",
-        "Reasoning depends on sound rules and carefully modeled assumptions."
-      ],
-      note: "Contrast a database lookup with inference: a system can derive a fact that was not stored verbatim."
+        "Logic represents facts and rules so a system can derive new conclusions.",
+        "Knowledge graphs connect concepts such as people, places, courses, symptoms, products, or events.",
+        "The quality of reasoning depends on the quality of the modeled assumptions and relationships."
+      ]
     },
     es: {
-      kicker: "IA Simbolica",
+      kicker: "Razonamiento Simbolico",
       title: "Conocimiento",
-      summary: "La representacion de conocimiento permite guardar hechos, reglas, restricciones y relaciones.",
+      summary: "La representacion de conocimiento permite guardar hechos, relaciones, reglas y restricciones de forma estructurada.",
+      body: "Cuando un sistema tiene conocimiento explicito, puede razonar con informacion en lugar de solo memorizar datos. Por ejemplo, si sabe que todos los mamiferos son animales y que las ballenas son mamiferos, puede inferir que las ballenas son animales. Estos sistemas son utiles cuando importan la explicacion, la consistencia y el razonamiento rastreable.",
       points: [
-        "La logica representa proposiciones y permite inferir nuevas conclusiones.",
-        "Las ontologias y grafos conectan entidades mediante relaciones explicitas.",
-        "El razonamiento depende de reglas solidas y supuestos bien modelados."
-      ],
-      note: "Contraste una consulta a base de datos con una inferencia: el sistema puede derivar un hecho que no estaba guardado literalmente."
+        "La logica representa hechos y reglas para que un sistema derive nuevas conclusiones.",
+        "Los grafos de conocimiento conectan conceptos como personas, lugares, cursos, sintomas, productos o eventos.",
+        "La calidad del razonamiento depende de la calidad de los supuestos y relaciones modeladas."
+      ]
     }
   },
   {
     id: "uncertainty",
     image: "image15.jpg",
     en: {
-      kicker: "Probabilistic Reasoning",
+      kicker: "Probabilistic AI",
       title: "Uncertainty",
-      summary: "AI systems often act with incomplete, noisy, or changing information.",
+      summary: "Uncertainty appears when an AI system must make decisions with incomplete, noisy, or changing information.",
+      body: "Real-world data is rarely perfect. A medical system may receive uncertain symptoms, a robot may have noisy sensors, and a language model may receive an ambiguous question. Probability helps AI systems express degrees of belief and update those beliefs when new evidence appears.",
       points: [
-        "Probability models express degrees of belief instead of binary truth.",
-        "Bayesian networks connect causes, evidence, and updated beliefs.",
-        "Expected value helps choose actions when outcomes are uncertain."
-      ],
-      note: "Frame uncertainty as normal engineering reality: sensors fail, users are ambiguous, and data is incomplete."
+        "Instead of only true or false, probability represents how likely something is.",
+        "Bayesian reasoning updates beliefs when new evidence changes what is most plausible.",
+        "Decision-making under uncertainty compares possible actions by expected outcomes and risk."
+      ]
     },
     es: {
-      kicker: "Razonamiento Probabilistico",
+      kicker: "IA Probabilistica",
       title: "Incertidumbre",
-      summary: "Los sistemas de IA suelen actuar con informacion incompleta, ruidosa o cambiante.",
+      summary: "La incertidumbre aparece cuando un sistema de IA decide con informacion incompleta, ruidosa o cambiante.",
+      body: "Los datos del mundo real casi nunca son perfectos. Un sistema medico puede recibir sintomas inciertos, un robot puede tener sensores ruidosos y un modelo de lenguaje puede recibir una pregunta ambigua. La probabilidad ayuda a expresar grados de creencia y a actualizar esas creencias cuando aparece nueva evidencia.",
       points: [
-        "Los modelos probabilisticos expresan grados de creencia, no verdad binaria.",
-        "Las redes bayesianas conectan causas, evidencia y creencias actualizadas.",
-        "El valor esperado ayuda a elegir acciones cuando los resultados son inciertos."
-      ],
-      note: "Presente la incertidumbre como una realidad de ingenieria: los sensores fallan, los usuarios son ambiguos y los datos son incompletos."
+        "En lugar de solo verdadero o falso, la probabilidad representa que tan probable es algo.",
+        "El razonamiento bayesiano actualiza creencias cuando nueva evidencia cambia lo mas plausible.",
+        "Decidir bajo incertidumbre implica comparar acciones segun resultados esperados y riesgo."
+      ]
     }
   },
   {
     id: "optimization",
     image: "image23.jpg",
     en: {
-      kicker: "Finding Better Solutions",
+      kicker: "Better Decisions",
       title: "Optimization",
-      summary: "Optimization searches for the best solution according to an objective function and constraints.",
+      summary: "Optimization searches for the best possible solution according to a goal, a cost, and a set of constraints.",
+      body: "In AI, many tasks become optimization problems: choose the fastest route, minimize prediction error, assign limited resources, or find the best model parameters. The system needs an objective function that defines what better means. Then it uses a strategy to improve candidate solutions.",
       points: [
-        "Local search improves candidates through neighboring states.",
-        "Gradient-based methods power many learning systems.",
-        "Real problems balance quality, cost, time, and constraints."
-      ],
-      note: "Connect optimization to schedules, delivery routes, model training, resource allocation, and prompt refinement."
+        "A solution is evaluated by how well it satisfies the objective and respects the constraints.",
+        "Local search improves a current solution step by step; gradient methods improve model parameters during training.",
+        "Real optimization is about tradeoffs: speed, quality, cost, fairness, and available data."
+      ]
     },
     es: {
-      kicker: "Encontrar Mejores Soluciones",
+      kicker: "Mejores Decisiones",
       title: "Optimizacion",
-      summary: "La optimizacion busca la mejor solucion segun una funcion objetivo y sus restricciones.",
+      summary: "La optimizacion busca la mejor solucion posible segun una meta, un costo y un conjunto de restricciones.",
+      body: "En IA, muchas tareas se convierten en problemas de optimizacion: elegir la ruta mas rapida, minimizar error de prediccion, asignar recursos limitados o encontrar los mejores parametros de un modelo. El sistema necesita una funcion objetivo que defina que significa mejorar. Luego usa una estrategia para mejorar soluciones candidatas.",
       points: [
-        "La busqueda local mejora candidatos mediante estados vecinos.",
-        "Los metodos basados en gradiente impulsan muchos sistemas de aprendizaje.",
-        "Los problemas reales equilibran calidad, costo, tiempo y restricciones."
-      ],
-      note: "Conecte optimizacion con horarios, rutas, entrenamiento de modelos, asignacion de recursos y refinamiento de prompts."
+        "Una solucion se evalua por que tan bien cumple el objetivo y respeta las restricciones.",
+        "La busqueda local mejora una solucion paso a paso; los metodos de gradiente ajustan parametros durante el entrenamiento.",
+        "La optimizacion real maneja compromisos: velocidad, calidad, costo, justicia y datos disponibles."
+      ]
     }
   },
   {
     id: "learning",
     image: "image3.jpg",
     en: {
-      kicker: "Data To Behavior",
+      kicker: "From Data To Models",
       title: "Learning",
-      summary: "Machine learning builds behavior from examples instead of manually written rules.",
+      summary: "Machine learning allows systems to improve their behavior from data instead of relying only on hand-written rules.",
+      body: "A learning system receives examples, detects patterns, and builds a model that can make predictions or decisions on new cases. The goal is not to memorize the training data, but to generalize. This is why evaluation on unseen data is essential.",
       points: [
-        "Supervised learning maps inputs to known labels.",
-        "Unsupervised learning discovers structure without labels.",
-        "Reinforcement learning improves actions through rewards."
-      ],
-      note: "Explain the lifecycle: data, features, training, validation, deployment, monitoring, and feedback."
+        "Supervised learning uses labeled examples, such as images with categories or emails marked as spam.",
+        "Unsupervised learning finds hidden structure, such as clusters of similar customers or documents.",
+        "Reinforcement learning improves actions through feedback from rewards and penalties."
+      ]
     },
     es: {
-      kicker: "Datos A Comportamiento",
+      kicker: "De Datos A Modelos",
       title: "Aprendizaje",
-      summary: "El aprendizaje automatico construye comportamiento desde ejemplos en lugar de reglas escritas a mano.",
+      summary: "El aprendizaje automatico permite mejorar el comportamiento de un sistema desde datos, no solo desde reglas escritas a mano.",
+      body: "Un sistema de aprendizaje recibe ejemplos, detecta patrones y construye un modelo que puede hacer predicciones o decisiones en casos nuevos. La meta no es memorizar los datos de entrenamiento, sino generalizar. Por eso la evaluacion con datos no vistos es esencial.",
       points: [
-        "El aprendizaje supervisado mapea entradas a etiquetas conocidas.",
-        "El aprendizaje no supervisado descubre estructura sin etiquetas.",
-        "El aprendizaje por refuerzo mejora acciones mediante recompensas."
-      ],
-      note: "Explique el ciclo de vida: datos, caracteristicas, entrenamiento, validacion, despliegue, monitoreo y retroalimentacion."
+        "El aprendizaje supervisado usa ejemplos etiquetados, como imagenes con categorias o correos marcados como spam.",
+        "El aprendizaje no supervisado encuentra estructura oculta, como grupos de clientes o documentos similares.",
+        "El aprendizaje por refuerzo mejora acciones mediante retroalimentacion de recompensas y penalizaciones."
+      ]
     }
   },
   {
     id: "neural-networks",
     image: "image17.jpg",
     en: {
-      kicker: "Differentiable Programs",
+      kicker: "Deep Learning",
       title: "Neural Networks",
-      summary: "Neural networks learn layered transformations that turn raw inputs into useful predictions.",
+      summary: "Neural networks are models made of layers that transform input data into useful representations and predictions.",
+      body: "A neural network receives numbers as input, passes them through layers of weighted connections, and produces an output. During training, the network compares its output with the expected answer and adjusts its weights to reduce error. Deep neural networks can learn complex patterns in images, audio, text, and code.",
       points: [
-        "Neurons combine weighted inputs and nonlinear activation functions.",
-        "Backpropagation adjusts weights from error signals.",
-        "Architecture choices shape what the network can learn efficiently."
-      ],
-      note: "Use a visual analogy: each layer reshapes the signal, gradually making task-relevant patterns easier to separate."
+        "Each layer can learn a different level of abstraction, from simple signals to complex concepts.",
+        "Backpropagation is the process that tells the network how to adjust its weights after an error.",
+        "The architecture matters: different networks are designed for images, sequences, language, or multimodal data."
+      ]
     },
     es: {
-      kicker: "Programas Diferenciables",
+      kicker: "Aprendizaje Profundo",
       title: "Redes Neuronales",
-      summary: "Las redes neuronales aprenden transformaciones por capas que convierten entradas en predicciones utiles.",
+      summary: "Las redes neuronales son modelos formados por capas que transforman datos en representaciones y predicciones utiles.",
+      body: "Una red neuronal recibe numeros como entrada, los pasa por capas de conexiones ponderadas y produce una salida. Durante el entrenamiento, la red compara su salida con la respuesta esperada y ajusta sus pesos para reducir el error. Las redes profundas pueden aprender patrones complejos en imagenes, audio, texto y codigo.",
       points: [
-        "Las neuronas combinan entradas ponderadas y funciones de activacion no lineales.",
-        "La retropropagacion ajusta pesos a partir de senales de error.",
-        "La arquitectura define que puede aprender la red de forma eficiente."
-      ],
-      note: "Use una analogia visual: cada capa transforma la senal y hace mas separables los patrones relevantes para la tarea."
+        "Cada capa puede aprender un nivel de abstraccion diferente, desde senales simples hasta conceptos complejos.",
+        "La retropropagacion indica a la red como ajustar sus pesos despues de un error.",
+        "La arquitectura importa: distintas redes se disenan para imagenes, secuencias, lenguaje o datos multimodales."
+      ]
     }
   },
   {
     id: "language",
     image: "image10.jpg",
     en: {
-      kicker: "Natural Language AI",
+      kicker: "Natural Language",
       title: "Language",
-      summary: "Language systems connect text, meaning, context, and generation.",
+      summary: "Language AI focuses on understanding, representing, transforming, and generating human language.",
+      body: "Human language is ambiguous and context-dependent. The same word can mean different things, and the same sentence can have different intentions. AI systems handle language by converting text into tokens and numerical representations that capture patterns of meaning and usage.",
       points: [
-        "Tokenization converts text into units a model can process.",
-        "Embeddings represent semantic similarity in vector space.",
-        "Context determines whether a response is useful, safe, and grounded."
-      ],
-      note: "Show how language is not only grammar: intent, ambiguity, world knowledge, and context all matter."
+        "Tokenization splits text into units that a model can process.",
+        "Embeddings place words, phrases, or documents in a vector space where similar meanings are close.",
+        "Useful language systems need context, grounding, and evaluation, not only fluent sentences."
+      ]
     },
     es: {
-      kicker: "IA De Lenguaje Natural",
+      kicker: "Lenguaje Natural",
       title: "Lenguaje",
-      summary: "Los sistemas de lenguaje conectan texto, significado, contexto y generacion.",
+      summary: "La IA de lenguaje se enfoca en comprender, representar, transformar y generar lenguaje humano.",
+      body: "El lenguaje humano es ambiguo y depende del contexto. Una misma palabra puede tener distintos significados, y una misma frase puede tener intenciones diferentes. Los sistemas de IA manejan lenguaje convirtiendo texto en tokens y representaciones numericas que capturan patrones de significado y uso.",
       points: [
-        "La tokenizacion convierte texto en unidades que el modelo puede procesar.",
-        "Los embeddings representan similitud semantica en espacios vectoriales.",
-        "El contexto determina si una respuesta es util, segura y fundamentada."
-      ],
-      note: "Muestre que el lenguaje no es solo gramatica: tambien importan intencion, ambiguedad, conocimiento del mundo y contexto."
+        "La tokenizacion divide el texto en unidades que el modelo puede procesar.",
+        "Los embeddings ubican palabras, frases o documentos en un espacio vectorial donde significados similares quedan cerca.",
+        "Un sistema de lenguaje util necesita contexto, fundamento y evaluacion, no solo frases fluidas."
+      ]
     }
   },
   {
     id: "generative-ai",
     image: "image11.jpg",
     en: {
-      kicker: "Creation With Models",
+      kicker: "Creative Systems",
       title: "Generative Artificial Intelligence",
-      summary: "Generative AI produces new text, images, audio, video, code, and structured data from learned patterns.",
+      summary: "Generative AI creates new content by learning patterns from large collections of examples.",
+      body: "A generative model does not simply copy a fixed answer. It produces new outputs that are statistically plausible according to what it learned. These outputs can be text, images, audio, video, code, data, or combinations of several modalities. The quality depends on data, model design, prompts, constraints, and verification.",
       points: [
-        "Generation is probabilistic: the model samples plausible outputs.",
-        "Prompting, examples, and constraints guide the output space.",
-        "Evaluation must include correctness, originality, safety, and usefulness."
-      ],
-      note: "Discuss both opportunity and risk: acceleration, hallucination, copyright, privacy, and verification."
+        "Generation is useful for drafting, brainstorming, simulation, summarization, translation, design, and programming.",
+        "Because generated content can be wrong or misleading, human review and factual checking remain necessary.",
+        "Responsible use requires attention to privacy, bias, authorship, academic integrity, and social impact."
+      ]
     },
     es: {
-      kicker: "Creacion Con Modelos",
+      kicker: "Sistemas Creativos",
       title: "Inteligencia Artificial Generativa",
-      summary: "La IA generativa produce texto, imagenes, audio, video, codigo y datos estructurados desde patrones aprendidos.",
+      summary: "La IA generativa crea contenido nuevo aprendiendo patrones desde grandes colecciones de ejemplos.",
+      body: "Un modelo generativo no copia simplemente una respuesta fija. Produce salidas nuevas que son estadisticamente plausibles segun lo aprendido. Estas salidas pueden ser texto, imagenes, audio, video, codigo, datos o combinaciones de varias modalidades. La calidad depende de datos, diseno del modelo, prompts, restricciones y verificacion.",
       points: [
-        "La generacion es probabilistica: el modelo muestrea salidas plausibles.",
-        "Prompts, ejemplos y restricciones guian el espacio de salida.",
-        "La evaluacion debe incluir correccion, originalidad, seguridad y utilidad."
-      ],
-      note: "Discuta oportunidad y riesgo: aceleracion, alucinaciones, derechos de autor, privacidad y verificacion."
+        "La generacion sirve para borradores, lluvia de ideas, simulacion, resumen, traduccion, diseno y programacion.",
+        "Como el contenido generado puede ser incorrecto o enganoso, la revision humana y la verificacion factual siguen siendo necesarias.",
+        "El uso responsable exige cuidar privacidad, sesgos, autoria, integridad academica e impacto social."
+      ]
     }
   },
   {
@@ -239,24 +239,24 @@ const slides = [
     en: {
       kicker: "Foundation Models",
       title: "Large Language Models (LLMs)",
-      summary: "LLMs are large neural networks trained to model language and adapt to many tasks through context.",
+      summary: "LLMs are large neural networks trained on language data to predict, generate, transform, and reason over text.",
+      body: "Modern LLMs are usually based on transformer architectures. They process text as tokens and use attention to connect information across a context window. Their strength is flexibility: the same model can answer questions, summarize, translate, write code, classify text, and follow instructions when given enough context.",
       points: [
-        "Transformers use attention to relate tokens across a context window.",
-        "Instruction tuning aligns base models with human task formats.",
-        "RAG and tools help connect the model to current or private knowledge."
-      ],
-      note: "Emphasize that an LLM is not a database. It predicts text, and systems around it provide grounding and actions."
+        "An LLM predicts likely next tokens; it does not automatically know whether a statement is true.",
+        "Prompting, examples, retrieval, tools, and system design shape the quality of the final application.",
+        "Common limitations include hallucinations, outdated knowledge, hidden bias, weak math reliability, and context limits."
+      ]
     },
     es: {
       kicker: "Modelos Fundacionales",
       title: "Modelos Grandes De Lenguaje (LLMs)",
-      summary: "Los LLMs son redes neuronales grandes entrenadas para modelar lenguaje y adaptarse a muchas tareas mediante contexto.",
+      summary: "Los LLMs son redes neuronales grandes entrenadas con datos de lenguaje para predecir, generar, transformar y razonar sobre texto.",
+      body: "Los LLMs modernos suelen basarse en arquitecturas transformer. Procesan texto como tokens y usan atencion para conectar informacion dentro de una ventana de contexto. Su fortaleza es la flexibilidad: el mismo modelo puede responder preguntas, resumir, traducir, escribir codigo, clasificar texto y seguir instrucciones si recibe contexto suficiente.",
       points: [
-        "Los transformers usan atencion para relacionar tokens dentro de una ventana de contexto.",
-        "El ajuste por instrucciones alinea modelos base con formatos de tareas humanas.",
-        "RAG y herramientas conectan el modelo con conocimiento actual o privado."
-      ],
-      note: "Enfatice que un LLM no es una base de datos. Predice texto; los sistemas alrededor aportan fundamento y acciones."
+        "Un LLM predice tokens probables; no sabe automaticamente si una afirmacion es verdadera.",
+        "Prompts, ejemplos, recuperacion de informacion, herramientas y diseno del sistema moldean la calidad de la aplicacion final.",
+        "Limitaciones comunes: alucinaciones, conocimiento desactualizado, sesgos ocultos, baja confiabilidad matematica y limites de contexto."
+      ]
     }
   },
   {
@@ -265,50 +265,50 @@ const slides = [
     en: {
       kicker: "AI-Assisted Software",
       title: "Vibe Coding",
-      summary: "Vibe coding uses conversational AI to explore, generate, modify, and test software through fast feedback loops.",
+      summary: "Vibe coding is a style of building software through conversation with an AI assistant while keeping human control over direction and quality.",
+      body: "In this workflow, the developer explains the goal, provides context, asks the AI to generate or modify code, runs the result, reviews the changes, and gives feedback. The speed can be high, but the responsibility remains human: the developer must understand the code well enough to test it, debug it, and decide whether it belongs in the project.",
       points: [
-        "The developer steers intent, constraints, review, and verification.",
-        "Good prompts include goal, context, examples, risks, and acceptance checks.",
-        "Generated code still needs tests, security review, and maintainability judgment."
-      ],
-      note: "Frame it as a practice method, not magic: the strongest students learn to read diffs, run tests, and ask precise follow-up questions."
+        "Good AI-assisted coding starts with clear requirements, examples, constraints, and acceptance criteria.",
+        "The most important skills are reading diffs, running tests, checking edge cases, and asking precise follow-up questions.",
+        "Vibe coding is strongest when used as a feedback loop: prompt, inspect, run, verify, refine."
+      ]
     },
     es: {
       kicker: "Software Asistido Por IA",
       title: "Vibe Coding",
-      summary: "Vibe coding usa IA conversacional para explorar, generar, modificar y probar software con ciclos rapidos de retroalimentacion.",
+      summary: "Vibe coding es una forma de construir software conversando con un asistente de IA, manteniendo control humano sobre direccion y calidad.",
+      body: "En este flujo, la persona desarrolladora explica el objetivo, entrega contexto, pide a la IA generar o modificar codigo, ejecuta el resultado, revisa los cambios y da retroalimentacion. La velocidad puede ser alta, pero la responsabilidad sigue siendo humana: quien desarrolla debe entender el codigo lo suficiente para probarlo, depurarlo y decidir si pertenece al proyecto.",
       points: [
-        "La persona desarrolladora dirige intencion, restricciones, revision y verificacion.",
-        "Buenos prompts incluyen objetivo, contexto, ejemplos, riesgos y criterios de aceptacion.",
-        "El codigo generado aun requiere pruebas, revision de seguridad y criterio de mantenibilidad."
-      ],
-      note: "Presentelo como metodo de practica, no magia: los estudiantes mas fuertes aprenden a leer diffs, ejecutar pruebas y preguntar con precision."
+        "Un buen trabajo asistido por IA comienza con requisitos claros, ejemplos, restricciones y criterios de aceptacion.",
+        "Las habilidades mas importantes son leer diffs, ejecutar pruebas, revisar casos borde y hacer preguntas precisas.",
+        "Vibe coding funciona mejor como ciclo de retroalimentacion: pedir, inspeccionar, ejecutar, verificar y refinar."
+      ]
     }
   },
   {
     id: "notebook",
     image: "image31.png",
     en: {
-      kicker: "Repository Workflow",
+      kicker: "Course Repository",
       title: "Public Notebook For The Course",
-      summary: "The repository can grow class by class while preserving a stable published site.",
+      summary: "A public repository can work as a living notebook where class material grows over time.",
+      body: "Instead of treating the course as a fixed document, the repository can show how ideas evolve. Each class can add examples, exercises, explanations, branches, and small experiments. This also lets students see a professional workflow: version control, commits, branches, review, and publication.",
       points: [
-        "Keep `main` deployable and use branches for class experiments.",
-        "Create topic branches such as `class-02-search` or `lab-llm-prompts`.",
-        "Merge finished notes into `main` when the class material is ready to publish."
-      ],
-      note: "For the second class, create a new branch, add the subtopic page or slide, commit it, and open a pull request before publishing."
+        "The published site is the stable version students can always access.",
+        "Branches can be used for new lessons, subtopics, experiments, and class activities before they are merged.",
+        "The history of commits becomes part of the learning process because it shows how the material was built."
+      ]
     },
     es: {
-      kicker: "Flujo Del Repositorio",
+      kicker: "Repositorio Del Curso",
       title: "Notebook Publico Para El Curso",
-      summary: "El repositorio puede crecer clase por clase mientras conserva un sitio publicado estable.",
+      summary: "Un repositorio publico puede funcionar como un notebook vivo donde el material de clase crece con el tiempo.",
+      body: "En lugar de tratar el curso como un documento fijo, el repositorio puede mostrar como evolucionan las ideas. Cada clase puede agregar ejemplos, ejercicios, explicaciones, ramas y pequenos experimentos. Esto tambien permite que los estudiantes vean un flujo profesional: control de versiones, commits, ramas, revision y publicacion.",
       points: [
-        "Mantenga `main` desplegable y use ramas para experimentos de clase.",
-        "Cree ramas por tema como `class-02-search` o `lab-llm-prompts`.",
-        "Integre las notas terminadas a `main` cuando el material este listo para publicar."
-      ],
-      note: "Para la segunda clase, cree una rama nueva, agregue la pagina o diapositiva del subtema, haga commit y abra un pull request antes de publicar."
+        "El sitio publicado es la version estable que los estudiantes siempre pueden consultar.",
+        "Las ramas pueden usarse para nuevas lecciones, subtemas, experimentos y actividades antes de integrarlas.",
+        "El historial de commits se vuelve parte del aprendizaje porque muestra como se construyo el material."
+      ]
     }
   }
 ];
@@ -336,7 +336,7 @@ function renderSlides() {
     const content = slide[currentLanguage];
     const points = content.points.map((point) => `<li>${point}</li>`).join("");
     const chips = index === 0
-      ? `<div class="module-meta"><span class="chip">AI</span><span class="chip">Notebook</span><span class="chip">EN / ES</span></div>`
+      ? `<div class="module-meta"><span class="chip">AI</span><span class="chip">Course</span><span class="chip">Notebook</span></div>`
       : "";
     return `
       <article class="slide ${index === 0 ? "hero" : ""}" id="${slide.id}" style="--slide-image: url('assets/template/${slide.image}')">
@@ -345,13 +345,10 @@ function renderSlides() {
             <p class="kicker">${content.kicker}</p>
             <h${index === 0 ? "1" : "2"}>${content.title}</h${index === 0 ? "1" : "2"}>
             <p class="summary">${content.summary}</p>
+            <p class="explanation">${content.body}</p>
             <ul class="points">${points}</ul>
             ${chips}
           </div>
-          <aside class="note-panel">
-            <h3>${currentLanguage === "en" ? "Teaching note" : "Nota docente"}</h3>
-            <p>${content.note}</p>
-          </aside>
         </div>
       </article>
     `;

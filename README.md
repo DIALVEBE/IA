@@ -2,7 +2,7 @@
 
 Public GitHub Pages notebook for an Artificial Intelligence course.
 
-The first version is a bilingual presentation in a dark neon futuristic style, guided by `template.pptx`. English is the primary language and Spanish is available from the language switch in the page header.
+The first version is a student-facing presentation in a dark neon futuristic style, guided by `template.pptx`.
 
 ## Topics
 
