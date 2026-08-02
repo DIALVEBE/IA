@@ -15,13 +15,13 @@ const slides = [
     },
     es: {
       kicker: "Clase 01",
-      title: "Introduccion a la Inteligencia Artificial",
-      summary: "La Inteligencia Artificial estudia como construir sistemas capaces de realizar tareas que normalmente requieren inteligencia humana.",
-      body: "Un sistema de IA puede percibir informacion, representar una situacion, tomar decisiones, aprender de datos y actuar para cumplir un objetivo. Algunos sistemas siguen reglas explicitas, mientras otros aprenden patrones desde ejemplos. La IA moderna combina busqueda, probabilidad, optimizacion, aprendizaje, lenguaje y modelos generativos.",
+      title: "Introducción a la inteligencia artificial",
+      summary: "La inteligencia artificial estudia cómo construir sistemas capaces de realizar tareas que normalmente requieren inteligencia humana.",
+      body: "Un sistema de IA puede percibir información, representar una situación, tomar decisiones, aprender de datos y actuar para cumplir un objetivo. Algunos sistemas siguen reglas explícitas, mientras otros aprenden patrones desde ejemplos. La IA moderna combina búsqueda, probabilidad, optimización, aprendizaje, lenguaje y modelos generativos.",
       points: [
-        "La IA no es una sola tecnologia; es una familia de metodos para razonar, aprender y actuar.",
-        "Un agente inteligente recibe informacion de un entorno y elige acciones para acercarse a un objetivo.",
-        "La pregunta central no es solo si un sistema es potente, sino si es util, confiable, justo y seguro."
+        "La IA no es una sola tecnología; es una familia de métodos para razonar, aprender y actuar.",
+        "Un agente inteligente recibe información de un entorno y elige acciones para acercarse a un objetivo.",
+        "La pregunta central no es solo si un sistema es potente, sino si es útil, confiable, justo y seguro."
       ]
     }
   },
@@ -40,14 +40,14 @@ const slides = [
       ]
     },
     es: {
-      kicker: "Resolucion De Problemas",
-      title: "Busqueda",
-      summary: "La busqueda resuelve problemas explorando estados posibles hasta encontrar una meta.",
-      body: "Muchos problemas de IA pueden describirse con un estado inicial, un conjunto de acciones posibles, un costo por accion y una condicion de meta. Los algoritmos de busqueda comparan rutas posibles y deciden cual explorar. Esto sirve cuando la solucion no es inmediata, pero puede encontrarse al revisar alternativas de forma sistematica.",
+      kicker: "Resolución de problemas",
+      title: "Búsqueda",
+      summary: "La búsqueda resuelve problemas explorando estados posibles hasta encontrar una meta.",
+      body: "Muchos problemas de IA pueden describirse con un estado inicial, un conjunto de acciones posibles, un costo por acción y una condición de meta. Los algoritmos de búsqueda comparan rutas posibles y deciden cuál explorar. Esto sirve cuando la solución no es inmediata, pero puede encontrarse al revisar alternativas de forma sistemática.",
       points: [
-        "Ejemplos: planeacion de rutas, rompecabezas, horarios, robotica y estrategias de juego.",
-        "Busqueda en amplitud y profundidad exploran sin conocimiento del dominio; A* usa una heuristica para seguir rutas prometedoras.",
-        "Una buena representacion puede volver mas facil un problema dificil porque define que puede ver y comparar el algoritmo."
+        "Ejemplos: planeación de rutas, rompecabezas, horarios, robótica y estrategias de juego.",
+        "La búsqueda en amplitud y la búsqueda en profundidad exploran sin conocimiento del dominio; A* usa una heurística para seguir rutas prometedoras.",
+        "Una buena representación puede volver más fácil un problema difícil porque define qué puede ver y comparar el algoritmo."
       ]
     }
   },
@@ -66,13 +66,13 @@ const slides = [
       ]
     },
     es: {
-      kicker: "Razonamiento Simbolico",
+      kicker: "Razonamiento simbólico",
       title: "Conocimiento",
-      summary: "La representacion de conocimiento permite guardar hechos, relaciones, reglas y restricciones de forma estructurada.",
-      body: "Cuando un sistema tiene conocimiento explicito, puede razonar con informacion en lugar de solo memorizar datos. Por ejemplo, si sabe que todos los mamiferos son animales y que las ballenas son mamiferos, puede inferir que las ballenas son animales. Estos sistemas son utiles cuando importan la explicacion, la consistencia y el razonamiento rastreable.",
+      summary: "La representación de conocimiento permite guardar hechos, relaciones, reglas y restricciones de forma estructurada.",
+      body: "Cuando un sistema tiene conocimiento explícito, puede razonar con información en lugar de solo memorizar datos. Por ejemplo, si sabe que todos los mamíferos son animales y que las ballenas son mamíferos, puede inferir que las ballenas son animales. Estos sistemas son útiles cuando importan la explicación, la consistencia y el razonamiento rastreable.",
       points: [
-        "La logica representa hechos y reglas para que un sistema derive nuevas conclusiones.",
-        "Los grafos de conocimiento conectan conceptos como personas, lugares, cursos, sintomas, productos o eventos.",
+        "La lógica representa hechos y reglas para que un sistema derive nuevas conclusiones.",
+        "Los grafos de conocimiento conectan conceptos como personas, lugares, cursos, síntomas, productos o eventos.",
         "La calidad del razonamiento depende de la calidad de los supuestos y relaciones modeladas."
       ]
     }
@@ -92,14 +92,14 @@ const slides = [
       ]
     },
     es: {
-      kicker: "IA Probabilistica",
+      kicker: "IA probabilística",
       title: "Incertidumbre",
-      summary: "La incertidumbre aparece cuando un sistema de IA decide con informacion incompleta, ruidosa o cambiante.",
-      body: "Los datos del mundo real casi nunca son perfectos. Un sistema medico puede recibir sintomas inciertos, un robot puede tener sensores ruidosos y un modelo de lenguaje puede recibir una pregunta ambigua. La probabilidad ayuda a expresar grados de creencia y a actualizar esas creencias cuando aparece nueva evidencia.",
+      summary: "La incertidumbre aparece cuando un sistema de IA decide con información incompleta, ruidosa o cambiante.",
+      body: "Los datos del mundo real casi nunca son perfectos. Un sistema médico puede recibir síntomas inciertos, un robot puede tener sensores ruidosos y un modelo de lenguaje puede recibir una pregunta ambigua. La probabilidad ayuda a expresar grados de creencia y a actualizar esas creencias cuando aparece nueva evidencia.",
       points: [
-        "En lugar de solo verdadero o falso, la probabilidad representa que tan probable es algo.",
-        "El razonamiento bayesiano actualiza creencias cuando nueva evidencia cambia lo mas plausible.",
-        "Decidir bajo incertidumbre implica comparar acciones segun resultados esperados y riesgo."
+        "En lugar de solo verdadero o falso, la probabilidad representa qué tan probable es algo.",
+        "El razonamiento bayesiano actualiza creencias cuando nueva evidencia cambia lo más plausible.",
+        "Decidir bajo incertidumbre implica comparar acciones según resultados esperados y riesgo."
       ]
     }
   },
@@ -118,14 +118,14 @@ const slides = [
       ]
     },
     es: {
-      kicker: "Mejores Decisiones",
-      title: "Optimizacion",
-      summary: "La optimizacion busca la mejor solucion posible segun una meta, un costo y un conjunto de restricciones.",
-      body: "En IA, muchas tareas se convierten en problemas de optimizacion: elegir la ruta mas rapida, minimizar error de prediccion, asignar recursos limitados o encontrar los mejores parametros de un modelo. El sistema necesita una funcion objetivo que defina que significa mejorar. Luego usa una estrategia para mejorar soluciones candidatas.",
+      kicker: "Mejores decisiones",
+      title: "Optimización",
+      summary: "La optimización busca la mejor solución posible según una meta, un costo y un conjunto de restricciones.",
+      body: "En IA, muchas tareas se convierten en problemas de optimización: elegir la ruta más rápida, minimizar el error de predicción, asignar recursos limitados o encontrar los mejores parámetros de un modelo. El sistema necesita una función objetivo que defina qué significa mejorar. Luego usa una estrategia para mejorar soluciones candidatas.",
       points: [
-        "Una solucion se evalua por que tan bien cumple el objetivo y respeta las restricciones.",
-        "La busqueda local mejora una solucion paso a paso; los metodos de gradiente ajustan parametros durante el entrenamiento.",
-        "La optimizacion real maneja compromisos: velocidad, calidad, costo, justicia y datos disponibles."
+        "Una solución se evalúa según qué tan bien cumple el objetivo y respeta las restricciones.",
+        "La búsqueda local mejora una solución paso a paso; los métodos de gradiente ajustan parámetros durante el entrenamiento.",
+        "La optimización real maneja compromisos: velocidad, calidad, costo, justicia y datos disponibles."
       ]
     }
   },
@@ -144,14 +144,14 @@ const slides = [
       ]
     },
     es: {
-      kicker: "De Datos A Modelos",
+      kicker: "De datos a modelos",
       title: "Aprendizaje",
-      summary: "El aprendizaje automatico permite mejorar el comportamiento de un sistema desde datos, no solo desde reglas escritas a mano.",
-      body: "Un sistema de aprendizaje recibe ejemplos, detecta patrones y construye un modelo que puede hacer predicciones o decisiones en casos nuevos. La meta no es memorizar los datos de entrenamiento, sino generalizar. Por eso la evaluacion con datos no vistos es esencial.",
+      summary: "El aprendizaje automático permite mejorar el comportamiento de un sistema desde datos, no solo desde reglas escritas a mano.",
+      body: "Un sistema de aprendizaje recibe ejemplos, detecta patrones y construye un modelo que puede hacer predicciones o decisiones en casos nuevos. La meta no es memorizar los datos de entrenamiento, sino generalizar. Por eso la evaluación con datos no vistos es esencial.",
       points: [
-        "El aprendizaje supervisado usa ejemplos etiquetados, como imagenes con categorias o correos marcados como spam.",
+        "El aprendizaje supervisado usa ejemplos etiquetados, como imágenes con categorías o correos marcados como spam.",
         "El aprendizaje no supervisado encuentra estructura oculta, como grupos de clientes o documentos similares.",
-        "El aprendizaje por refuerzo mejora acciones mediante retroalimentacion de recompensas y penalizaciones."
+        "El aprendizaje por refuerzo mejora acciones mediante retroalimentación de recompensas y penalizaciones."
       ]
     }
   },
@@ -170,14 +170,14 @@ const slides = [
       ]
     },
     es: {
-      kicker: "Aprendizaje Profundo",
-      title: "Redes Neuronales",
-      summary: "Las redes neuronales son modelos formados por capas que transforman datos en representaciones y predicciones utiles.",
-      body: "Una red neuronal recibe numeros como entrada, los pasa por capas de conexiones ponderadas y produce una salida. Durante el entrenamiento, la red compara su salida con la respuesta esperada y ajusta sus pesos para reducir el error. Las redes profundas pueden aprender patrones complejos en imagenes, audio, texto y codigo.",
+      kicker: "Aprendizaje profundo",
+      title: "Redes neuronales",
+      summary: "Las redes neuronales son modelos formados por capas que transforman datos en representaciones y predicciones útiles.",
+      body: "Una red neuronal recibe números como entrada, los pasa por capas de conexiones ponderadas y produce una salida. Durante el entrenamiento, la red compara su salida con la respuesta esperada y ajusta sus pesos para reducir el error. Las redes profundas pueden aprender patrones complejos en imágenes, audio, texto y código.",
       points: [
-        "Cada capa puede aprender un nivel de abstraccion diferente, desde senales simples hasta conceptos complejos.",
-        "La retropropagacion indica a la red como ajustar sus pesos despues de un error.",
-        "La arquitectura importa: distintas redes se disenan para imagenes, secuencias, lenguaje o datos multimodales."
+        "Cada capa puede aprender un nivel de abstracción diferente, desde señales simples hasta conceptos complejos.",
+        "La retropropagación indica a la red cómo ajustar sus pesos después de un error.",
+        "La arquitectura importa: distintas redes se diseñan para imágenes, secuencias, lenguaje o datos multimodales."
       ]
     }
   },
@@ -196,14 +196,14 @@ const slides = [
       ]
     },
     es: {
-      kicker: "Lenguaje Natural",
+      kicker: "Lenguaje natural",
       title: "Lenguaje",
       summary: "La IA de lenguaje se enfoca en comprender, representar, transformar y generar lenguaje humano.",
-      body: "El lenguaje humano es ambiguo y depende del contexto. Una misma palabra puede tener distintos significados, y una misma frase puede tener intenciones diferentes. Los sistemas de IA manejan lenguaje convirtiendo texto en tokens y representaciones numericas que capturan patrones de significado y uso.",
+      body: "El lenguaje humano es ambiguo y depende del contexto. Una misma palabra puede tener distintos significados, y una misma frase puede tener intenciones diferentes. Los sistemas de IA manejan lenguaje convirtiendo texto en tokens y representaciones numéricas que capturan patrones de significado y uso.",
       points: [
-        "La tokenizacion divide el texto en unidades que el modelo puede procesar.",
+        "La tokenización divide el texto en unidades que el modelo puede procesar.",
         "Los embeddings ubican palabras, frases o documentos en un espacio vectorial donde significados similares quedan cerca.",
-        "Un sistema de lenguaje util necesita contexto, fundamento y evaluacion, no solo frases fluidas."
+        "Un sistema de lenguaje útil necesita contexto, fundamento y evaluación, no solo frases fluidas."
       ]
     }
   },
@@ -222,14 +222,14 @@ const slides = [
       ]
     },
     es: {
-      kicker: "Sistemas Creativos",
-      title: "Inteligencia Artificial Generativa",
+      kicker: "Sistemas creativos",
+      title: "Inteligencia artificial generativa",
       summary: "La IA generativa crea contenido nuevo aprendiendo patrones desde grandes colecciones de ejemplos.",
-      body: "Un modelo generativo no copia simplemente una respuesta fija. Produce salidas nuevas que son estadisticamente plausibles segun lo aprendido. Estas salidas pueden ser texto, imagenes, audio, video, codigo, datos o combinaciones de varias modalidades. La calidad depende de datos, diseno del modelo, prompts, restricciones y verificacion.",
+      body: "Un modelo generativo no copia simplemente una respuesta fija. Produce salidas nuevas que son estadísticamente plausibles según lo aprendido. Estas salidas pueden ser texto, imágenes, audio, video, código, datos o combinaciones de varias modalidades. La calidad depende de datos, diseño del modelo, prompts, restricciones y verificación.",
       points: [
-        "La generacion sirve para borradores, lluvia de ideas, simulacion, resumen, traduccion, diseno y programacion.",
-        "Como el contenido generado puede ser incorrecto o enganoso, la revision humana y la verificacion factual siguen siendo necesarias.",
-        "El uso responsable exige cuidar privacidad, sesgos, autoria, integridad academica e impacto social."
+        "La generación sirve para borradores, lluvia de ideas, simulación, resumen, traducción, diseño y programación.",
+        "Como el contenido generado puede ser incorrecto o engañoso, la revisión humana y la verificación factual siguen siendo necesarias.",
+        "El uso responsable exige cuidar privacidad, sesgos, autoría, integridad académica e impacto social."
       ]
     }
   },
@@ -248,14 +248,14 @@ const slides = [
       ]
     },
     es: {
-      kicker: "Modelos Fundacionales",
-      title: "Modelos Grandes De Lenguaje (LLMs)",
+      kicker: "Modelos fundacionales",
+      title: "Modelos grandes de lenguaje (LLMs)",
       summary: "Los LLMs son redes neuronales grandes entrenadas con datos de lenguaje para predecir, generar, transformar y razonar sobre texto.",
-      body: "Los LLMs modernos suelen basarse en arquitecturas transformer. Procesan texto como tokens y usan atencion para conectar informacion dentro de una ventana de contexto. Su fortaleza es la flexibilidad: el mismo modelo puede responder preguntas, resumir, traducir, escribir codigo, clasificar texto y seguir instrucciones si recibe contexto suficiente.",
+      body: "Los LLMs modernos suelen basarse en arquitecturas transformer. Procesan texto como tokens y usan atención para conectar información dentro de una ventana de contexto. Su fortaleza es la flexibilidad: el mismo modelo puede responder preguntas, resumir, traducir, escribir código, clasificar texto y seguir instrucciones si recibe contexto suficiente.",
       points: [
-        "Un LLM predice tokens probables; no sabe automaticamente si una afirmacion es verdadera.",
-        "Prompts, ejemplos, recuperacion de informacion, herramientas y diseno del sistema moldean la calidad de la aplicacion final.",
-        "Limitaciones comunes: alucinaciones, conocimiento desactualizado, sesgos ocultos, baja confiabilidad matematica y limites de contexto."
+        "Un LLM predice tokens probables; no sabe automáticamente si una afirmación es verdadera.",
+        "Prompts, ejemplos, recuperación de información, herramientas y diseño del sistema moldean la calidad de la aplicación final.",
+        "Limitaciones comunes: alucinaciones, conocimiento desactualizado, sesgos ocultos, baja confiabilidad matemática y límites de contexto."
       ]
     }
   },
@@ -274,14 +274,14 @@ const slides = [
       ]
     },
     es: {
-      kicker: "Software Asistido Por IA",
+      kicker: "Software asistido por IA",
       title: "Vibe Coding",
-      summary: "Vibe coding es una forma de construir software conversando con un asistente de IA, manteniendo control humano sobre direccion y calidad.",
-      body: "En este flujo, la persona desarrolladora explica el objetivo, entrega contexto, pide a la IA generar o modificar codigo, ejecuta el resultado, revisa los cambios y da retroalimentacion. La velocidad puede ser alta, pero la responsabilidad sigue siendo humana: quien desarrolla debe entender el codigo lo suficiente para probarlo, depurarlo y decidir si pertenece al proyecto.",
+      summary: "Vibe coding es una forma de construir software conversando con un asistente de IA, manteniendo control humano sobre dirección y calidad.",
+      body: "En este flujo, la persona desarrolladora explica el objetivo, entrega contexto, pide a la IA generar o modificar código, ejecuta el resultado, revisa los cambios y da retroalimentación. La velocidad puede ser alta, pero la responsabilidad sigue siendo humana: quien desarrolla debe entender el código lo suficiente para probarlo, depurarlo y decidir si pertenece al proyecto.",
       points: [
-        "Un buen trabajo asistido por IA comienza con requisitos claros, ejemplos, restricciones y criterios de aceptacion.",
-        "Las habilidades mas importantes son leer diffs, ejecutar pruebas, revisar casos borde y hacer preguntas precisas.",
-        "Vibe coding funciona mejor como ciclo de retroalimentacion: pedir, inspeccionar, ejecutar, verificar y refinar."
+        "Un buen trabajo asistido por IA comienza con requisitos claros, ejemplos, restricciones y criterios de aceptación.",
+        "Las habilidades más importantes son leer diffs, ejecutar pruebas, revisar casos borde y hacer preguntas precisas.",
+        "Vibe coding funciona mejor como ciclo de retroalimentación: pedir, inspeccionar, ejecutar, verificar y refinar."
       ]
     }
   },
@@ -300,14 +300,14 @@ const slides = [
       ]
     },
     es: {
-      kicker: "Repositorio Del Curso",
-      title: "Notebook Publico Para El Curso",
-      summary: "Un repositorio publico puede funcionar como un notebook vivo donde el material de clase crece con el tiempo.",
-      body: "En lugar de tratar el curso como un documento fijo, el repositorio puede mostrar como evolucionan las ideas. Cada clase puede agregar ejemplos, ejercicios, explicaciones, ramas y pequenos experimentos. Esto tambien permite que los estudiantes vean un flujo profesional: control de versiones, commits, ramas, revision y publicacion.",
+      kicker: "Repositorio del curso",
+      title: "Notebook público para el curso",
+      summary: "Un repositorio público puede funcionar como un notebook vivo donde el material de clase crece con el tiempo.",
+      body: "En lugar de tratar el curso como un documento fijo, el repositorio puede mostrar cómo evolucionan las ideas. Cada clase puede agregar ejemplos, ejercicios, explicaciones, ramas y pequeños experimentos. Esto también permite que los estudiantes vean un flujo profesional: control de versiones, commits, ramas, revisión y publicación.",
       points: [
-        "El sitio publicado es la version estable que los estudiantes siempre pueden consultar.",
+        "El sitio publicado es la versión estable que los estudiantes siempre pueden consultar.",
         "Las ramas pueden usarse para nuevas lecciones, subtemas, experimentos y actividades antes de integrarlas.",
-        "El historial de commits se vuelve parte del aprendizaje porque muestra como se construyo el material."
+        "El historial de commits se vuelve parte del aprendizaje porque muestra cómo se construyó el material."
       ]
     }
   }
