@@ -6,9 +6,8 @@ const lessonUi = {
     heroKicker: "Elective I Advanced Track | Week 1",
     heroTitle: "Introduction to Artificial Intelligence",
     heroText:
-      "Teaching guide for a 120-minute in-person session. The goal is to distinguish what an AI system is, how it is structured, and how it differs from automation, traditional software, machine learning, and generative AI.",
+      "Start by identifying what an AI system is, how it is structured, and how it differs from automation, traditional software, machine learning, and generative AI.",
     startClass: "Start class",
-    sourceWord: "Source Word",
     routeTitle: "Route",
     idxPurpose: "0. Purpose",
     idxOpening: "1. Opening",
@@ -21,8 +20,12 @@ const lessonUi = {
     idxRisks: "8. Risks",
     idxActivity: "9. Activity",
     idxClosing: "10. Closing",
-    idxAppendix: "A. Appendix",
     idxReferences: "R. References",
+    diagramInput: "Input",
+    diagramInfer: "Infer",
+    diagramOutput: "Output",
+    diagramAct: "Act",
+    diagramGoal: "Goal",
     footerText: "Class 01 | Artificial Intelligence",
     backTop: "Back to top"
   },
@@ -30,26 +33,29 @@ const lessonUi = {
     navRoute: "Ruta",
     navActivity: "Actividad",
     navReferences: "Referencias",
-    heroKicker: "Electiva I profundizacion | Semana 1",
-    heroTitle: "Introduccion a la inteligencia artificial",
+    heroKicker: "Electiva I profundización | Semana 1",
+    heroTitle: "Introducción a la inteligencia artificial",
     heroText:
-      "Guia docente para una sesion presencial de 120 minutos. El objetivo es distinguir que es un sistema de IA, como se estructura y en que se diferencia de automatizacion, software tradicional, aprendizaje automatico e IA generativa.",
+      "Comienza identificando qué es un sistema de IA, cómo se estructura y en qué se diferencia de la automatización, el software tradicional, el aprendizaje automático y la IA generativa.",
     startClass: "Empezar clase",
-    sourceWord: "Fuente Word",
     routeTitle: "Ruta",
-    idxPurpose: "0. Proposito",
+    idxPurpose: "0. Propósito",
     idxOpening: "1. Apertura",
-    idxDefinition: "2. Definicion",
-    idxAutomation: "3. IA y automatizacion",
-    idxEvolution: "4. Evolucion",
+    idxDefinition: "2. Definición",
+    idxAutomation: "3. IA y automatización",
+    idxEvolution: "4. Evolución",
     idxAgents: "5. Agentes",
     idxProblems: "6. Problemas",
     idxApplications: "7. Aplicaciones",
     idxRisks: "8. Riesgos",
     idxActivity: "9. Actividad",
     idxClosing: "10. Cierre",
-    idxAppendix: "A. Apendice",
     idxReferences: "R. Referencias",
+    diagramInput: "Entrada",
+    diagramInfer: "Inferir",
+    diagramOutput: "Salida",
+    diagramAct: "Actuar",
+    diagramGoal: "Objetivo",
     footerText: "Clase 01 | Inteligencia Artificial",
     backTop: "Volver arriba"
   }
@@ -68,7 +74,6 @@ const lessonAnchors = {
     risks: "#risks",
     activity: "#activity-en",
     closing: "#closing",
-    appendix: "#references-en",
     references: "#references-en"
   },
   es: {
@@ -83,7 +88,6 @@ const lessonAnchors = {
     risks: "#riesgos",
     activity: "#actividad",
     closing: "#cierre",
-    appendix: "#apendice",
     references: "#referencias"
   }
 };
@@ -105,15 +109,18 @@ function renderLesson(language) {
   });
 
   document.querySelectorAll(".lang-button").forEach((button) => {
-    button.classList.toggle("is-active", button.dataset.lang === safeLanguage);
+    const isActive = button.dataset.lang === safeLanguage;
+    button.classList.toggle("is-active", isActive);
+    button.setAttribute("aria-pressed", String(isActive));
   });
 }
 
-document.querySelectorAll(".lang-button").forEach((button) => {
-  button.addEventListener("click", () => {
-    localStorage.setItem("ia-language", button.dataset.lang);
-    renderLesson(button.dataset.lang);
-  });
+document.addEventListener("click", (event) => {
+  const button = event.target.closest(".lang-button");
+  if (!button) return;
+  event.preventDefault();
+  localStorage.setItem("ia-language", button.dataset.lang);
+  renderLesson(button.dataset.lang);
 });
 
 renderLesson(localStorage.getItem("ia-language") || "en");
