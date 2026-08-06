@@ -1,6 +1,5 @@
 const lessonUi = {
   en: {
-    purpose: "#purpose",
     navRoute: "Route",
     navActivity: "Activity",
     navReferences: "References",
@@ -28,7 +27,6 @@ const lessonUi = {
     backTop: "Back to top"
   },
   es: {
-    purpose: "#proposito",
     navRoute: "Ruta",
     navActivity: "Actividad",
     navReferences: "Referencias",
@@ -59,6 +57,7 @@ const lessonUi = {
 
 const lessonAnchors = {
   en: {
+    purpose: "#purpose",
     opening: "#opening",
     definition: "#definition",
     automation: "#automation",
@@ -73,6 +72,7 @@ const lessonAnchors = {
     references: "#references-en"
   },
   es: {
+    purpose: "#proposito",
     opening: "#apertura",
     definition: "#definicion",
     automation: "#automatizacion",

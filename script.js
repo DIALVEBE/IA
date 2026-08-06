@@ -650,7 +650,7 @@ const slides = [
   }
 ];
 
-const VERSION = "genai-layout-20260802";
+const VERSION = "class-sessions-fix-20260806";
 
 const ui = {
   en: {

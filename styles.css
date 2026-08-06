@@ -52,6 +52,10 @@ body::before {
   mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent 78%);
 }
 
+[hidden] {
+  display: none !important;
+}
+
 a {
   color: inherit;
 }
@@ -446,6 +450,10 @@ h3 {
   max-width: 58rem;
   margin: 0;
   color: var(--muted);
+}
+
+.session-card .primary-action {
+  white-space: nowrap;
 }
 
 .lesson-page .site-header {
