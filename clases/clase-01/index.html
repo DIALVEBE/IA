@@ -1,0 +1,764 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="Clase 01 de Inteligencia Artificial: introduccion, agentes, aplicaciones, riesgos y actividad integradora."
+    >
+    <title>Clase 01 | Introduccion a la IA</title>
+    <link rel="preload" href="assets/hero-clase-01.png" as="image">
+    <link rel="stylesheet" href="../../styles.css?v=clase-01-20260806">
+  </head>
+  <body class="lesson-page">
+    <header class="site-header">
+      <a class="brand" href="../../" aria-label="Volver al notebook de IA">
+        <span class="brand-mark">AI</span>
+        <span>Inteligencia Artificial</span>
+      </a>
+      <nav class="top-nav" aria-label="Navegacion de la clase">
+        <a href="#ruta" data-lesson-i18n="navRoute">Route</a>
+        <a href="#actividad" data-lesson-nav="activity" data-lesson-i18n="navActivity">Activity</a>
+        <a href="#referencias" data-lesson-nav="references" data-lesson-i18n="navReferences">References</a>
+        <a class="repo-link" href="https://github.com/DIALVEBE/IA" rel="noreferrer">GitHub</a>
+      </nav>
+      <div class="language-switch" role="group" aria-label="Language switch">
+        <button class="lang-button is-active" type="button" data-lang="en">EN</button>
+        <button class="lang-button" type="button" data-lang="es">ES</button>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="lesson-hero">
+        <div class="hero-copy">
+          <p class="eyebrow" data-lesson-i18n="heroKicker">Elective I Advanced Track | Week 1</p>
+          <h1 data-lesson-i18n="heroTitle">Introduction to Artificial Intelligence</h1>
+          <p class="hero-text" data-lesson-i18n="heroText">
+            Guia docente para una sesion presencial de 120 minutos. El objetivo es
+            distinguir que es un sistema de IA, como se estructura y en que se
+            diferencia de automatizacion, software tradicional, aprendizaje automatico
+            e IA generativa.
+          </p>
+          <div class="hero-actions">
+            <a class="primary-action" href="#ruta" data-lesson-i18n="startClass">Start class</a>
+            <a class="secondary-action" href="../../resources/clase-01/guia-docente-semana-1-introduccion-ia.docx" data-lesson-i18n="sourceWord">Source Word</a>
+          </div>
+        </div>
+        <figure class="lesson-hero-visual">
+          <img src="assets/hero-clase-01.png" alt="Portada visual de la clase 01 de inteligencia artificial">
+        </figure>
+      </section>
+
+      <section class="lesson-shell" id="ruta">
+        <aside class="topic-index lesson-index" aria-label="Indice de clase">
+          <div class="index-title" data-lesson-i18n="routeTitle">Route</div>
+          <a href="#proposito" data-lesson-nav="purpose" data-lesson-i18n="idxPurpose">0. Purpose</a>
+          <a href="#apertura" data-lesson-nav="opening" data-lesson-i18n="idxOpening">1. Opening</a>
+          <a href="#definicion" data-lesson-nav="definition" data-lesson-i18n="idxDefinition">2. Definition</a>
+          <a href="#automatizacion" data-lesson-nav="automation" data-lesson-i18n="idxAutomation">3. AI and automation</a>
+          <a href="#evolucion" data-lesson-nav="evolution" data-lesson-i18n="idxEvolution">4. Evolution</a>
+          <a href="#agentes" data-lesson-nav="agents" data-lesson-i18n="idxAgents">5. Agents</a>
+          <a href="#problemas" data-lesson-nav="problems" data-lesson-i18n="idxProblems">6. Problems</a>
+          <a href="#aplicaciones" data-lesson-nav="applications" data-lesson-i18n="idxApplications">7. Applications</a>
+          <a href="#riesgos" data-lesson-nav="risks" data-lesson-i18n="idxRisks">8. Risks</a>
+          <a href="#actividad" data-lesson-nav="activity" data-lesson-i18n="idxActivity">9. Activity</a>
+          <a href="#cierre" data-lesson-nav="closing" data-lesson-i18n="idxClosing">10. Closing</a>
+          <a href="#apendice" data-lesson-nav="appendix" data-lesson-i18n="idxAppendix">A. Appendix</a>
+          <a href="#referencias" data-lesson-nav="references" data-lesson-i18n="idxReferences">R. References</a>
+        </aside>
+
+        <div class="lesson-content" data-lang-only="es">
+          <section class="lesson-section" id="proposito">
+            <p class="eyebrow">0 | Proposito y estructura</p>
+            <h2>Alineacion con el syllabus</h2>
+            <p>
+              El syllabus ubica "Introduccion a la IA" dentro del primer bloque
+              tematico y establece como resultado de aprendizaje que el estudiante
+              describa los principios fundamentales de los sistemas de IA, incluyendo
+              aprendizaje, razonamiento y toma de decisiones a partir del analisis de
+              problemas reales. Tambien propone aprendizaje basado en problemas,
+              proyectos, casos reales, trabajo colaborativo y uso de herramientas de
+              software. Esta sesion desarrolla unicamente la introduccion; no aborda
+              espacios de estados, busqueda en anchura o profundidad, heuristicas ni A*.
+            </p>
+            <div class="info-grid">
+              <article class="detail-card"><span class="label">Duracion</span><p>120 minutos presenciales.</p></article>
+              <article class="detail-card"><span class="label">Resultado central</span><p>Distinguir que es un sistema de IA, como se estructura y en que se diferencia de automatizacion, software tradicional, aprendizaje automatico e IA generativa.</p></article>
+              <article class="detail-card"><span class="label">Evidencia</span><p>Clasificacion argumentada de casos, canvas de un sistema de IA y ticket de salida.</p></article>
+              <article class="detail-card"><span class="label">Limite tematico</span><p>La toma de decisiones se explica conceptualmente; los mecanismos de busqueda se reservan para las semanas siguientes.</p></article>
+            </div>
+            <h3>Distribucion sugerida de los 120 minutos</h3>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Minutos</th><th>Bloque</th><th>Proposito</th></tr></thead>
+                <tbody>
+                  <tr><td>0-10</td><td>Apertura: IA en 2026</td><td>Activar conocimientos previos y mostrar el caracter actual del tema.</td></tr>
+                  <tr><td>10-30</td><td>Que significa "inteligencia" y que es IA</td><td>Construir una definicion rigurosa y util.</td></tr>
+                  <tr><td>30-48</td><td>IA, automatizacion, ML y GenAI</td><td>Evitar confusiones conceptuales frecuentes.</td></tr>
+                  <tr><td>48-63</td><td>Evolucion historica</td><td>Comprender por que coexisten varios paradigmas.</td></tr>
+                  <tr><td>63-85</td><td>Agentes y anatomia de un sistema</td><td>Relacionar objetivos, entradas, inferencia, salidas, accion y retroalimentacion.</td></tr>
+                  <tr><td>85-103</td><td>Aplicaciones reales</td><td>Analizar salud, finanzas, manufactura y logistica.</td></tr>
+                  <tr><td>103-113</td><td>Limitaciones y responsabilidad</td><td>Introducir riesgo, supervision humana y confianza.</td></tr>
+                  <tr><td>113-120</td><td>Actividad integradora y cierre</td><td>Verificar comprension y conectar con el proyecto del curso.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <aside class="callout"><strong>Idea rectora.</strong> La IA no debe presentarse como magia ni como una lista de herramientas. Debe comprenderse como un sistema sociotecnico: combina objetivos humanos, datos, modelos, infraestructura, decisiones, usuarios y consecuencias.</aside>
+          </section>
+
+          <section class="lesson-section" id="apertura">
+            <p class="eyebrow">1 | Apertura</p>
+            <h2>La IA ya forma parte del entorno</h2>
+            <figure class="lesson-figure">
+              <img src="assets/adopcion-ia-2026.png" alt="Indicadores recientes de adopcion y capacidades de IA">
+              <figcaption>Figura 1. Indicadores recientes que muestran adopcion acelerada y capacidades todavia irregulares. Elaboracion propia con datos del AI Index Report 2026.</figcaption>
+            </figure>
+            <p>
+              La inteligencia artificial dejo de ser un tema reservado a laboratorios.
+              El AI Index Report 2026 estima que la IA generativa alcanzo una adopcion
+              poblacional del 53 % en tres anos, una velocidad superior a la observada
+              historicamente para el computador personal o Internet. En educacion, mas
+              del 80 % de estudiantes de secundaria y universidad encuestados en Estados
+              Unidos reportaron utilizar IA para tareas academicas, aunque las instituciones
+              todavia muestran dificultades para establecer politicas claras.
+            </p>
+            <p>
+              La aceleracion no significa que los sistemas sean uniformemente inteligentes.
+              En 2025, los agentes evaluados en OSWorld alcanzaron 66,3 % de precision en
+              tareas estructuradas dentro de sistemas operativos, pero los robots solo
+              tuvieron exito en 12 % de tareas domesticas reales. Esta combinacion de
+              fortalezas extraordinarias y fallos elementales puede entenderse como
+              inteligencia irregular.
+            </p>
+            <aside class="question"><strong>Pregunta.</strong> Que tarea realizada hoy por una aplicacion les parece inteligente y cual es la evidencia de que realmente utiliza IA?</aside>
+            <p class="teacher-note">Clave docente: registre criterios recurrentes como aprende, predice, genera, se adapta, toma decisiones, imita al humano o es automatica. Esos criterios se revisan durante la sesion.</p>
+            <h3>Diagnostico rapido: es IA?</h3>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Caso</th><th>Clasificacion inicial</th><th>Justificacion</th></tr></thead>
+                <tbody>
+                  <tr><td>Una calculadora suma dos numeros.</td><td>No necesariamente.</td><td>Ejecuta reglas deterministas; no necesita inferir patrones ni adaptarse.</td></tr>
+                  <tr><td>Un correo se envia automaticamente al completar un formulario.</td><td>Automatizacion.</td><td>La accion esta predefinida por una condicion explicita.</td></tr>
+                  <tr><td>Un filtro clasifica correo como spam utilizando ejemplos historicos.</td><td>Si, aprendizaje automatico.</td><td>Infiere patrones a partir de datos etiquetados.</td></tr>
+                  <tr><td>Un chatbot genera una respuesta coherente a una pregunta nueva.</td><td>Si, IA generativa.</td><td>Produce contenido mediante un modelo que estima secuencias plausibles.</td></tr>
+                  <tr><td>Un termostato se enciende cuando la temperatura baja de 18 °C.</td><td>Control automatico.</td><td>Puede funcionar con una regla fija sin aprendizaje ni inferencia compleja.</td></tr>
+                  <tr><td>Una plataforma recomienda cursos segun el historial del estudiante.</td><td>Probablemente IA.</td><td>Utiliza senales del usuario para estimar relevancia o afinidad.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="definicion">
+            <p class="eyebrow">2 | Definicion</p>
+            <h2>De la inteligencia humana a la inteligencia artificial</h2>
+            <p>
+              Una definicion util debe describir capacidades observables sin atribuir
+              conciencia a una maquina. En una persona, la inteligencia puede incluir
+              percepcion, memoria, aprendizaje, lenguaje, razonamiento, planificacion,
+              creatividad, adaptacion y toma de decisiones. Estas capacidades no siempre
+              aparecen juntas ni con la misma intensidad.
+            </p>
+            <p>
+              Una persona que conduce bajo lluvia intensa percibe luces y senales,
+              interpreta distancias, recuerda normas, anticipa movimientos, decide
+              reducir la velocidad y ajusta su conducta segun la respuesta del vehiculo.
+              La conducta inteligente surge de un ciclo: percibir, representar la
+              situacion, evaluar alternativas, actuar y observar el resultado.
+            </p>
+            <aside class="callout warning"><strong>Cuidado con el antropomorfismo.</strong> Expresiones como "la IA entiende", "quiere" o "sabe" pueden ocultar el mecanismo real. Un modelo puede producir lenguaje convincente sin experiencia consciente, intencion propia o comprension humana.</aside>
+            <h3>Cuatro maneras clasicas de definir la IA</h3>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Perspectiva</th><th>Pregunta central</th><th>Ejemplo</th><th>Limite</th></tr></thead>
+                <tbody>
+                  <tr><td>Pensar como humanos</td><td>Reproduce procesos mentales humanos?</td><td>Modelar como una persona resuelve un problema.</td><td>Conocer con precision el pensamiento humano es dificil.</td></tr>
+                  <tr><td>Actuar como humanos</td><td>Su comportamiento es indistinguible del humano?</td><td>Conversacion asociada con la prueba de Turing.</td><td>Imitar al humano no garantiza verdad, seguridad ni racionalidad.</td></tr>
+                  <tr><td>Pensar racionalmente</td><td>Obtiene conclusiones correctas mediante principios logicos?</td><td>Sistema que deriva una conclusion a partir de premisas.</td><td>La realidad contiene incertidumbre, datos incompletos y recursos limitados.</td></tr>
+                  <tr><td>Actuar racionalmente</td><td>Elige acciones que aumentan la posibilidad de alcanzar un objetivo?</td><td>Robot que ajusta su conducta para limpiar con bateria limitada.</td><td>La accion depende de como se definan el objetivo y la medida de exito.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              Para este curso resulta especialmente util la perspectiva de agentes
+              racionales: un sistema es analizado por sus objetivos, la informacion
+              disponible, las acciones posibles y las consecuencias de sus decisiones.
+              "Racional" no significa perfecto; significa seleccionar la mejor accion
+              esperada con la informacion y los recursos disponibles.
+            </p>
+            <aside class="callout"><strong>Definicion contemporanea.</strong> Segun la OCDE, un sistema de IA es un sistema basado en maquinas que, para objetivos explicitos o implicitos, infiere a partir de entradas como generar salidas capaces de influir en entornos fisicos o virtuales. Las palabras decisivas son "infiere" e "influye".</aside>
+            <aside class="question"><strong>Pregunta.</strong> Una hoja de calculo que calcula automaticamente el promedio de notas es un sistema de IA?</aside>
+            <p class="teacher-note">Clave docente: generalmente no. La formula esta completamente especificada. Seria diferente si el sistema estimara riesgo de desercion desde multiples senales y produjera una recomendacion probabilistica.</p>
+          </section>
+
+          <section class="lesson-section" id="automatizacion">
+            <p class="eyebrow">3 | Conceptos</p>
+            <h2>IA no es sinonimo de automatizacion</h2>
+            <figure class="lesson-figure">
+              <img src="assets/mapa-conceptual-ia.png" alt="Relacion entre IA simbolica, aprendizaje automatico, aprendizaje profundo e IA generativa">
+              <figcaption>Figura 2. Relacion conceptual entre IA simbolica, aprendizaje automatico, aprendizaje profundo, IA generativa y sistemas hibridos.</figcaption>
+            </figure>
+            <div class="concept-list">
+              <article><h3>Software tradicional</h3><p>Una persona define reglas y procedimientos explicitos. El computador ejecuta instrucciones sobre entradas conocidas. Calcular el impuesto de una factura puede expresarse mediante una formula precisa.</p></article>
+              <article><h3>Automatizacion</h3><p>Automatizar significa ejecutar una tarea con poca intervencion humana. Puede ser simple o sofisticada, pero no requiere necesariamente IA.</p></article>
+              <article><h3>IA simbolica</h3><p>Representa conocimiento mediante simbolos, hechos, reglas y relaciones. Es explicita y verificable, pero puede ser fragil cuando aumentan excepciones o variabilidad.</p></article>
+              <article><h3>Aprendizaje automatico</h3><p>El programador define representacion, objetivo y procedimiento para ajustar un modelo a partir de datos. El resultado es probabilistico y puede cambiar con nuevos datos.</p></article>
+              <article><h3>Aprendizaje profundo</h3><p>Utiliza redes neuronales con multiples capas para aprender representaciones jerarquicas; ha transformado vision, voz y lenguaje.</p></article>
+              <article><h3>IA generativa</h3><p>Produce texto, imagenes, audio, video o codigo a partir de patrones aprendidos. La fluidez no garantiza exactitud.</p></article>
+            </div>
+            <h3>Comparacion paso a paso: solicitudes estudiantiles</h3>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Enfoque</th><th>Mecanismo</th><th>Comportamiento</th></tr></thead>
+                <tbody>
+                  <tr><td>Regla fija</td><td>Si el asunto contiene "certificado", enviar el instructivo A.</td><td>Rapido y predecible; falla ante redacciones no previstas.</td></tr>
+                  <tr><td>Automatizacion de flujo</td><td>Crear un ticket, asignar responsable y notificar.</td><td>Orquesta tareas sin interpretar profundamente el contenido.</td></tr>
+                  <tr><td>Clasificador de ML</td><td>Estimar la categoria de la solicitud con ejemplos historicos.</td><td>Generaliza a mensajes similares, pero puede equivocarse.</td></tr>
+                  <tr><td>Modelo generativo</td><td>Redactar una respuesta basada en contexto y politicas disponibles.</td><td>Genera lenguaje flexible; requiere verificacion para evitar invenciones.</td></tr>
+                  <tr><td>Sistema hibrido</td><td>Clasificar, recuperar la norma oficial, generar borrador y exigir aprobacion humana.</td><td>Combina eficiencia, evidencia y control.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <aside class="callout"><strong>Regla practica.</strong> No pregunte unicamente "usa IA?". Pregunte: que parte infiere?, que aprende?, que genera?, que decision afecta?, que evidencia permite evaluar su desempeno?</aside>
+          </section>
+
+          <section class="lesson-section" id="evolucion">
+            <p class="eyebrow">4 | Historia</p>
+            <h2>Evolucion de la IA</h2>
+            <figure class="lesson-figure">
+              <img src="assets/evolucion-ia.png" alt="Linea de tiempo con hitos conceptuales de la IA">
+              <figcaption>Figura 3. Hitos conceptuales en la evolucion de la IA.</figcaption>
+            </figure>
+            <div class="timeline">
+              <article><strong>1950: Turing</strong><p>Propuso sustituir "pueden pensar las maquinas?" por un criterio observable basado en conversacion. Superar una conversacion no demuestra conciencia ni competencia general.</p></article>
+              <article><strong>1955-1956: Dartmouth</strong><p>McCarthy, Minsky, Rochester y Shannon plantearon que aspectos del aprendizaje y la inteligencia podian describirse con precision suficiente para simularse por una maquina.</p></article>
+              <article><strong>IA simbolica y sistemas expertos</strong><p>Capturaban conocimiento de especialistas y aplicaban inferencias. Fueron valiosos en dominios acotados, pero costosos de mantener.</p></article>
+              <article><strong>Inviernos de la IA</strong><p>Cuando las promesas superaron la capacidad disponible, disminuyeron financiacion e interes. Un prototipo llamativo no equivale a un sistema robusto.</p></article>
+              <article><strong>Aprendizaje estadistico y profundo</strong><p>Con mas datos y computo, las redes profundas mejoraron reconocimiento de imagenes, voz y lenguaje durante la decada de 2010.</p></article>
+              <article><strong>Transformers e IA generativa</strong><p>La arquitectura Transformer permitio procesar dependencias en secuencias de manera eficiente y escalable. Desde 2022, el lenguaje natural acelero la adopcion publica.</p></article>
+              <article><strong>2025-2026: agentes y multimodalidad</strong><p>Los sistemas combinan lenguaje, imagen, audio, video y uso de herramientas. Aumenta la utilidad y tambien la superficie de riesgo.</p></article>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="agentes">
+            <p class="eyebrow">5 | Sistemas situados</p>
+            <h2>Agentes inteligentes</h2>
+            <figure class="lesson-figure">
+              <img src="assets/anatomia-sistema-ia.png" alt="Anatomia general de un sistema de IA">
+              <figcaption>Figura 4. Anatomia general de un sistema de IA a partir de la definicion de la OCDE y el enfoque de agentes.</figcaption>
+            </figure>
+            <p>
+              La unidad minima de analisis no es solo el modelo: es el ciclo entre
+              sistema, entorno y consecuencias. Un agente percibe un entorno mediante
+              sensores o entradas, procesa informacion y actua mediante actuadores o
+              salidas. Su calidad se evalua segun una medida de desempeno.
+            </p>
+            <p>
+              El esquema PEAS permite especificar una tarea antes de escoger un algoritmo:
+              Performance measure, Environment, Actuators y Sensors.
+            </p>
+            <div class="table-wrap">
+              <table>
+                <caption>Ejemplo 1: robot aspirador mediante PEAS</caption>
+                <thead><tr><th>Componente</th><th>Descripcion</th></tr></thead>
+                <tbody>
+                  <tr><td>Medida de desempeno</td><td>Cobertura de limpieza, suciedad retirada, bateria, tiempo, choques evitados y regreso seguro.</td></tr>
+                  <tr><td>Entorno</td><td>Habitaciones, muebles, personas, mascotas, escaleras, superficies y estaciones de carga.</td></tr>
+                  <tr><td>Actuadores</td><td>Motores, ruedas, cepillos, potencia de aspiracion y senales de estado.</td></tr>
+                  <tr><td>Sensores</td><td>Proximidad, contacto, camara, suciedad, bateria y posicion estimada.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              El sistema recibe senales, representa la situacion, evalua que accion
+              favorece la medida de desempeno, actua y observa el resultado. En esta
+              sesion no se desarrolla la busqueda de rutas; solo se identifica el ciclo
+              de decision.
+            </p>
+            <div class="table-wrap">
+              <table>
+                <caption>Ejemplo 2: alerta de riesgo de desercion</caption>
+                <thead><tr><th>Elemento</th><th>Descripcion y pregunta critica</th></tr></thead>
+                <tbody>
+                  <tr><td>Objetivo</td><td>Identificar estudiantes que podrian necesitar apoyo temprano. Es para ayudar o sancionar?</td></tr>
+                  <tr><td>Entradas</td><td>Asistencia, notas, actividad en campus virtual, entregas y antecedentes. Son pertinentes y consentidas?</td></tr>
+                  <tr><td>Inferencia</td><td>Modelo que estima probabilidad de riesgo. Con que poblacion fue entrenado?</td></tr>
+                  <tr><td>Salida</td><td>Nivel de riesgo y factores relevantes. Es prediccion o certeza?</td></tr>
+                  <tr><td>Accion</td><td>Contacto de bienestar, tutoria o acompanamiento. Una persona revisa el caso?</td></tr>
+                  <tr><td>Retroalimentacion</td><td>Registrar si el apoyo fue util y si la alerta fue correcta. Se mide el dano de falsos positivos?</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <aside class="callout"><strong>Sistema sociotecnico.</strong> Una alerta cambia la conducta de docentes, estudiantes y directivos. La evaluacion debe incluir datos, desempeno tecnico, experiencia de usuario, efectos organizacionales y derechos de las personas.</aside>
+            <h3>De entradas a consecuencias</h3>
+            <ol class="step-list">
+              <li>Definir el problema con precision.</li>
+              <li>Definir una medida de desempeno.</li>
+              <li>Identificar el entorno.</li>
+              <li>Seleccionar entradas pertinentes.</li>
+              <li>Elegir el mecanismo de inferencia.</li>
+              <li>Definir la salida y su incertidumbre.</li>
+              <li>Asignar supervision y responsabilidad.</li>
+              <li>Observar efectos y retroalimentar.</li>
+            </ol>
+          </section>
+
+          <section class="lesson-section" id="problemas">
+            <p class="eyebrow">6 | Tipos de salida</p>
+            <h2>Problemas que aborda la IA</h2>
+            <p>La tecnica adecuada depende del tipo de salida y de la decision que se necesita apoyar.</p>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Tipo</th><th>Pregunta</th><th>Ejemplo</th><th>Salida</th></tr></thead>
+                <tbody>
+                  <tr><td>Clasificacion</td><td>A que categoria pertenece?</td><td>Spam/no spam; pieza defectuosa/no defectuosa.</td><td>Etiqueta o probabilidad.</td></tr>
+                  <tr><td>Regresion o estimacion</td><td>Cual es el valor esperado?</td><td>Tiempo de entrega, demanda, consumo energetico.</td><td>Numero continuo e incertidumbre.</td></tr>
+                  <tr><td>Deteccion</td><td>Donde esta el objeto o evento?</td><td>Lesion en una imagen; intrusion en una red.</td><td>Ubicacion, evento y confianza.</td></tr>
+                  <tr><td>Recomendacion</td><td>Que opcion es relevante?</td><td>Curso, pelicula, producto o ruta de atencion.</td><td>Lista ordenada.</td></tr>
+                  <tr><td>Agrupamiento</td><td>Que casos se parecen sin etiquetas?</td><td>Segmentos de clientes o patrones.</td><td>Grupos y caracteristicas comunes.</td></tr>
+                  <tr><td>Generacion</td><td>Que contenido puede producirse?</td><td>Texto, imagen, codigo, audio o resumen.</td><td>Contenido nuevo que debe validarse.</td></tr>
+                  <tr><td>Decision y control</td><td>Que accion conviene ejecutar?</td><td>Ajustar una maquina o priorizar una alerta.</td><td>Accion sugerida o ejecutada.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <aside class="callout"><strong>Distincion.</strong> Una probabilidad de fraude del 92 % no es identica a "rechazar la transaccion". Entre ambas existe una politica de decision que debe considerar costos, derechos, umbrales y revision humana.</aside>
+          </section>
+
+          <section class="lesson-section" id="aplicaciones">
+            <p class="eyebrow">7 | Casos reales</p>
+            <h2>Aplicaciones en problemas reales</h2>
+            <div class="application-grid">
+              <article><h3>Salud</h3><p>Apoyo al diagnostico, no sustitucion automatica. Entradas: imagenes, metadatos clinicos y criterios de calidad. Riesgos: falsos negativos, sesgo, datos incompletos y automatizacion excesiva.</p></article>
+              <article><h3>Finanzas</h3><p>Deteccion de fraude sin bloquear injustamente a clientes legitimos. Riesgos: falsos positivos, adaptacion de atacantes, privacidad y discriminacion indirecta.</p></article>
+              <article><h3>Manufactura</h3><p>Mantenimiento predictivo e inspeccion visual. Riesgos: sensores descalibrados, cambios en la linea y datos historicos no representativos.</p></article>
+              <article><h3>Logistica</h3><p>Estimacion de tiempos y coordinacion. Riesgos: datos desactualizados, condiciones imprevistas y optimizacion que ignore seguridad o bienestar laboral.</p></article>
+            </div>
+            <aside class="callout"><strong>Ejemplo guiado.</strong> Un sistema con 95 % de exactitud puede parecer excelente, pero si 95 % de los casos son normales, un clasificador que siempre responda "normal" tambien alcanzaria 95 %. La evaluacion debe considerar sensibilidad, especificidad, prevalencia y costo del error.</aside>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Sector</th><th>Valor potencial</th><th>Error critico</th></tr></thead>
+                <tbody>
+                  <tr><td>Salud</td><td>Priorizacion y apoyo clinico.</td><td>No detectar un caso grave o presentar una sugerencia como diagnostico definitivo.</td></tr>
+                  <tr><td>Finanzas</td><td>Reducir perdidas y responder con rapidez.</td><td>Bloquear sistematicamente a ciertos grupos o no detectar fraude adaptativo.</td></tr>
+                  <tr><td>Manufactura</td><td>Menos paradas y mejor control de calidad.</td><td>Tomar decisiones con sensores defectuosos o modelos desactualizados.</td></tr>
+                  <tr><td>Logistica</td><td>Mejores estimaciones y uso de recursos.</td><td>Optimizar una metrica ignorando seguridad, regulacion o carga de trabajo.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="riesgos">
+            <p class="eyebrow">8 | Confianza</p>
+            <h2>Capacidades, limites y riesgos</h2>
+            <figure class="lesson-figure">
+              <img src="assets/desempeno-irregular.png" alt="Ejemplos de desempeno irregular en evaluaciones de IA">
+              <figcaption>Figura 5. Ejemplos de desempeno irregular reportados en el AI Index 2026.</figcaption>
+            </figure>
+            <div class="concept-list">
+              <article><h3>Respuesta convincente falsa</h3><p>Los modelos generativos producen secuencias plausibles, no garantias de verdad. Pueden inventar referencias, mezclar hechos o responder con seguridad a preguntas mal planteadas.</p></article>
+              <article><h3>Sesgo y representacion</h3><p>Un sistema aprende de datos producidos por sociedades e instituciones. El sesgo tambien aparece al elegir etiquetas, variables, umbrales y medidas de exito.</p></article>
+              <article><h3>Privacidad y seguridad</h3><p>Los datos pueden revelar informacion sensible. Una interfaz de IA puede exponer informacion confidencial mediante consultas, registros, ataques o configuraciones incorrectas.</p></article>
+              <article><h3>Sobredependencia</h3><p>La supervision humana no debe ser simbolica: quien revisa necesita tiempo, informacion, autoridad y capacidad para contradecir el sistema.</p></article>
+              <article><h3>Cambio del entorno</h3><p>Un modelo puede funcionar bien durante el desarrollo y degradarse despues. Cambian usuarios, datos, procesos, normas y adversarios.</p></article>
+            </div>
+            <figure class="lesson-figure">
+              <img src="assets/nist-ai-rmf.png" alt="Caracteristicas de confiabilidad del NIST AI RMF">
+              <figcaption>Figura 6. Caracteristicas de confiabilidad del NIST AI RMF 1.0.</figcaption>
+            </figure>
+            <p>
+              El NIST AI Risk Management Framework propone evaluar validez y
+              confiabilidad, seguridad, proteccion y resiliencia, responsabilidad y
+              transparencia, explicabilidad e interpretabilidad, privacidad y justicia
+              con sesgos perjudiciales gestionados. No siempre es posible maximizar
+              todas estas caracteristicas al mismo tiempo.
+            </p>
+            <aside class="question"><strong>Pregunta.</strong> Quien responde cuando una decision apoyada por IA causa dano?</aside>
+            <p class="teacher-note">Clave docente: la responsabilidad no desaparece por utilizar un modelo. Debe distribuirse entre quienes disenan, proveen, integran, operan, supervisan y toman la decision final.</p>
+          </section>
+
+          <section class="lesson-section" id="actividad">
+            <p class="eyebrow">9 | Actividad integradora</p>
+            <h2>Reto: alerta temprana de riesgo academico</h2>
+            <p>
+              En equipos de tres o cuatro estudiantes, disenen conceptualmente un
+              sistema que ayude a identificar estudiantes que podrian requerir
+              acompanamiento. La tarea no consiste en programar ni escoger algoritmo:
+              consiste en definir problema, entradas, salida, decision, evaluacion y riesgos.
+            </p>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Paso</th><th>Pregunta</th><th>Ejemplo de respuesta</th></tr></thead>
+                <tbody>
+                  <tr><td>1. Problema</td><td>Que situacion concreta se quiere mejorar?</td><td>Detectar senales tempranas de dificultad antes del abandono.</td></tr>
+                  <tr><td>2. Objetivo</td><td>Que resultado valioso se espera?</td><td>Activar apoyo oportuno, no etiquetar ni sancionar.</td></tr>
+                  <tr><td>3. Usuarios</td><td>Quien utiliza la salida y quien resulta afectado?</td><td>Bienestar, docentes, estudiante y coordinacion academica.</td></tr>
+                  <tr><td>4. Entradas</td><td>Que datos son pertinentes y legitimos?</td><td>Asistencia, notas, entregas y solicitud voluntaria de apoyo.</td></tr>
+                  <tr><td>5. Inferencia</td><td>Reglas, modelo aprendido o combinacion?</td><td>Modelo de riesgo complementado con reglas y revision humana.</td></tr>
+                  <tr><td>6. Salida</td><td>Que produce exactamente?</td><td>Nivel de riesgo, incertidumbre y factores contribuyentes.</td></tr>
+                  <tr><td>7. Accion</td><td>Que ocurre despues?</td><td>Contacto respetuoso, tutoria y validacion de la situacion.</td></tr>
+                  <tr><td>8. Evaluacion</td><td>Como se sabra si funciona?</td><td>Oportunidad del apoyo, falsos positivos, cobertura, equidad y satisfaccion.</td></tr>
+                  <tr><td>9. Riesgos</td><td>Que dano podria causar?</td><td>Estigmatizacion, privacidad, errores o uso sancionatorio.</td></tr>
+                  <tr><td>10. Supervision</td><td>Quien puede corregir o detener el sistema?</td><td>Comite responsable con trazabilidad, revision y canal de apelacion.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <aside class="callout"><strong>Criterio de calidad.</strong> Un buen diseno no es el que contiene mas tecnologia. Es el que formula un problema legitimo, utiliza datos pertinentes, define una salida verificable, anticipa errores y asigna responsabilidad.</aside>
+            <h3>Canvas de sistema de IA</h3>
+            <div class="canvas-grid">
+              <span>Problema y objetivo</span><span>Usuarios y personas afectadas</span>
+              <span>Entorno y restricciones</span><span>Entradas y calidad de datos</span>
+              <span>Mecanismo de inferencia</span><span>Salida, incertidumbre y accion</span>
+              <span>Metricas de desempeno</span><span>Riesgos y posibles danos</span>
+              <span>Supervision humana</span><span>Retroalimentacion y monitoreo</span>
+            </div>
+            <h3>Socializacion rapida</h3>
+            <ul>
+              <li>Cada equipo dispone de 60 segundos para presentar problema, salida, accion y riesgo principal.</li>
+              <li>Los demas equipos formulan una pregunta sobre datos, error o responsabilidad.</li>
+              <li>La clase selecciona el diseno que mejor justifica por que necesita IA y no solo una regla o automatizacion.</li>
+            </ul>
+          </section>
+
+          <section class="lesson-section" id="cierre">
+            <p class="eyebrow">10 | Cierre</p>
+            <h2>Verificacion</h2>
+            <h3>Sintesis de la sesion</h3>
+            <ul>
+              <li>La IA estudia y construye sistemas que infieren como producir salidas capaces de influir en un entorno.</li>
+              <li>No todo software automatico es IA; la diferencia esta en el tipo de inferencia, adaptacion, datos y decision.</li>
+              <li>La IA incluye enfoques simbolicos, aprendizaje automatico, aprendizaje profundo, generacion y sistemas hibridos.</li>
+              <li>Un agente se analiza por objetivos, entorno, sensores o entradas, actuadores o salidas y medida de desempeno.</li>
+              <li>La competencia tecnica puede ser irregular: una fortaleza en una prueba no garantiza comprension general.</li>
+              <li>El valor de un sistema depende tambien de supervision, privacidad, equidad, seguridad, transparencia y monitoreo.</li>
+            </ul>
+            <h3>Ticket de salida</h3>
+            <ol>
+              <li>Explique en dos frases la diferencia entre automatizacion e inteligencia artificial.</li>
+              <li>Seleccione una aplicacion cotidiana y describa sus entradas, salida y decision afectada.</li>
+              <li>Mencione un riesgo que no se resuelva unicamente aumentando la precision del modelo.</li>
+            </ol>
+            <aside class="callout"><strong>Conexion con la siguiente semana.</strong> Cuando un agente tiene multiples acciones posibles, como puede identificar una secuencia que lo acerque a su objetivo? Esa pregunta dara paso al estudio formal de problemas y metodos de busqueda.</aside>
+          </section>
+
+          <section class="lesson-section" id="apendice">
+            <p class="eyebrow">A | Apendice docente</p>
+            <h2>Respuestas orientadoras</h2>
+            <h3>Criterios para clasificar un caso como IA</h3>
+            <ul>
+              <li>Existe una inferencia no trivial desde entradas hacia una prediccion, recomendacion, contenido o decision.</li>
+              <li>El sistema trabaja con incertidumbre, patrones, lenguaje, percepcion o multiples alternativas.</li>
+              <li>Puede aprender o adaptarse, aunque el aprendizaje no es obligatorio en toda IA.</li>
+              <li>La salida influye en un entorno fisico o virtual y puede evaluarse mediante una medida de desempeno.</li>
+              <li>La etiqueta IA no se justifica unicamente porque el sistema sea nuevo, complejo, conectado a Internet o automatico.</li>
+            </ul>
+            <h3>Rubrica breve del canvas</h3>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Criterio</th><th>Logro alto</th><th>Logro basico</th><th>Logro insuficiente</th></tr></thead>
+                <tbody>
+                  <tr><td>Problema y objetivo</td><td>Concreto, legitimo y medible.</td><td>Comprensible, pero amplio.</td><td>Confunde problema con herramienta.</td></tr>
+                  <tr><td>Diseno del sistema</td><td>Relaciona entradas, inferencia, salida y accion.</td><td>Describe componentes sin conexion completa.</td><td>Solo menciona una aplicacion o modelo.</td></tr>
+                  <tr><td>Evaluacion</td><td>Incluye desempeno, error e impacto.</td><td>Incluye una metrica tecnica.</td><td>No define como verificar el sistema.</td></tr>
+                  <tr><td>Responsabilidad</td><td>Anticipa riesgos y supervision real.</td><td>Menciona riesgo sin mitigacion clara.</td><td>Asume que la IA decide correctamente.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="referencias">
+            <p class="eyebrow">R | Referencias</p>
+            <h2>Fuentes utilizadas</h2>
+            <ul class="reference-list">
+              <li>Autio, C., Schwartz, R., Dunietz, J., Jain, S., Stanley, M., Tabassi, E., Hall, P., & Roberts, K. (2024). Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile (NIST AI 600-1). https://doi.org/10.6028/NIST.AI.600-1</li>
+              <li>Bommasani, R., Hudson, D. A., Adeli, E., Altman, R., Arora, S., von Arx, S., et al. (2021). On the opportunities and risks of foundation models. https://doi.org/10.48550/arXiv.2108.07258</li>
+              <li>LeCun, Y., Bengio, Y., & Hinton, G. (2015). Deep learning. Nature, 521, 436-444. https://doi.org/10.1038/nature14539</li>
+              <li>McCarthy, J., Minsky, M. L., Rochester, N., & Shannon, C. E. (2006). A proposal for the Dartmouth Summer Research Project on Artificial Intelligence, August 31, 1955. https://doi.org/10.1609/aimag.v27i4.1904</li>
+              <li>Miao, F., & Holmes, W. (2023). Guidance for generative AI in education and research. UNESCO. https://unesdoc.unesco.org/ark:/48223/pf0000386693</li>
+              <li>National Institute of Standards and Technology. (2023). Artificial Intelligence Risk Management Framework (AI RMF 1.0). https://doi.org/10.6028/NIST.AI.100-1</li>
+              <li>OECD. (2024). Explanatory memorandum on the updated OECD definition of an AI system. https://oecd.ai/en/ai-publications/explanatory-memorandum-on-the-updated-oecd-definition-of-an-ai-system</li>
+              <li>Russell, S. J., & Norvig, P. (2021). Artificial intelligence: a modern approach (4th ed.). Pearson.</li>
+              <li>Stanford Institute for Human-Centered Artificial Intelligence. (2026). AI Index Report 2026. Stanford University. https://hai.stanford.edu/ai-index/2026-ai-index-report</li>
+              <li>Turing, A. M. (1950). Computing machinery and intelligence. Mind, 59(236), 433-460. https://doi.org/10.1093/mind/LIX.236.433</li>
+              <li>Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, L., & Polosukhin, I. (2017). Attention is all you need. Advances in Neural Information Processing Systems, 30.</li>
+              <li>Universidad Santo Tomas, Seccional Tunja. (2026). Syllabus de Electiva I Profundizacion: Inteligencia Artificial [Documento interno].</li>
+            </ul>
+          </section>
+        </div>
+
+        <div class="lesson-content" data-lang-only="en">
+          <section class="lesson-section" id="purpose">
+            <p class="eyebrow">0 | Purpose and structure</p>
+            <h2>Alignment with the syllabus</h2>
+            <p>
+              The syllabus places "Introduction to AI" in the first thematic block and
+              expects students to describe the fundamental principles of AI systems,
+              including learning, reasoning, and decision-making from real problem
+              analysis. This session only develops the introduction; state spaces,
+              breadth-first search, depth-first search, heuristics, and A* are left for
+              later weeks.
+            </p>
+            <div class="info-grid">
+              <article class="detail-card"><span class="label">Duration</span><p>120 in-person minutes.</p></article>
+              <article class="detail-card"><span class="label">Main outcome</span><p>Distinguish what an AI system is, how it is structured, and how it differs from automation, traditional software, machine learning, and generative AI.</p></article>
+              <article class="detail-card"><span class="label">Evidence</span><p>Argument-based case classification, an AI system canvas, and an exit ticket.</p></article>
+              <article class="detail-card"><span class="label">Scope limit</span><p>Decision-making is explained conceptually; search mechanisms are reserved for following weeks.</p></article>
+            </div>
+            <h3>Suggested 120-minute distribution</h3>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Minutes</th><th>Block</th><th>Purpose</th></tr></thead>
+                <tbody>
+                  <tr><td>0-10</td><td>Opening: AI in 2026</td><td>Activate prior knowledge and show the current nature of the topic.</td></tr>
+                  <tr><td>10-30</td><td>What "intelligence" means and what AI is</td><td>Build a rigorous and useful definition.</td></tr>
+                  <tr><td>30-48</td><td>AI, automation, ML, and GenAI</td><td>Avoid common conceptual confusion.</td></tr>
+                  <tr><td>48-63</td><td>Historical evolution</td><td>Understand why several paradigms coexist.</td></tr>
+                  <tr><td>63-85</td><td>Agents and system anatomy</td><td>Connect goals, inputs, inference, outputs, action, and feedback.</td></tr>
+                  <tr><td>85-103</td><td>Real applications</td><td>Analyze health, finance, manufacturing, and logistics.</td></tr>
+                  <tr><td>103-113</td><td>Limits and responsibility</td><td>Introduce risk, human oversight, and trust.</td></tr>
+                  <tr><td>113-120</td><td>Integrative activity and closing</td><td>Check understanding and connect with the course project.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <aside class="callout"><strong>Guiding idea.</strong> AI should not be presented as magic or as a list of tools. It should be understood as a sociotechnical system combining human goals, data, models, infrastructure, decisions, users, and consequences.</aside>
+          </section>
+
+          <section class="lesson-section" id="opening">
+            <p class="eyebrow">1 | Opening</p>
+            <h2>AI is already part of the environment</h2>
+            <figure class="lesson-figure">
+              <img src="assets/adopcion-ia-2026.png" alt="Recent indicators of AI adoption and capabilities">
+              <figcaption>Figure 1. Recent indicators showing fast adoption and still uneven capabilities, based on the AI Index Report 2026.</figcaption>
+            </figure>
+            <p>
+              Artificial intelligence is no longer limited to laboratories. The AI
+              Index Report 2026 estimates that generative AI reached 53% population
+              adoption in three years, faster than historical adoption of the personal
+              computer or the Internet. In education, more than 80% of surveyed high
+              school and university students in the United States reported using AI for
+              academic tasks, while institutions still struggle to define clear policies.
+            </p>
+            <p>
+              Fast adoption does not mean uniformly intelligent systems. In 2025,
+              agents evaluated in OSWorld reached 66.3% accuracy on structured operating
+              system tasks, while robots succeeded in only 12% of real domestic tasks.
+              This mix of extraordinary strengths and elementary failures can be read
+              as uneven intelligence.
+            </p>
+            <aside class="question"><strong>Question.</strong> What task performed today by an application seems intelligent to you, and what evidence shows that it really uses AI?</aside>
+            <h3>Quick diagnostic: is it AI?</h3>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Case</th><th>Initial classification</th><th>Justification</th></tr></thead>
+                <tbody>
+                  <tr><td>A calculator adds two numbers.</td><td>Not necessarily.</td><td>It executes deterministic rules and does not need pattern inference or adaptation.</td></tr>
+                  <tr><td>An email is sent automatically after a form is completed.</td><td>Automation.</td><td>The action is predefined by an explicit condition.</td></tr>
+                  <tr><td>A filter classifies email as spam using historical examples.</td><td>Yes, machine learning.</td><td>It infers patterns from labeled data.</td></tr>
+                  <tr><td>A chatbot generates a coherent response to a new question.</td><td>Yes, generative AI.</td><td>It produces content through a model that estimates plausible sequences.</td></tr>
+                  <tr><td>A thermostat turns on when temperature drops below 18 °C.</td><td>Automatic control.</td><td>It can work with a fixed rule without learning or complex inference.</td></tr>
+                  <tr><td>A platform recommends courses based on student history.</td><td>Probably AI.</td><td>It uses user signals to estimate relevance or affinity.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="definition">
+            <p class="eyebrow">2 | Definition</p>
+            <h2>From human intelligence to artificial intelligence</h2>
+            <p>
+              A useful definition describes observable capabilities without attributing
+              consciousness to a machine. Intelligence may include perception, memory,
+              learning, language, reasoning, planning, creativity, adaptation, and
+              decision-making. These capabilities do not always appear together.
+            </p>
+            <aside class="callout warning"><strong>Beware of anthropomorphism.</strong> Expressions such as "AI understands", "wants", or "knows" may hide the real mechanism. A model can produce convincing language without human experience, intention, or understanding.</aside>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Perspective</th><th>Central question</th><th>Example</th><th>Limit</th></tr></thead>
+                <tbody>
+                  <tr><td>Thinking humanly</td><td>Does the system reproduce human mental processes?</td><td>Modeling how a person solves a problem.</td><td>Human thinking is hard to know precisely.</td></tr>
+                  <tr><td>Acting humanly</td><td>Is its behavior indistinguishable from human behavior?</td><td>Conversation related to the Turing test.</td><td>Imitation does not guarantee truth, safety, or rationality.</td></tr>
+                  <tr><td>Thinking rationally</td><td>Does it derive correct conclusions using logical principles?</td><td>A system deriving a conclusion from premises.</td><td>Reality includes uncertainty, incomplete data, and limited resources.</td></tr>
+                  <tr><td>Acting rationally</td><td>Does it choose actions that increase the chance of achieving a goal?</td><td>A robot adjusting behavior to clean with limited battery.</td><td>Action depends on how the goal and success measure are defined.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <aside class="callout"><strong>Contemporary definition.</strong> In practical terms, the OECD defines an AI system as a machine-based system that infers from inputs how to generate outputs such as predictions, content, recommendations, or decisions that can influence physical or virtual environments.</aside>
+          </section>
+
+          <section class="lesson-section" id="automation">
+            <p class="eyebrow">3 | Concepts</p>
+            <h2>AI is not the same as automation</h2>
+            <figure class="lesson-figure">
+              <img src="assets/mapa-conceptual-ia.png" alt="Concept map of symbolic AI, ML, deep learning, and generative AI">
+              <figcaption>Figure 2. Conceptual relationship between symbolic AI, machine learning, deep learning, generative AI, and hybrid systems.</figcaption>
+            </figure>
+            <div class="concept-list">
+              <article><h3>Traditional software</h3><p>A person defines explicit rules and procedures. The computer executes those instructions over known inputs.</p></article>
+              <article><h3>Automation</h3><p>Automation means performing a task with little human intervention. It can be simple or sophisticated, but it does not necessarily require AI.</p></article>
+              <article><h3>Symbolic AI</h3><p>Represents knowledge through symbols, facts, rules, and relationships. It is explicit and verifiable, but can be fragile with many exceptions.</p></article>
+              <article><h3>Machine learning</h3><p>The programmer defines a representation, a learning objective, and a procedure to fit a model from data.</p></article>
+              <article><h3>Deep learning</h3><p>Uses multilayer neural networks to learn hierarchical representations, especially in vision, speech, and language.</p></article>
+              <article><h3>Generative AI</h3><p>Produces new text, images, audio, video, or code from learned patterns. Fluency does not guarantee accuracy.</p></article>
+            </div>
+            <aside class="callout"><strong>Practical rule.</strong> Do not ask only "does it use AI?". Ask: what part infers, learns, generates, or affects a decision, and what evidence lets us evaluate its performance?</aside>
+          </section>
+
+          <section class="lesson-section" id="evolution">
+            <p class="eyebrow">4 | History</p>
+            <h2>Evolution of AI</h2>
+            <figure class="lesson-figure">
+              <img src="assets/evolucion-ia.png" alt="Timeline of conceptual milestones in AI">
+              <figcaption>Figure 3. Conceptual milestones in AI evolution.</figcaption>
+            </figure>
+            <div class="timeline">
+              <article><strong>1950: Turing</strong><p>The question "can machines think?" was replaced by an observable criterion based on conversation.</p></article>
+              <article><strong>1955-1956: Dartmouth</strong><p>McCarthy, Minsky, Rochester, and Shannon proposed that aspects of learning and intelligence could be described precisely enough to be simulated by a machine.</p></article>
+              <article><strong>Symbolic AI and expert systems</strong><p>Specialist knowledge was captured as rules and inferences. These systems were useful in bounded domains but expensive to maintain.</p></article>
+              <article><strong>AI winters</strong><p>When promises exceeded available capability, funding and interest decreased. A striking prototype is not the same as a robust system.</p></article>
+              <article><strong>Deep learning</strong><p>More data and compute helped deep networks improve image, speech, and language recognition during the 2010s.</p></article>
+              <article><strong>Transformers and generative AI</strong><p>Transformer architectures enabled scalable sequence processing and helped accelerate public adoption through natural-language interaction.</p></article>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="agents">
+            <p class="eyebrow">5 | Situated systems</p>
+            <h2>Intelligent agents</h2>
+            <figure class="lesson-figure">
+              <img src="assets/anatomia-sistema-ia.png" alt="General anatomy of an AI system">
+              <figcaption>Figure 4. General anatomy of an AI system using the OECD definition and the agent perspective.</figcaption>
+            </figure>
+            <p>
+              The basic unit of analysis is not only the model: it is the cycle between
+              system, environment, and consequences. An agent perceives an environment
+              through sensors or inputs, processes information, and acts through
+              actuators or outputs. Its quality is evaluated with a performance measure.
+            </p>
+            <aside class="callout"><strong>PEAS.</strong> Russell and Norvig use Performance measure, Environment, Actuators, and Sensors to specify a task before choosing an algorithm.</aside>
+            <ol class="step-list">
+              <li>Define the problem precisely.</li>
+              <li>Define a performance measure.</li>
+              <li>Identify the environment.</li>
+              <li>Select relevant inputs.</li>
+              <li>Choose the inference mechanism.</li>
+              <li>Define the output and uncertainty.</li>
+              <li>Assign oversight and responsibility.</li>
+              <li>Observe effects and feed results back into the system.</li>
+            </ol>
+          </section>
+
+          <section class="lesson-section" id="problem-types">
+            <p class="eyebrow">6 | Output types</p>
+            <h2>Problems addressed by AI</h2>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Type</th><th>Question</th><th>Example</th><th>Output</th></tr></thead>
+                <tbody>
+                  <tr><td>Classification</td><td>Which category does it belong to?</td><td>Spam/not spam; defective/not defective.</td><td>Label or probability.</td></tr>
+                  <tr><td>Regression or estimation</td><td>What is the expected value?</td><td>Delivery time, demand, energy use.</td><td>Continuous number and uncertainty.</td></tr>
+                  <tr><td>Detection</td><td>Where is the object or event?</td><td>Lesion in an image; network intrusion.</td><td>Location, event, and confidence.</td></tr>
+                  <tr><td>Recommendation</td><td>Which option is relevant?</td><td>Course, movie, product, or care route.</td><td>Ranked list.</td></tr>
+                  <tr><td>Clustering</td><td>Which cases are similar without labels?</td><td>Customer segments or behavior patterns.</td><td>Groups and common features.</td></tr>
+                  <tr><td>Generation</td><td>What content can be produced from context?</td><td>Text, image, code, audio, or summary.</td><td>New content that must be validated.</td></tr>
+                  <tr><td>Decision and control</td><td>Which action should be taken?</td><td>Adjust a machine or prioritize an alert.</td><td>Suggested or executed action.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="applications">
+            <p class="eyebrow">7 | Real cases</p>
+            <h2>Applications in real problems</h2>
+            <div class="application-grid">
+              <article><h3>Health</h3><p>Diagnostic support, not automatic replacement. Main risks: false negatives, population bias, incomplete data, and excessive automation.</p></article>
+              <article><h3>Finance</h3><p>Fraud detection without unfairly blocking legitimate clients. Main risks: false positives, attacker adaptation, privacy, and indirect discrimination.</p></article>
+              <article><h3>Manufacturing</h3><p>Predictive maintenance and visual inspection. Main risks: miscalibrated sensors, line changes, and outdated historical data.</p></article>
+              <article><h3>Logistics</h3><p>Delivery-time estimation and resource coordination. Main risks: stale data, unforeseen conditions, and optimizing cost while ignoring safety or labor wellbeing.</p></article>
+            </div>
+            <aside class="callout"><strong>Guided example.</strong> A system with 95% accuracy may look excellent, but if 95% of cases are normal, a classifier that always answers "normal" also reaches 95%. Evaluation must consider sensitivity, specificity, prevalence, and error cost.</aside>
+          </section>
+
+          <section class="lesson-section" id="risks">
+            <p class="eyebrow">8 | Trust</p>
+            <h2>Capabilities, limits, and risks</h2>
+            <figure class="lesson-figure">
+              <img src="assets/desempeno-irregular.png" alt="Examples of uneven AI performance">
+              <figcaption>Figure 5. Examples of uneven performance reported in the AI Index 2026.</figcaption>
+            </figure>
+            <div class="concept-list">
+              <article><h3>Convincing but false answers</h3><p>Generative models produce plausible sequences, not guarantees of truth. They can invent references, mix facts, or answer confidently to a poor question.</p></article>
+              <article><h3>Bias and representation</h3><p>Systems learn from data produced by societies and institutions. Bias also appears through labels, variables, thresholds, and success measures.</p></article>
+              <article><h3>Privacy and security</h3><p>Data can reveal sensitive information. AI interfaces can expose confidential information through queries, logs, attacks, or misconfiguration.</p></article>
+              <article><h3>Overreliance</h3><p>Human oversight must be real: reviewers need time, information, authority, and capacity to contradict the system.</p></article>
+            </div>
+            <figure class="lesson-figure">
+              <img src="assets/nist-ai-rmf.png" alt="NIST AI RMF trustworthiness characteristics">
+              <figcaption>Figure 6. Trustworthiness characteristics from the NIST AI RMF 1.0.</figcaption>
+            </figure>
+          </section>
+
+          <section class="lesson-section" id="activity-en">
+            <p class="eyebrow">9 | Integrative activity</p>
+            <h2>Challenge: early academic-risk alert</h2>
+            <p>
+              In teams of three or four students, design a conceptual system to help
+              identify students who may require support. The task is not to program or
+              choose an algorithm; it is to define the problem, inputs, output, decision,
+              evaluation, and risks.
+            </p>
+            <div class="canvas-grid">
+              <span>Problem and goal</span><span>Users and affected people</span>
+              <span>Environment and constraints</span><span>Inputs and data quality</span>
+              <span>Inference mechanism</span><span>Output, uncertainty, and action</span>
+              <span>Performance metrics</span><span>Risks and possible harm</span>
+              <span>Human oversight</span><span>Feedback and monitoring</span>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="closing">
+            <p class="eyebrow">10 | Closing</p>
+            <h2>Check for understanding</h2>
+            <ul>
+              <li>AI studies and builds systems that infer how to produce outputs able to influence an environment.</li>
+              <li>Not all automatic software is AI; the difference is the type of inference, adaptation, data, and decision.</li>
+              <li>AI includes symbolic approaches, machine learning, deep learning, generation, and hybrid systems.</li>
+              <li>An agent is analyzed through goals, environment, sensors or inputs, actuators or outputs, and performance measure.</li>
+              <li>Technical competence can be uneven: strength in one test does not guarantee general understanding.</li>
+              <li>The value of a system also depends on oversight, privacy, fairness, safety, transparency, and monitoring.</li>
+            </ul>
+            <h3>Exit ticket</h3>
+            <ol>
+              <li>Explain in two sentences the difference between automation and artificial intelligence.</li>
+              <li>Select an everyday application and describe its inputs, output, and affected decision.</li>
+              <li>Mention one risk that cannot be solved only by increasing model accuracy.</li>
+            </ol>
+          </section>
+
+          <section class="lesson-section" id="references-en">
+            <p class="eyebrow">R | References</p>
+            <h2>Sources used</h2>
+            <ul class="reference-list">
+              <li>Autio, C., Schwartz, R., Dunietz, J., Jain, S., Stanley, M., Tabassi, E., Hall, P., & Roberts, K. (2024). Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile (NIST AI 600-1). https://doi.org/10.6028/NIST.AI.600-1</li>
+              <li>Bommasani, R., Hudson, D. A., Adeli, E., Altman, R., Arora, S., von Arx, S., et al. (2021). On the opportunities and risks of foundation models. https://doi.org/10.48550/arXiv.2108.07258</li>
+              <li>LeCun, Y., Bengio, Y., & Hinton, G. (2015). Deep learning. Nature, 521, 436-444. https://doi.org/10.1038/nature14539</li>
+              <li>McCarthy, J., Minsky, M. L., Rochester, N., & Shannon, C. E. (2006). A proposal for the Dartmouth Summer Research Project on Artificial Intelligence, August 31, 1955. https://doi.org/10.1609/aimag.v27i4.1904</li>
+              <li>Miao, F., & Holmes, W. (2023). Guidance for generative AI in education and research. UNESCO. https://unesdoc.unesco.org/ark:/48223/pf0000386693</li>
+              <li>National Institute of Standards and Technology. (2023). Artificial Intelligence Risk Management Framework (AI RMF 1.0). https://doi.org/10.6028/NIST.AI.100-1</li>
+              <li>OECD. (2024). Explanatory memorandum on the updated OECD definition of an AI system. https://oecd.ai/en/ai-publications/explanatory-memorandum-on-the-updated-oecd-definition-of-an-ai-system</li>
+              <li>Russell, S. J., & Norvig, P. (2021). Artificial intelligence: a modern approach (4th ed.). Pearson.</li>
+              <li>Stanford Institute for Human-Centered Artificial Intelligence. (2026). AI Index Report 2026. Stanford University. https://hai.stanford.edu/ai-index/2026-ai-index-report</li>
+              <li>Turing, A. M. (1950). Computing machinery and intelligence. Mind, 59(236), 433-460. https://doi.org/10.1093/mind/LIX.236.433</li>
+              <li>Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, L., & Polosukhin, I. (2017). Attention is all you need. Advances in Neural Information Processing Systems, 30.</li>
+              <li>Universidad Santo Tomas, Seccional Tunja. (2026). Syllabus de Electiva I Profundizacion: Inteligencia Artificial [Internal document].</li>
+            </ul>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span data-lesson-i18n="footerText">Class 01 | Artificial Intelligence</span>
+      <a href="#top" data-lesson-i18n="backTop">Back to top</a>
+    </footer>
+    <script src="lesson.js?v=clase-01-20260806"></script>
+  </body>
+</html>

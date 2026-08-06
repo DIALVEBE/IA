@@ -655,6 +655,7 @@ const VERSION = "genai-layout-20260802";
 const ui = {
   en: {
     navTopics: "Topics",
+    navSessions: "Sessions",
     courseLabel: "Course notebook",
     heroTitle: "Artificial Intelligence",
     heroText:
@@ -672,6 +673,13 @@ const ui = {
     topicsLabel: "Course modules",
     topicsTitle: "Student notebook",
     indexTitle: "Jump to",
+    sessionsLabel: "Weekly notebook",
+    sessionsTitle: "Class sessions",
+    session01Kicker: "Class 01",
+    session01Title: "Introduction to Artificial Intelligence",
+    session01Text:
+      "A 120-minute teaching guide with definitions, diagnostic checks, agents, applications, risks, an integrative activity, exit ticket, and references.",
+    openSession: "Open class",
     footerText: "Artificial Intelligence course notebook",
     labels: {
       keyIdeas: "Key ideas",
@@ -680,6 +688,7 @@ const ui = {
   },
   es: {
     navTopics: "Temas",
+    navSessions: "Sesiones",
     courseLabel: "Cuaderno del curso",
     heroTitle: "Inteligencia artificial",
     heroText:
@@ -697,6 +706,13 @@ const ui = {
     topicsLabel: "Módulos del curso",
     topicsTitle: "Cuaderno del estudiante",
     indexTitle: "Ir a",
+    sessionsLabel: "Cuaderno semanal",
+    sessionsTitle: "Sesiones de clase",
+    session01Kicker: "Clase 01",
+    session01Title: "Introducción a la inteligencia artificial",
+    session01Text:
+      "Guía docente de 120 minutos con definiciones, diagnóstico, agentes, aplicaciones, riesgos, actividad integradora, ticket de salida y referencias.",
+    openSession: "Abrir clase",
     footerText: "Cuaderno del curso de inteligencia artificial",
     labels: {
       keyIdeas: "Ideas clave",
