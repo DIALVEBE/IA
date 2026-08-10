@@ -678,7 +678,7 @@ const ui = {
     session01Kicker: "Class 01",
     session01Title: "Introduction to Artificial Intelligence",
     session01Text:
-      "A 120-minute teaching guide with definitions, diagnostic checks, agents, applications, risks, an integrative activity, exit ticket, and references.",
+      "Definitions, diagnostic checks, intelligent agents, applications, risks, an integrative activity, and references.",
     openSession: "Open class",
     footerText: "Artificial Intelligence course notebook",
     labels: {
@@ -711,7 +711,7 @@ const ui = {
     session01Kicker: "Clase 01",
     session01Title: "Introducción a la inteligencia artificial",
     session01Text:
-      "Guía docente de 120 minutos con definiciones, diagnóstico, agentes, aplicaciones, riesgos, actividad integradora, ticket de salida y referencias.",
+      "Definiciones, diagnóstico, agentes inteligentes, aplicaciones, riesgos, actividad integradora y referencias.",
     openSession: "Abrir clase",
     footerText: "Cuaderno del curso de inteligencia artificial",
     labels: {

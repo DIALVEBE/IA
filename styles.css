@@ -744,7 +744,7 @@ th {
 
 .callout,
 .question,
-.teacher-note {
+.study-note {
   margin: 1rem 0;
   padding: 1rem;
   border-left: 0.24rem solid var(--cyan);
@@ -762,7 +762,7 @@ th {
   background: rgba(255, 209, 102, 0.08);
 }
 
-.teacher-note {
+.study-note {
   border-left-color: var(--lime);
   background: rgba(185, 255, 99, 0.07);
 }

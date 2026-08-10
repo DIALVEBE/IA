@@ -9,7 +9,6 @@ const lessonUi = {
       "Start by identifying what an AI system is, how it is structured, and how it differs from automation, traditional software, machine learning, and generative AI.",
     startClass: "Start class",
     routeTitle: "Route",
-    idxPurpose: "0. Purpose",
     idxOpening: "1. Opening",
     idxDefinition: "2. Definition",
     idxAutomation: "3. AI and automation",
@@ -39,7 +38,6 @@ const lessonUi = {
       "Comienza identificando qué es un sistema de IA, cómo se estructura y en qué se diferencia de la automatización, el software tradicional, el aprendizaje automático y la IA generativa.",
     startClass: "Empezar clase",
     routeTitle: "Ruta",
-    idxPurpose: "0. Propósito",
     idxOpening: "1. Apertura",
     idxDefinition: "2. Definición",
     idxAutomation: "3. IA y automatización",
@@ -63,7 +61,6 @@ const lessonUi = {
 
 const lessonAnchors = {
   en: {
-    purpose: "#purpose",
     opening: "#opening",
     definition: "#definition",
     automation: "#automation",
@@ -77,7 +74,6 @@ const lessonAnchors = {
     references: "#references-en"
   },
   es: {
-    purpose: "#proposito",
     opening: "#apertura",
     definition: "#definicion",
     automation: "#automatizacion",
