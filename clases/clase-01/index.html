@@ -72,7 +72,16 @@
         <div class="lesson-content" data-lang-only="es" hidden>
           <section class="lesson-section" id="apertura">
             <p class="eyebrow">1 | Apertura</p>
-            <h2>La IA ya forma parte del entorno</h2>
+            <h2>"ChatGPT no es inteligente"</h2>
+            <aside class="question"><strong>Pregunta inicial.</strong> ¿Qué argumentos permiten defender o rechazar esta afirmación?</aside>
+            <p>
+              La frase es provocadora porque obliga a separar una impresión de una
+              explicación. Un sistema puede producir respuestas convincentes, reconocer
+              patrones, generar contenido o tomar decisiones sin tener conciencia,
+              intención propia ni comprensión humana. Por eso la primera pregunta de la
+              clase no es "¿cuál es la definición de IA?", sino:
+            </p>
+            <aside class="callout"><strong>Pregunta central.</strong> ¿Cuándo podemos decir que un sistema realmente utiliza inteligencia artificial?</aside>
             <figure class="lesson-figure">
               <div class="lesson-diagram metric-diagram" role="img" aria-label="Indicadores recientes de adopción y capacidades de IA">
                 <span><strong>53%</strong> adopción GenAI</span>
@@ -99,22 +108,25 @@
               fortalezas extraordinarias y fallos elementales puede entenderse como
               inteligencia irregular.
             </p>
-            <aside class="question"><strong>Pregunta.</strong> ¿Qué tarea realizada hoy por una aplicación te parece inteligente y cuál es la evidencia de que realmente utiliza IA?</aside>
-            <p class="study-note">Para pensar: observa los criterios que aparecen en las respuestas: aprende, predice, genera, se adapta, toma decisiones, imita al humano o funciona de forma automática. Los vas a contrastar en esta clase.</p>
             <h3>Diagnóstico rápido: ¿es IA?</h3>
             <div class="table-wrap">
               <table>
-                <thead><tr><th>Caso</th><th>Clasificación inicial</th><th>Justificación</th></tr></thead>
+                <thead><tr><th>Caso</th><th>Clasificación posible</th><th>Criterio para discutir</th></tr></thead>
                 <tbody>
                   <tr><td>Una calculadora suma dos números.</td><td>No necesariamente.</td><td>Ejecuta reglas deterministas; no necesita inferir patrones ni adaptarse.</td></tr>
+                  <tr><td>Un semáforo cambia cada 45 segundos.</td><td>Automatización.</td><td>Sigue una secuencia fija; no observa el estado real del tráfico.</td></tr>
                   <tr><td>Un correo se envía automáticamente al completar un formulario.</td><td>Automatización.</td><td>La acción está predefinida por una condición explícita.</td></tr>
                   <tr><td>Un filtro clasifica correo como spam utilizando ejemplos históricos.</td><td>Sí, aprendizaje automático.</td><td>Infiere patrones a partir de datos etiquetados.</td></tr>
+                  <tr><td>Una plataforma recomienda una serie o una película.</td><td>Probablemente IA.</td><td>Ordena opciones a partir de señales de comportamiento y similitud.</td></tr>
+                  <tr><td>Un sistema de navegación recalcula una ruta.</td><td>Probablemente IA o sistema algorítmico avanzado.</td><td>Estima estados, costos y alternativas; puede combinar búsqueda, datos y predicción.</td></tr>
+                  <tr><td>Un sistema aprueba o rechaza una solicitud de crédito.</td><td>Depende del mecanismo.</td><td>Puede ser una regla fija o un modelo que estima riesgo a partir de datos.</td></tr>
+                  <tr><td>Un NPC de videojuego persigue al jugador.</td><td>Puede ser IA simbólica o basada en búsqueda.</td><td>El comportamiento puede surgir de estados, reglas, rutas o decisiones.</td></tr>
                   <tr><td>Un chatbot genera una respuesta coherente a una pregunta nueva.</td><td>Sí, IA generativa.</td><td>Produce contenido mediante un modelo que estima secuencias plausibles.</td></tr>
-                  <tr><td>Un termostato se enciende cuando la temperatura baja de 18 °C.</td><td>Control automático.</td><td>Puede funcionar con una regla fija sin aprendizaje ni inferencia compleja.</td></tr>
-                  <tr><td>Una plataforma recomienda cursos según el historial del estudiante.</td><td>Probablemente IA.</td><td>Utiliza señales del usuario para estimar relevancia o afinidad.</td></tr>
+                  <tr><td>Una voz sintética lee un texto con entonación natural.</td><td>Probablemente IA generativa o modelo de voz.</td><td>Convierte texto en audio con patrones aprendidos del habla.</td></tr>
                 </tbody>
               </table>
             </div>
+            <p class="study-note">Para pensar: los criterios que aparecen con frecuencia son aprendizaje, reglas, predicción, generación, reconocimiento, adaptación, autonomía y efecto sobre una decisión.</p>
           </section>
 
           <section class="lesson-section" id="definicion">
@@ -178,10 +190,30 @@
               <article><h3>Software tradicional</h3><p>Una persona define reglas y procedimientos explícitos. El computador ejecuta instrucciones sobre entradas conocidas. Calcular el impuesto de una factura puede expresarse mediante una fórmula precisa.</p></article>
               <article><h3>Automatización</h3><p>Automatizar significa ejecutar una tarea con poca intervención humana. Puede ser simple o sofisticada, pero no requiere necesariamente IA.</p></article>
               <article><h3>IA simbólica</h3><p>Representa conocimiento mediante símbolos, hechos, reglas y relaciones. Es explícita y verificable, pero puede ser frágil cuando aumentan excepciones o variabilidad.</p></article>
+              <article><h3>Búsqueda y planificación</h3><p>Explora estados y acciones posibles para encontrar una secuencia que acerque al sistema a su objetivo. Aparece en rutas, juegos, robótica y toma de decisiones.</p></article>
               <article><h3>Aprendizaje automático</h3><p>El programador define representación, objetivo y procedimiento para ajustar un modelo a partir de datos. El resultado es probabilístico y puede cambiar con nuevos datos.</p></article>
               <article><h3>Aprendizaje profundo</h3><p>Utiliza redes neuronales con múltiples capas para aprender representaciones jerárquicas; ha transformado visión, voz y lenguaje.</p></article>
               <article><h3>IA generativa</h3><p>Produce texto, imágenes, audio, video o código a partir de patrones aprendidos. La fluidez no garantiza exactitud.</p></article>
             </div>
+            <h3>IA, ML, DL y GenAI</h3>
+            <p>
+              El aprendizaje automático es una parte de la inteligencia artificial, no
+              toda la inteligencia artificial. El aprendizaje profundo es una parte del
+              aprendizaje automático. La IA generativa utiliza modelos capaces de
+              producir contenido nuevo, pero no representa todos los enfoques de IA.
+            </p>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Relación</th><th>Idea clave</th><th>Ejemplo</th></tr></thead>
+                <tbody>
+                  <tr><td>IA</td><td>Campo amplio sobre sistemas que perciben, infieren, deciden, recomiendan, generan o actúan.</td><td>Planeación de rutas, sistemas expertos, robots, recomendadores, modelos generativos.</td></tr>
+                  <tr><td>Machine Learning</td><td>Subcampo en el que el sistema ajusta su comportamiento a partir de datos.</td><td>Filtro antispam entrenado con correos etiquetados.</td></tr>
+                  <tr><td>Deep Learning</td><td>Subcampo de ML basado en redes neuronales profundas.</td><td>Reconocimiento de imágenes o voz.</td></tr>
+                  <tr><td>IA generativa</td><td>Familia de modelos que produce texto, imagen, audio, video o código.</td><td>ChatGPT, generadores de imágenes o asistentes de código.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <aside class="question"><strong>Pregunta.</strong> Pac-Man fue publicado en 1980. ¿Los fantasmas podían tener IA aunque no existieran ChatGPT, deep learning ni modelos generativos?</aside>
             <h3>Comparación paso a paso: solicitudes estudiantiles</h3>
             <div class="table-wrap">
               <table>
@@ -267,7 +299,21 @@
             </p>
             <div class="table-wrap">
               <table>
-                <caption>Ejemplo 2: alerta de riesgo de deserción</caption>
+                <caption>Ejemplo 2: reducción de congestión vehicular</caption>
+                <thead><tr><th>Elemento</th><th>Descripción</th></tr></thead>
+                <tbody>
+                  <tr><td>Objetivo</td><td>Reducir tiempos de espera y evitar congestión en intersecciones críticas.</td></tr>
+                  <tr><td>Entradas</td><td>Cámaras, sensores, hora, velocidad promedio, filas de vehículos y eventos cercanos.</td></tr>
+                  <tr><td>Inferencia</td><td>Estimar el estado actual del tráfico, anticipar flujo probable y comparar acciones posibles.</td></tr>
+                  <tr><td>Salida</td><td>Predicción de congestión, recomendación de ajuste o cambio de fases semafóricas.</td></tr>
+                  <tr><td>Acción</td><td>Modificar tiempos, informar rutas alternas o priorizar ciertos corredores.</td></tr>
+                  <tr><td>Retroalimentación</td><td>Medir si la acción redujo espera, bloqueos, incidentes y efectos no deseados.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <caption>Ejemplo 3: alerta de riesgo de deserción</caption>
                 <thead><tr><th>Elemento</th><th>Descripción y pregunta crítica</th></tr></thead>
                 <tbody>
                   <tr><td>Objetivo</td><td>Identificar estudiantes que podrían necesitar apoyo temprano. ¿Es para ayudar o sancionar?</td></tr>
@@ -381,27 +427,33 @@
 
           <section class="lesson-section" id="actividad">
             <p class="eyebrow">9 | Actividad integradora</p>
-            <h2>Reto: alerta temprana de riesgo académico</h2>
+            <h2>Reto: diseñar una IA sin programar</h2>
             <p>
-              En equipos de tres o cuatro estudiantes, diseñen conceptualmente un
-              sistema que ayude a identificar estudiantes que podrían requerir
-              acompañamiento. La tarea no consiste en programar ni escoger algoritmo:
-              consiste en definir problema, entradas, salida, decisión, evaluación y riesgos.
+              El reto consiste en diseñar conceptualmente un sistema de IA para un
+              problema real. En esta etapa no se elige un modelo ni se escribe código:
+              primero se entiende el problema, la información disponible, la salida
+              esperada, la decisión afectada y las consecuencias posibles.
             </p>
+            <div class="application-grid">
+              <article><h3>Salud</h3><p>Priorizar casos, apoyar diagnóstico o detectar señales tempranas sin sustituir el juicio clínico.</p></article>
+              <article><h3>Finanzas</h3><p>Detectar fraude, estimar riesgo o recomendar acciones sin discriminar ni bloquear injustamente.</p></article>
+              <article><h3>Manufactura</h3><p>Anticipar fallas, inspeccionar calidad o ajustar operación a partir de sensores y datos históricos.</p></article>
+              <article><h3>Logística</h3><p>Estimar tiempos, asignar recursos o sugerir rutas considerando seguridad, costo y condiciones cambiantes.</p></article>
+            </div>
             <div class="table-wrap">
               <table>
                 <thead><tr><th>Paso</th><th>Pregunta</th><th>Ejemplo de respuesta</th></tr></thead>
                 <tbody>
-                  <tr><td>1. Problema</td><td>¿Qué situación concreta se quiere mejorar?</td><td>Detectar señales tempranas de dificultad antes del abandono.</td></tr>
-                  <tr><td>2. Objetivo</td><td>¿Qué resultado valioso se espera?</td><td>Activar apoyo oportuno, no etiquetar ni sancionar.</td></tr>
-                  <tr><td>3. Usuarios</td><td>¿Quién utiliza la salida y quién resulta afectado?</td><td>Bienestar, profesores, estudiante y coordinación académica.</td></tr>
-                  <tr><td>4. Entradas</td><td>¿Qué datos son pertinentes y legítimos?</td><td>Asistencia, notas, entregas y solicitud voluntaria de apoyo.</td></tr>
-                  <tr><td>5. Inferencia</td><td>¿Reglas, modelo aprendido o combinación?</td><td>Modelo de riesgo complementado con reglas y revisión humana.</td></tr>
-                  <tr><td>6. Salida</td><td>¿Qué produce exactamente?</td><td>Nivel de riesgo, incertidumbre y factores contribuyentes.</td></tr>
-                  <tr><td>7. Acción</td><td>¿Qué ocurre después?</td><td>Contacto respetuoso, tutoría y validación de la situación.</td></tr>
-                  <tr><td>8. Evaluación</td><td>¿Cómo se sabrá si funciona?</td><td>Oportunidad del apoyo, falsos positivos, cobertura, equidad y satisfacción.</td></tr>
-                  <tr><td>9. Riesgos</td><td>¿Qué daño podría causar?</td><td>Estigmatización, privacidad, errores o uso sancionatorio.</td></tr>
-                  <tr><td>10. Supervisión</td><td>¿Quién puede corregir o detener el sistema?</td><td>Comité responsable con trazabilidad, revisión y canal de apelación.</td></tr>
+                  <tr><td>1. Problema</td><td>¿Qué situación concreta se quiere mejorar?</td><td>Reducir tiempos de espera, detectar fraude, priorizar casos o anticipar fallas.</td></tr>
+                  <tr><td>2. Objetivo</td><td>¿Qué resultado valioso se espera?</td><td>Tomar mejores decisiones con menos daño y más oportunidad.</td></tr>
+                  <tr><td>3. Usuarios</td><td>¿Quién utiliza la salida y quién resulta afectado?</td><td>Personas operadoras, clientes, pacientes, equipos técnicos o ciudadanía.</td></tr>
+                  <tr><td>4. Entradas</td><td>¿Qué datos son pertinentes y legítimos?</td><td>Registros, sensores, imágenes, eventos, solicitudes o historial autorizado.</td></tr>
+                  <tr><td>5. Inferencia</td><td>¿Qué debería estimar, clasificar, recomendar, generar o decidir?</td><td>Riesgo, categoría, prioridad, anomalía, ruta o contenido sugerido.</td></tr>
+                  <tr><td>6. Salida</td><td>¿Qué produce exactamente?</td><td>Etiqueta, probabilidad, ranking, alerta, recomendación o acción sugerida.</td></tr>
+                  <tr><td>7. Acción</td><td>¿Qué ocurre después?</td><td>Una persona valida, ajusta, aprueba, rechaza o ejecuta una intervención.</td></tr>
+                  <tr><td>8. Evaluación</td><td>¿Cómo se sabrá si funciona?</td><td>Precisión, reducción de errores, oportunidad, equidad, seguridad y satisfacción.</td></tr>
+                  <tr><td>9. Riesgos</td><td>¿Qué daño podría causar?</td><td>Falsos positivos, falsos negativos, sesgo, privacidad, dependencia o uso indebido.</td></tr>
+                  <tr><td>10. Supervisión</td><td>¿Quién puede corregir o detener el sistema?</td><td>Responsables con trazabilidad, revisión humana y canales de apelación.</td></tr>
                 </tbody>
               </table>
             </div>
@@ -436,10 +488,11 @@
             </ul>
             <h3>Ticket de salida</h3>
             <ol>
-              <li>Explique en dos frases la diferencia entre automatización e inteligencia artificial.</li>
-              <li>Seleccione una aplicación cotidiana y describa sus entradas, salida y decisión afectada.</li>
-              <li>Mencione un riesgo que no se resuelva únicamente aumentando la precisión del modelo.</li>
+              <li>Antes pensaba que la inteligencia artificial era...</li>
+              <li>Ahora considero que un sistema puede llamarse IA cuando...</li>
+              <li>Todavía no tengo claro...</li>
             </ol>
+            <aside class="question"><strong>Pregunta final.</strong> Después de esta clase, ¿mantienes tu posición inicial sobre la frase "ChatGPT no es inteligente"? Justifica el criterio que usarías para defender tu respuesta.</aside>
             <aside class="callout"><strong>Conexión con la siguiente semana.</strong> Cuando un agente tiene múltiples acciones posibles, ¿cómo puede identificar una secuencia que lo acerque a su objetivo? Esa pregunta dará paso al estudio formal de problemas y métodos de búsqueda.</aside>
           </section>
 
@@ -465,7 +518,17 @@
         <div class="lesson-content" data-lang-only="en">
           <section class="lesson-section" id="opening">
             <p class="eyebrow">1 | Opening</p>
-            <h2>AI is already part of the environment</h2>
+            <h2>"ChatGPT is not intelligent"</h2>
+            <aside class="question"><strong>Opening question.</strong> What arguments can defend or challenge this statement?</aside>
+            <p>
+              The sentence is useful because it forces a distinction between an
+              impression and an explanation. A system can produce convincing answers,
+              recognize patterns, generate content, or affect decisions without having
+              consciousness, its own intention, or human understanding. The first
+              question of the class is therefore not "what is the definition of AI?",
+              but:
+            </p>
+            <aside class="callout"><strong>Central question.</strong> When can we say that a system really uses artificial intelligence?</aside>
             <figure class="lesson-figure">
               <div class="lesson-diagram metric-diagram" role="img" aria-label="Recent indicators of AI adoption and capabilities">
                 <span><strong>53%</strong> GenAI adoption</span>
@@ -490,21 +553,25 @@
               This mix of extraordinary strengths and elementary failures can be read
               as uneven intelligence.
             </p>
-            <aside class="question"><strong>Question.</strong> What task performed today by an application seems intelligent to you, and what evidence shows that it really uses AI?</aside>
             <h3>Quick diagnostic: is it AI?</h3>
             <div class="table-wrap">
               <table>
-                <thead><tr><th>Case</th><th>Initial classification</th><th>Justification</th></tr></thead>
+                <thead><tr><th>Case</th><th>Possible classification</th><th>Criterion to discuss</th></tr></thead>
                 <tbody>
                   <tr><td>A calculator adds two numbers.</td><td>Not necessarily.</td><td>It executes deterministic rules and does not need pattern inference or adaptation.</td></tr>
+                  <tr><td>A traffic light changes every 45 seconds.</td><td>Automation.</td><td>It follows a fixed sequence and does not observe the real traffic state.</td></tr>
                   <tr><td>An email is sent automatically after a form is completed.</td><td>Automation.</td><td>The action is predefined by an explicit condition.</td></tr>
                   <tr><td>A filter classifies email as spam using historical examples.</td><td>Yes, machine learning.</td><td>It infers patterns from labeled data.</td></tr>
+                  <tr><td>A platform recommends a series or a movie.</td><td>Probably AI.</td><td>It ranks options using behavior signals and similarity.</td></tr>
+                  <tr><td>A navigation system recalculates a route.</td><td>Probably AI or an advanced algorithmic system.</td><td>It estimates states, costs, and alternatives; it may combine search, data, and prediction.</td></tr>
+                  <tr><td>A system approves or rejects a credit application.</td><td>It depends on the mechanism.</td><td>It may be a fixed rule or a model that estimates risk from data.</td></tr>
+                  <tr><td>A video-game NPC chases the player.</td><td>It may be symbolic or search-based AI.</td><td>The behavior may come from states, rules, paths, or decisions.</td></tr>
                   <tr><td>A chatbot generates a coherent response to a new question.</td><td>Yes, generative AI.</td><td>It produces content through a model that estimates plausible sequences.</td></tr>
-                  <tr><td>A thermostat turns on when temperature drops below 18 °C.</td><td>Automatic control.</td><td>It can work with a fixed rule without learning or complex inference.</td></tr>
-                  <tr><td>A platform recommends courses based on student history.</td><td>Probably AI.</td><td>It uses user signals to estimate relevance or affinity.</td></tr>
+                  <tr><td>A synthetic voice reads text with natural intonation.</td><td>Probably generative AI or a voice model.</td><td>It converts text into audio using learned speech patterns.</td></tr>
                 </tbody>
               </table>
             </div>
+            <p class="study-note">Useful criteria include learning, rules, prediction, generation, recognition, adaptation, autonomy, and effects on a decision.</p>
           </section>
 
           <section class="lesson-section" id="definition">
@@ -550,10 +617,30 @@
               <article><h3>Traditional software</h3><p>A person defines explicit rules and procedures. The computer executes those instructions over known inputs.</p></article>
               <article><h3>Automation</h3><p>Automation means performing a task with little human intervention. It can be simple or sophisticated, but it does not necessarily require AI.</p></article>
               <article><h3>Symbolic AI</h3><p>Represents knowledge through symbols, facts, rules, and relationships. It is explicit and verifiable, but can be fragile with many exceptions.</p></article>
+              <article><h3>Search and planning</h3><p>Explores possible states and actions to find a sequence that moves the system toward its goal. It appears in routes, games, robotics, and decision-making.</p></article>
               <article><h3>Machine learning</h3><p>The programmer defines a representation, a learning objective, and a procedure to fit a model from data.</p></article>
               <article><h3>Deep learning</h3><p>Uses multilayer neural networks to learn hierarchical representations, especially in vision, speech, and language.</p></article>
               <article><h3>Generative AI</h3><p>Produces new text, images, audio, video, or code from learned patterns. Fluency does not guarantee accuracy.</p></article>
             </div>
+            <h3>AI, ML, DL, and GenAI</h3>
+            <p>
+              Machine learning is part of artificial intelligence, not all of artificial
+              intelligence. Deep learning is part of machine learning. Generative AI
+              uses models capable of producing new content, but it does not represent
+              every AI approach.
+            </p>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Relationship</th><th>Key idea</th><th>Example</th></tr></thead>
+                <tbody>
+                  <tr><td>AI</td><td>Broad field about systems that perceive, infer, decide, recommend, generate, or act.</td><td>Route planning, expert systems, robots, recommenders, generative models.</td></tr>
+                  <tr><td>Machine learning</td><td>Subfield where the system adjusts behavior from data.</td><td>Spam filter trained with labeled emails.</td></tr>
+                  <tr><td>Deep learning</td><td>ML subfield based on deep neural networks.</td><td>Image or speech recognition.</td></tr>
+                  <tr><td>Generative AI</td><td>Model family that produces text, image, audio, video, or code.</td><td>ChatGPT, image generators, or code assistants.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <aside class="question"><strong>Question.</strong> Pac-Man was released in 1980. Could the ghosts have AI even though ChatGPT, deep learning, and generative models did not exist?</aside>
             <aside class="callout"><strong>Practical rule.</strong> Do not ask only "does it use AI?". Ask: what part infers, learns, generates, or affects a decision, and what evidence lets us evaluate its performance?</aside>
           </section>
 
@@ -602,6 +689,20 @@
               actuators or outputs. Its quality is evaluated with a performance measure.
             </p>
             <aside class="callout"><strong>PEAS.</strong> Russell and Norvig use Performance measure, Environment, Actuators, and Sensors to specify a task before choosing an algorithm.</aside>
+            <div class="table-wrap">
+              <table>
+                <caption>Example: reducing traffic congestion</caption>
+                <thead><tr><th>Element</th><th>Description</th></tr></thead>
+                <tbody>
+                  <tr><td>Goal</td><td>Reduce waiting times and avoid congestion at critical intersections.</td></tr>
+                  <tr><td>Inputs</td><td>Cameras, sensors, time of day, average speed, vehicle queues, and nearby events.</td></tr>
+                  <tr><td>Inference</td><td>Estimate the current traffic state, anticipate likely flow, and compare possible actions.</td></tr>
+                  <tr><td>Output</td><td>Congestion prediction, adjustment recommendation, or traffic-light phase change.</td></tr>
+                  <tr><td>Action</td><td>Modify timings, report alternative routes, or prioritize certain corridors.</td></tr>
+                  <tr><td>Feedback</td><td>Measure whether the action reduced waiting, blockages, incidents, and unwanted effects.</td></tr>
+                </tbody>
+              </table>
+            </div>
             <ol class="step-list">
               <li>Define the problem precisely.</li>
               <li>Define a performance measure.</li>
@@ -679,13 +780,36 @@
 
           <section class="lesson-section" id="activity-en">
             <p class="eyebrow">9 | Integrative activity</p>
-            <h2>Challenge: early academic-risk alert</h2>
+            <h2>Challenge: design AI without programming</h2>
             <p>
-              In teams of three or four students, design a conceptual system to help
-              identify students who may require support. The task is not to program or
-              choose an algorithm; it is to define the problem, inputs, output, decision,
-              evaluation, and risks.
+              The challenge is to conceptually design an AI system for a real problem.
+              At this stage, do not choose a model or write code: first understand the
+              problem, the available information, the expected output, the affected
+              decision, and the possible consequences.
             </p>
+            <div class="application-grid">
+              <article><h3>Health</h3><p>Prioritize cases, support diagnosis, or detect early signals without replacing clinical judgment.</p></article>
+              <article><h3>Finance</h3><p>Detect fraud, estimate risk, or recommend actions without discriminating or unfairly blocking people.</p></article>
+              <article><h3>Manufacturing</h3><p>Anticipate failures, inspect quality, or adjust operation from sensors and historical data.</p></article>
+              <article><h3>Logistics</h3><p>Estimate times, allocate resources, or suggest routes while considering safety, cost, and changing conditions.</p></article>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Step</th><th>Question</th><th>Example answer</th></tr></thead>
+                <tbody>
+                  <tr><td>1. Problem</td><td>What concrete situation should improve?</td><td>Reduce waiting time, detect fraud, prioritize cases, or anticipate failures.</td></tr>
+                  <tr><td>2. Goal</td><td>What valuable result is expected?</td><td>Make better decisions with less harm and better timing.</td></tr>
+                  <tr><td>3. Users</td><td>Who uses the output and who is affected?</td><td>Operators, clients, patients, technical teams, or citizens.</td></tr>
+                  <tr><td>4. Inputs</td><td>Which data are relevant and legitimate?</td><td>Records, sensors, images, events, requests, or authorized history.</td></tr>
+                  <tr><td>5. Inference</td><td>What should the system estimate, classify, recommend, generate, or decide?</td><td>Risk, category, priority, anomaly, route, or suggested content.</td></tr>
+                  <tr><td>6. Output</td><td>What exactly does it produce?</td><td>Label, probability, ranking, alert, recommendation, or suggested action.</td></tr>
+                  <tr><td>7. Action</td><td>What happens next?</td><td>A person validates, adjusts, approves, rejects, or executes an intervention.</td></tr>
+                  <tr><td>8. Evaluation</td><td>How will we know whether it works?</td><td>Accuracy, error reduction, timing, fairness, safety, and satisfaction.</td></tr>
+                  <tr><td>9. Risks</td><td>What harm could it cause?</td><td>False positives, false negatives, bias, privacy issues, dependence, or misuse.</td></tr>
+                  <tr><td>10. Oversight</td><td>Who can correct or stop the system?</td><td>Responsible people with traceability, human review, and appeal channels.</td></tr>
+                </tbody>
+              </table>
+            </div>
             <div class="canvas-grid">
               <span>Problem and goal</span><span>Users and affected people</span>
               <span>Environment and constraints</span><span>Inputs and data quality</span>
@@ -708,10 +832,11 @@
             </ul>
             <h3>Exit ticket</h3>
             <ol>
-              <li>Explain in two sentences the difference between automation and artificial intelligence.</li>
-              <li>Select an everyday application and describe its inputs, output, and affected decision.</li>
-              <li>Mention one risk that cannot be solved only by increasing model accuracy.</li>
+              <li>Before, I thought artificial intelligence was...</li>
+              <li>Now I consider that a system can be called AI when...</li>
+              <li>I am still not clear about...</li>
             </ol>
+            <aside class="question"><strong>Final question.</strong> After this class, do you keep your initial position about the statement "ChatGPT is not intelligent"? Justify the criterion you would use to defend your answer.</aside>
           </section>
 
           <section class="lesson-section" id="references-en">
