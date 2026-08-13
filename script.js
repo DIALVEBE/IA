@@ -679,6 +679,10 @@ const ui = {
     session01Title: "Introduction to Artificial Intelligence",
     session01Text:
       "Definitions, diagnostic checks, intelligent agents, applications, risks, an integrative activity, and references.",
+    session02Kicker: "Class 02",
+    session02Title: "Depth-First Search",
+    session02Text:
+      "Graph representation, search problems, DFS traversal, backtracking, stacks, visited nodes, and solution paths.",
     openSession: "Open class",
     footerText: "Artificial Intelligence course notebook",
     labels: {
@@ -712,6 +716,10 @@ const ui = {
     session01Title: "Introducción a la inteligencia artificial",
     session01Text:
       "Definiciones, diagnóstico, agentes inteligentes, aplicaciones, riesgos, actividad integradora y referencias.",
+    session02Kicker: "Clase 02",
+    session02Title: "Búsqueda en profundidad",
+    session02Text:
+      "Representación con grafos, problemas de búsqueda, recorrido DFS, retroceso, pila, nodos visitados y caminos solución.",
     openSession: "Abrir clase",
     footerText: "Cuaderno del curso de inteligencia artificial",
     labels: {

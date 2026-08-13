@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="Clase 02 de Inteligencia Artificial: búsqueda en grafos y búsqueda en profundidad DFS."
+    >
+    <title>Clase 02 | Búsqueda en profundidad DFS</title>
+    <link rel="stylesheet" href="../../styles.css?v=dfs-graphs-responsive-20260812">
+  </head>
+  <body class="lesson-page">
+    <header class="site-header">
+      <a class="brand" href="../../" aria-label="Volver al notebook de IA">
+        <span class="brand-mark">AI</span>
+        <span>Inteligencia Artificial</span>
+      </a>
+      <nav class="top-nav" aria-label="Navegación de la clase">
+        <a href="#ruta" data-lesson-i18n="navRoute">Route</a>
+        <a href="#actividad" data-lesson-nav="activity" data-lesson-i18n="navActivity">Activity</a>
+        <a href="#referencias" data-lesson-nav="references" data-lesson-i18n="navReferences">References</a>
+        <a class="repo-link" href="https://github.com/DIALVEBE/IA" rel="noreferrer">GitHub</a>
+      </nav>
+      <div class="language-switch" role="group" aria-label="Language switch">
+        <button class="lang-button is-active" type="button" data-lang="en">EN</button>
+        <button class="lang-button" type="button" data-lang="es">ES</button>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="lesson-hero">
+        <div class="hero-copy">
+          <p class="eyebrow" data-lesson-i18n="heroKicker">Search | Week 2</p>
+          <h1 data-lesson-i18n="heroTitle">Depth-First Search</h1>
+          <p class="hero-text" data-lesson-i18n="heroText">
+            Model a problem as a graph, explore one branch as deeply as possible,
+            backtrack when needed, and distinguish the exploration order from the
+            solution path.
+          </p>
+          <div class="hero-actions">
+            <a class="primary-action" href="#ruta" data-lesson-i18n="startClass">Start class</a>
+          </div>
+        </div>
+        <figure class="lesson-hero-visual">
+          <div class="dfs-hero-graph" aria-label="Depth-first search route">
+            <svg viewBox="0 0 640 420" role="img">
+              <path class="graph-edge" d="M320 55 L170 145 M320 55 L320 145 M320 55 L470 145 M170 145 L95 235 M170 145 L245 235 M245 235 L205 325 M245 235 L290 325 M290 325 L320 385"></path>
+              <path class="graph-path" d="M320 55 L170 145 L245 235 L290 325 L320 385"></path>
+              <g class="graph-node start"><circle cx="320" cy="55" r="30"></circle><text x="320" y="62">A</text></g>
+              <g class="graph-node"><circle cx="170" cy="145" r="28"></circle><text x="170" y="152">B</text></g>
+              <g class="graph-node"><circle cx="320" cy="145" r="28"></circle><text x="320" y="152">C</text></g>
+              <g class="graph-node"><circle cx="470" cy="145" r="28"></circle><text x="470" y="152">D</text></g>
+              <g class="graph-node"><circle cx="95" cy="235" r="26"></circle><text x="95" y="242">E</text></g>
+              <g class="graph-node"><circle cx="245" cy="235" r="26"></circle><text x="245" y="242">F</text></g>
+              <g class="graph-node"><circle cx="205" cy="325" r="24"></circle><text x="205" y="332">J</text></g>
+              <g class="graph-node"><circle cx="290" cy="325" r="24"></circle><text x="290" y="332">K</text></g>
+              <g class="graph-node goal"><circle cx="320" cy="385" r="24"></circle><text x="320" y="392">M</text></g>
+            </svg>
+          </div>
+        </figure>
+      </section>
+
+      <section class="lesson-shell" id="ruta">
+        <aside class="topic-index lesson-index" aria-label="Índice de clase">
+          <div class="index-title" data-lesson-i18n="routeTitle">Route</div>
+          <a href="#grafos" data-lesson-nav="graphs" data-lesson-i18n="idxGraphs">1. Graphs</a>
+          <a href="#problema" data-lesson-nav="problem" data-lesson-i18n="idxProblem">2. Search problem</a>
+          <a href="#dfs" data-lesson-nav="dfs" data-lesson-i18n="idxDfs">3. DFS</a>
+          <a href="#desempate" data-lesson-nav="tie" data-lesson-i18n="idxTie">4. Tie-break rule</a>
+          <a href="#ejemplo" data-lesson-nav="example" data-lesson-i18n="idxExample">5. Solved example</a>
+          <a href="#orden-camino" data-lesson-nav="path" data-lesson-i18n="idxPath">6. Order vs path</a>
+          <a href="#pila-visitados" data-lesson-nav="stack" data-lesson-i18n="idxStack">7. Stack and visited</a>
+          <a href="#limites" data-lesson-nav="limits" data-lesson-i18n="idxLimits">8. Limits</a>
+          <a href="#actividad" data-lesson-nav="activity" data-lesson-i18n="idxActivity">9. Activity</a>
+          <a href="#cierre" data-lesson-nav="closing" data-lesson-i18n="idxClosing">10. Closing</a>
+          <a href="#referencias" data-lesson-nav="references" data-lesson-i18n="idxReferences">R. References</a>
+        </aside>
+
+        <div class="lesson-content" data-lang-only="es" hidden>
+          <section class="lesson-section" id="grafos">
+            <p class="eyebrow">1 | Representación</p>
+            <h2>Búsqueda en grafos</h2>
+            <p>
+              En muchos problemas de inteligencia artificial es necesario encontrar una
+              forma de llegar desde un estado inicial hasta un estado objetivo. Una
+              manera natural de representar estos problemas es mediante grafos.
+            </p>
+            <aside class="callout"><strong>Definición.</strong> Un grafo se expresa como G = (V, E), donde V es el conjunto de vértices o nodos y E es el conjunto de aristas o conexiones entre nodos.</aside>
+            <figure class="lesson-figure">
+              <div class="graph-panel">
+                <svg class="graph-svg" viewBox="0 0 720 460" role="img" aria-label="Grafo de ejemplo para DFS">
+                  <path class="graph-edge" d="M360 50 L190 135 M360 50 L360 135 M360 50 L530 135 M190 135 L110 230 M190 135 L270 230 M360 135 L360 230 M530 135 L455 230 M530 135 L610 230 M270 230 L220 325 M270 230 L320 325 M455 230 L455 325 M320 325 L360 410"></path>
+                  <g class="graph-node start"><circle cx="360" cy="50" r="28"></circle><text x="360" y="57">A</text></g>
+                  <g class="graph-node"><circle cx="190" cy="135" r="26"></circle><text x="190" y="142">B</text></g>
+                  <g class="graph-node"><circle cx="360" cy="135" r="26"></circle><text x="360" y="142">C</text></g>
+                  <g class="graph-node"><circle cx="530" cy="135" r="26"></circle><text x="530" y="142">D</text></g>
+                  <g class="graph-node"><circle cx="110" cy="230" r="24"></circle><text x="110" y="237">E</text></g>
+                  <g class="graph-node"><circle cx="270" cy="230" r="24"></circle><text x="270" y="237">F</text></g>
+                  <g class="graph-node"><circle cx="360" cy="230" r="24"></circle><text x="360" y="237">G</text></g>
+                  <g class="graph-node"><circle cx="455" cy="230" r="24"></circle><text x="455" y="237">H</text></g>
+                  <g class="graph-node"><circle cx="610" cy="230" r="24"></circle><text x="610" y="237">I</text></g>
+                  <g class="graph-node"><circle cx="220" cy="325" r="22"></circle><text x="220" y="332">J</text></g>
+                  <g class="graph-node"><circle cx="320" cy="325" r="22"></circle><text x="320" y="332">K</text></g>
+                  <g class="graph-node"><circle cx="455" cy="325" r="22"></circle><text x="455" y="332">L</text></g>
+                  <g class="graph-node goal"><circle cx="360" cy="410" r="22"></circle><text x="360" y="417">M</text></g>
+                </svg>
+              </div>
+              <figcaption>Figura 1. Grafo de ejemplo: los nodos representan estados y las aristas representan movimientos posibles.</figcaption>
+            </figure>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Componente</th><th>Ejemplo</th><th>Interpretación</th></tr></thead>
+                <tbody>
+                  <tr><td>Vértices V</td><td>{A, B, C, D, E, F, G, H, I, J, K, L, M}</td><td>Estados posibles del problema.</td></tr>
+                  <tr><td>Aristas E</td><td>(A,B), (A,C), (A,D), (B,E), (B,F), (F,J), (F,K), (K,M)</td><td>Conexiones o transiciones entre estados.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="problema">
+            <p class="eyebrow">2 | Formulación</p>
+            <h2>Problema de búsqueda</h2>
+            <p>
+              Resolver un problema de búsqueda implica identificar el punto de partida,
+              el estado que se desea encontrar y las alternativas disponibles en cada
+              paso. En el grafo anterior, el problema puede formularse como encontrar
+              una secuencia de nodos desde A hasta M.
+            </p>
+            <div class="info-grid">
+              <article class="detail-card"><span class="label">Nodo inicial</span><p>Punto desde el cual comienza la búsqueda. En el ejemplo: A.</p></article>
+              <article class="detail-card"><span class="label">Nodo objetivo</span><p>Estado que se quiere encontrar. En el ejemplo: M.</p></article>
+              <article class="detail-card"><span class="label">Conexiones</span><p>Movimientos posibles entre estados.</p></article>
+              <article class="detail-card"><span class="label">Regla de selección</span><p>Criterio utilizado cuando existen varias alternativas.</p></article>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="dfs-es">
+            <p class="eyebrow">3 | Estrategia</p>
+            <h2>Depth-First Search</h2>
+            <p>
+              Depth-First Search, o búsqueda en profundidad, explora una rama del grafo
+              tan profundamente como sea posible antes de regresar y explorar otra
+              alternativa.
+            </p>
+            <figure class="lesson-figure">
+              <div class="lesson-diagram dfs-rule-diagram" role="img" aria-label="Regla conceptual de DFS">
+                <span>¿Puedo profundizar?</span>
+                <strong>Sí: avanzo</strong>
+                <strong>No: retrocedo</strong>
+                <span>Siguiente alternativa pendiente</span>
+              </div>
+              <figcaption>Figura 2. DFS no salta: profundiza o retrocede.</figcaption>
+            </figure>
+            <aside class="callout"><strong>Regla de oro.</strong> DFS no salta: profundiza o retrocede.</aside>
+          </section>
+
+          <section class="lesson-section" id="desempate">
+            <p class="eyebrow">4 | Selección</p>
+            <h2>Regla de desempate</h2>
+            <p>
+              DFS indica que se debe profundizar, pero no determina por sí mismo cuál
+              vecino seleccionar cuando existen varias opciones. Por eso se necesita
+              una regla explícita.
+            </p>
+            <figure class="lesson-figure">
+              <div class="graph-panel compact">
+                <svg class="graph-svg" viewBox="0 0 420 240" role="img" aria-label="Nodo A con tres alternativas">
+                  <path class="graph-edge" d="M210 55 L95 170 M210 55 L210 170 M210 55 L325 170"></path>
+                  <g class="graph-node start"><circle cx="210" cy="55" r="28"></circle><text x="210" y="62">A</text></g>
+                  <g class="graph-node"><circle cx="95" cy="170" r="26"></circle><text x="95" y="177">B</text></g>
+                  <g class="graph-node"><circle cx="210" cy="170" r="26"></circle><text x="210" y="177">C</text></g>
+                  <g class="graph-node"><circle cx="325" cy="170" r="26"></circle><text x="325" y="177">D</text></g>
+                </svg>
+              </div>
+              <figcaption>Figura 3. Con orden alfabético ascendente, DFS selecciona B antes que C y D.</figcaption>
+            </figure>
+            <aside class="study-note">La selección no ocurre porque un nodo esté dibujado a la izquierda, sino porque se definió una regla. En estos ejemplos se usa orden alfabético ascendente.</aside>
+          </section>
+
+          <section class="lesson-section" id="ejemplo">
+            <p class="eyebrow">5 | Ejemplo resuelto</p>
+            <h2>Encontrar M desde A</h2>
+            <p>
+              Con nodo inicial A, nodo objetivo M y orden alfabético ascendente, DFS
+              explora una rama hasta no poder continuar. Después retrocede hasta el
+              nodo más reciente con una alternativa pendiente.
+            </p>
+            <figure class="lesson-figure">
+              <div class="graph-panel">
+                <svg class="graph-svg" viewBox="0 0 720 460" role="img" aria-label="Orden de exploración DFS">
+                  <path class="graph-edge" d="M360 50 L190 135 M360 50 L360 135 M360 50 L530 135 M190 135 L110 230 M190 135 L270 230 M360 135 L360 230 M530 135 L455 230 M530 135 L610 230 M270 230 L220 325 M270 230 L320 325 M455 230 L455 325 M320 325 L360 410"></path>
+                  <path class="graph-path" d="M360 50 L190 135 L270 230 L320 325 L360 410"></path>
+                  <g class="graph-node visited"><circle cx="360" cy="50" r="28"></circle><text x="360" y="57">A</text></g>
+                  <g class="graph-node visited"><circle cx="190" cy="135" r="26"></circle><text x="190" y="142">B</text></g>
+                  <g class="graph-node"><circle cx="360" cy="135" r="26"></circle><text x="360" y="142">C</text></g>
+                  <g class="graph-node"><circle cx="530" cy="135" r="26"></circle><text x="530" y="142">D</text></g>
+                  <g class="graph-node dead"><circle cx="110" cy="230" r="24"></circle><text x="110" y="237">E</text></g>
+                  <g class="graph-node visited"><circle cx="270" cy="230" r="24"></circle><text x="270" y="237">F</text></g>
+                  <g class="graph-node"><circle cx="360" cy="230" r="24"></circle><text x="360" y="237">G</text></g>
+                  <g class="graph-node"><circle cx="455" cy="230" r="24"></circle><text x="455" y="237">H</text></g>
+                  <g class="graph-node"><circle cx="610" cy="230" r="24"></circle><text x="610" y="237">I</text></g>
+                  <g class="graph-node dead"><circle cx="220" cy="325" r="22"></circle><text x="220" y="332">J</text></g>
+                  <g class="graph-node visited"><circle cx="320" cy="325" r="22"></circle><text x="320" y="332">K</text></g>
+                  <g class="graph-node"><circle cx="455" cy="325" r="22"></circle><text x="455" y="332">L</text></g>
+                  <g class="graph-node goal"><circle cx="360" cy="410" r="22"></circle><text x="360" y="417">M</text></g>
+                </svg>
+              </div>
+              <figcaption>Figura 4. E y J fueron explorados, pero no hacen parte del camino solución.</figcaption>
+            </figure>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Paso</th><th>Nodo</th><th>Decisión</th><th>Orden acumulado</th></tr></thead>
+                <tbody>
+                  <tr><td>1</td><td>A</td><td>Vecinos B, C, D. Se elige B.</td><td>A</td></tr>
+                  <tr><td>2</td><td>B</td><td>Vecinos no visitados E, F. Se elige E.</td><td>A -> B</td></tr>
+                  <tr><td>3</td><td>E</td><td>No hay vecinos nuevos. Se retrocede a B.</td><td>A -> B -> E</td></tr>
+                  <tr><td>4</td><td>F</td><td>Entre J y K, se elige J.</td><td>A -> B -> E -> F</td></tr>
+                  <tr><td>5</td><td>J</td><td>No hay vecinos nuevos. Se retrocede a F.</td><td>A -> B -> E -> F -> J</td></tr>
+                  <tr><td>6</td><td>K</td><td>Queda M como vecino no visitado.</td><td>A -> B -> E -> F -> J -> K</td></tr>
+                  <tr><td>7</td><td>M</td><td>El objetivo fue encontrado.</td><td>A -> B -> E -> F -> J -> K -> M</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="orden-camino">
+            <p class="eyebrow">6 | Distinción</p>
+            <h2>Orden de exploración y camino solución</h2>
+            <p>
+              El orden de exploración y el camino solución no son equivalentes. El
+              primero registra la secuencia en la que DFS descubre nodos; el segundo
+              contiene solamente las conexiones que unen el inicio con el objetivo.
+            </p>
+            <div class="info-grid">
+              <article class="detail-card"><span class="label">Orden de exploración</span><p>A -> B -> E -> F -> J -> K -> M</p></article>
+              <article class="detail-card"><span class="label">Camino solución</span><p>A -> B -> F -> K -> M</p></article>
+            </div>
+            <aside class="warning callout"><strong>Cuidado.</strong> Encontrar nodos durante la exploración no significa que todos pertenezcan a la ruta final.</aside>
+          </section>
+
+          <section class="lesson-section" id="pila-visitados">
+            <p class="eyebrow">7 | Memoria del algoritmo</p>
+            <h2>Pila, retroceso y visitados</h2>
+            <p>
+              DFS está relacionado con una pila o stack. Una pila sigue el principio
+              LIFO: el último en entrar es el primero en salir. Esta estructura permite
+              recordar el camino activo y regresar cuando una rama no puede continuar.
+            </p>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Momento</th><th>Pila activa</th><th>Acción</th></tr></thead>
+                <tbody>
+                  <tr><td>Inicio</td><td>[A]</td><td>Se visita el nodo inicial.</td></tr>
+                  <tr><td>Profundización</td><td>[A, B, E]</td><td>E no tiene vecinos nuevos.</td></tr>
+                  <tr><td>Retroceso</td><td>[A, B]</td><td>E sale de la pila.</td></tr>
+                  <tr><td>Nueva rama</td><td>[A, B, F, K, M]</td><td>Se encuentra el objetivo.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              En grafos también se mantiene un conjunto de nodos visitados. Si aparece
+              de nuevo un nodo que ya fue visitado, no se explora otra vez. Esto evita
+              repetir trabajo y quedar atrapados en ciclos.
+            </p>
+            <aside class="callout"><strong>Regla práctica.</strong> Un nodo ya visitado no se vuelve a explorar.</aside>
+          </section>
+
+          <section class="lesson-section" id="limites">
+            <p class="eyebrow">8 | Alcance</p>
+            <h2>DFS y la ruta más corta</h2>
+            <p>
+              DFS puede encontrar una solución, pero no garantiza encontrar la ruta más
+              corta. Su estrategia consiste en profundizar primero, no en optimizar la
+              longitud del camino.
+            </p>
+            <figure class="lesson-figure">
+              <div class="graph-panel compact">
+                <svg class="graph-svg" viewBox="0 0 460 300" role="img" aria-label="DFS puede no encontrar la ruta más corta">
+                  <path class="graph-edge" d="M100 55 L210 55 M100 55 L100 120 M100 120 L100 185 M100 185 L100 250 M100 250 L210 250"></path>
+                  <path class="graph-path" d="M100 55 L100 120 L100 185 L100 250 L210 250"></path>
+                  <path class="graph-short-path" d="M100 55 L210 55"></path>
+                  <g class="graph-node start"><circle cx="100" cy="55" r="25"></circle><text x="100" y="62">A</text></g>
+                  <g class="graph-node goal"><circle cx="210" cy="55" r="25"></circle><text x="210" y="62">M</text></g>
+                  <g class="graph-node"><circle cx="100" cy="120" r="23"></circle><text x="100" y="127">B</text></g>
+                  <g class="graph-node"><circle cx="100" cy="185" r="23"></circle><text x="100" y="192">C</text></g>
+                  <g class="graph-node"><circle cx="100" cy="250" r="23"></circle><text x="100" y="257">D</text></g>
+                  <g class="graph-node goal"><circle cx="210" cy="250" r="23"></circle><text x="210" y="257">M</text></g>
+                </svg>
+              </div>
+              <figcaption>Figura 5. Si DFS explora B primero, puede llegar a M por una ruta larga aunque exista A -> M.</figcaption>
+            </figure>
+            <aside class="warning callout"><strong>Idea clave.</strong> Encontrar una solución no significa necesariamente encontrar la mejor solución.</aside>
+          </section>
+
+          <section class="lesson-section" id="actividad">
+            <p class="eyebrow">9 | Práctica</p>
+            <h2>Procedimiento manual para DFS</h2>
+            <ol class="step-list">
+              <li>Identifica el nodo inicial.</li>
+              <li>Identifica el nodo objetivo.</li>
+              <li>Define la regla de desempate.</li>
+              <li>Marca el nodo actual como visitado.</li>
+              <li>Verifica si el nodo actual es el objetivo.</li>
+              <li>Identifica vecinos no visitados.</li>
+              <li>Aplica la regla de desempate si hay varias alternativas.</li>
+              <li>Profundiza si existe un vecino disponible.</li>
+              <li>Retrocede si no existen vecinos disponibles.</li>
+              <li>No explores de nuevo nodos ya visitados.</li>
+              <li>Detén la búsqueda cuando encuentres el objetivo.</li>
+            </ol>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Plantilla</th><th>Respuesta</th></tr></thead>
+                <tbody>
+                  <tr><td>Nodo inicial</td><td></td></tr>
+                  <tr><td>Nodo objetivo</td><td></td></tr>
+                  <tr><td>Regla de desempate</td><td></td></tr>
+                  <tr><td>Orden DFS</td><td></td></tr>
+                  <tr><td>Camino solución</td><td></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="cierre">
+            <p class="eyebrow">10 | Síntesis</p>
+            <h2>Ideas clave</h2>
+            <ul>
+              <li>Un grafo representa estados y conexiones posibles.</li>
+              <li>DFS explora primero en profundidad.</li>
+              <li>Cuando no puede seguir profundizando, retrocede.</li>
+              <li>El orden de los sucesores modifica el recorrido.</li>
+              <li>En grafos es necesario controlar los nodos visitados.</li>
+              <li>El orden de exploración no es necesariamente el camino solución.</li>
+              <li>DFS puede encontrar una solución sin que sea la más corta.</li>
+            </ul>
+            <aside class="callout"><strong>Frase resumen.</strong> DFS no salta: profundiza o retrocede.</aside>
+          </section>
+
+          <section class="lesson-section" id="referencias">
+            <p class="eyebrow">R | Referencias</p>
+            <h2>Fuentes utilizadas</h2>
+            <ul class="reference-list">
+              <li>Cormen, T. H., Leiserson, C. E., Rivest, R. L., & Stein, C. (2022). Introduction to algorithms (4th ed.). MIT Press.</li>
+              <li>Russell, S. J., & Norvig, P. (2021). Artificial intelligence: a modern approach (4th ed.). Pearson.</li>
+            </ul>
+          </section>
+        </div>
+
+        <div class="lesson-content" data-lang-only="en">
+          <section class="lesson-section" id="graphs">
+            <p class="eyebrow">1 | Representation</p>
+            <h2>Search in graphs</h2>
+            <p>
+              Many artificial intelligence problems require finding a way to move from
+              an initial state to a goal state. Graphs are a natural representation for
+              this kind of problem.
+            </p>
+            <aside class="callout"><strong>Definition.</strong> A graph is expressed as G = (V, E), where V is the set of vertices or nodes and E is the set of edges or connections between nodes.</aside>
+            <figure class="lesson-figure">
+              <div class="graph-panel">
+                <svg class="graph-svg" viewBox="0 0 720 460" role="img" aria-label="Example graph for DFS">
+                  <path class="graph-edge" d="M360 50 L190 135 M360 50 L360 135 M360 50 L530 135 M190 135 L110 230 M190 135 L270 230 M360 135 L360 230 M530 135 L455 230 M530 135 L610 230 M270 230 L220 325 M270 230 L320 325 M455 230 L455 325 M320 325 L360 410"></path>
+                  <g class="graph-node start"><circle cx="360" cy="50" r="28"></circle><text x="360" y="57">A</text></g>
+                  <g class="graph-node"><circle cx="190" cy="135" r="26"></circle><text x="190" y="142">B</text></g>
+                  <g class="graph-node"><circle cx="360" cy="135" r="26"></circle><text x="360" y="142">C</text></g>
+                  <g class="graph-node"><circle cx="530" cy="135" r="26"></circle><text x="530" y="142">D</text></g>
+                  <g class="graph-node"><circle cx="110" cy="230" r="24"></circle><text x="110" y="237">E</text></g>
+                  <g class="graph-node"><circle cx="270" cy="230" r="24"></circle><text x="270" y="237">F</text></g>
+                  <g class="graph-node"><circle cx="360" cy="230" r="24"></circle><text x="360" y="237">G</text></g>
+                  <g class="graph-node"><circle cx="455" cy="230" r="24"></circle><text x="455" y="237">H</text></g>
+                  <g class="graph-node"><circle cx="610" cy="230" r="24"></circle><text x="610" y="237">I</text></g>
+                  <g class="graph-node"><circle cx="220" cy="325" r="22"></circle><text x="220" y="332">J</text></g>
+                  <g class="graph-node"><circle cx="320" cy="325" r="22"></circle><text x="320" y="332">K</text></g>
+                  <g class="graph-node"><circle cx="455" cy="325" r="22"></circle><text x="455" y="332">L</text></g>
+                  <g class="graph-node goal"><circle cx="360" cy="410" r="22"></circle><text x="360" y="417">M</text></g>
+                </svg>
+              </div>
+              <figcaption>Figure 1. Example graph: nodes represent states and edges represent possible moves.</figcaption>
+            </figure>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Component</th><th>Example</th><th>Interpretation</th></tr></thead>
+                <tbody>
+                  <tr><td>Vertices V</td><td>{A, B, C, D, E, F, G, H, I, J, K, L, M}</td><td>Possible states of the problem.</td></tr>
+                  <tr><td>Edges E</td><td>(A,B), (A,C), (A,D), (B,E), (B,F), (F,J), (F,K), (K,M)</td><td>Connections or transitions between states.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="problem">
+            <p class="eyebrow">2 | Formulation</p>
+            <h2>Search problem</h2>
+            <p>
+              Solving a search problem means identifying the starting point, the state
+              to be found, and the available alternatives at each step. In the previous
+              graph, the problem is to find a sequence of nodes from A to M.
+            </p>
+            <div class="info-grid">
+              <article class="detail-card"><span class="label">Initial node</span><p>Point where the search begins. In the example: A.</p></article>
+              <article class="detail-card"><span class="label">Goal node</span><p>State we want to find. In the example: M.</p></article>
+              <article class="detail-card"><span class="label">Connections</span><p>Possible moves between states.</p></article>
+              <article class="detail-card"><span class="label">Selection rule</span><p>Criterion used when there are several alternatives.</p></article>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="dfs">
+            <p class="eyebrow">3 | Strategy</p>
+            <h2>Depth-First Search</h2>
+            <p>
+              Depth-First Search explores one branch of a graph as deeply as possible
+              before returning and exploring another alternative.
+            </p>
+            <figure class="lesson-figure">
+              <div class="lesson-diagram dfs-rule-diagram" role="img" aria-label="Conceptual rule for DFS">
+                <span>Can I go deeper?</span>
+                <strong>Yes: move forward</strong>
+                <strong>No: backtrack</strong>
+                <span>Next pending alternative</span>
+              </div>
+              <figcaption>Figure 2. DFS does not jump: it goes deeper or backtracks.</figcaption>
+            </figure>
+            <aside class="callout"><strong>Golden rule.</strong> DFS does not jump: it goes deeper or backtracks.</aside>
+          </section>
+
+          <section class="lesson-section" id="tie">
+            <p class="eyebrow">4 | Selection</p>
+            <h2>Tie-break rule</h2>
+            <p>
+              DFS says that the search should go deeper, but it does not decide by
+              itself which neighbor to choose when several options exist. An explicit
+              rule is required.
+            </p>
+            <figure class="lesson-figure">
+              <div class="graph-panel compact">
+                <svg class="graph-svg" viewBox="0 0 420 240" role="img" aria-label="Node A with three alternatives">
+                  <path class="graph-edge" d="M210 55 L95 170 M210 55 L210 170 M210 55 L325 170"></path>
+                  <g class="graph-node start"><circle cx="210" cy="55" r="28"></circle><text x="210" y="62">A</text></g>
+                  <g class="graph-node"><circle cx="95" cy="170" r="26"></circle><text x="95" y="177">B</text></g>
+                  <g class="graph-node"><circle cx="210" cy="170" r="26"></circle><text x="210" y="177">C</text></g>
+                  <g class="graph-node"><circle cx="325" cy="170" r="26"></circle><text x="325" y="177">D</text></g>
+                </svg>
+              </div>
+              <figcaption>Figure 3. With ascending alphabetical order, DFS selects B before C and D.</figcaption>
+            </figure>
+            <aside class="study-note">The selection does not happen because a node is drawn on the left; it happens because a rule was defined. These examples use ascending alphabetical order.</aside>
+          </section>
+
+          <section class="lesson-section" id="example">
+            <p class="eyebrow">5 | Solved example</p>
+            <h2>Find M from A</h2>
+            <p>
+              With initial node A, goal node M, and ascending alphabetical order, DFS
+              explores a branch until it cannot continue. Then it backtracks to the most
+              recent node with a pending alternative.
+            </p>
+            <figure class="lesson-figure">
+              <div class="graph-panel">
+                <svg class="graph-svg" viewBox="0 0 720 460" role="img" aria-label="DFS exploration order">
+                  <path class="graph-edge" d="M360 50 L190 135 M360 50 L360 135 M360 50 L530 135 M190 135 L110 230 M190 135 L270 230 M360 135 L360 230 M530 135 L455 230 M530 135 L610 230 M270 230 L220 325 M270 230 L320 325 M455 230 L455 325 M320 325 L360 410"></path>
+                  <path class="graph-path" d="M360 50 L190 135 L270 230 L320 325 L360 410"></path>
+                  <g class="graph-node visited"><circle cx="360" cy="50" r="28"></circle><text x="360" y="57">A</text></g>
+                  <g class="graph-node visited"><circle cx="190" cy="135" r="26"></circle><text x="190" y="142">B</text></g>
+                  <g class="graph-node"><circle cx="360" cy="135" r="26"></circle><text x="360" y="142">C</text></g>
+                  <g class="graph-node"><circle cx="530" cy="135" r="26"></circle><text x="530" y="142">D</text></g>
+                  <g class="graph-node dead"><circle cx="110" cy="230" r="24"></circle><text x="110" y="237">E</text></g>
+                  <g class="graph-node visited"><circle cx="270" cy="230" r="24"></circle><text x="270" y="237">F</text></g>
+                  <g class="graph-node"><circle cx="360" cy="230" r="24"></circle><text x="360" y="237">G</text></g>
+                  <g class="graph-node"><circle cx="455" cy="230" r="24"></circle><text x="455" y="237">H</text></g>
+                  <g class="graph-node"><circle cx="610" cy="230" r="24"></circle><text x="610" y="237">I</text></g>
+                  <g class="graph-node dead"><circle cx="220" cy="325" r="22"></circle><text x="220" y="332">J</text></g>
+                  <g class="graph-node visited"><circle cx="320" cy="325" r="22"></circle><text x="320" y="332">K</text></g>
+                  <g class="graph-node"><circle cx="455" cy="325" r="22"></circle><text x="455" y="332">L</text></g>
+                  <g class="graph-node goal"><circle cx="360" cy="410" r="22"></circle><text x="360" y="417">M</text></g>
+                </svg>
+              </div>
+              <figcaption>Figure 4. E and J were explored, but they are not part of the solution path.</figcaption>
+            </figure>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Step</th><th>Node</th><th>Decision</th><th>Accumulated order</th></tr></thead>
+                <tbody>
+                  <tr><td>1</td><td>A</td><td>Neighbors B, C, D. Choose B.</td><td>A</td></tr>
+                  <tr><td>2</td><td>B</td><td>Unvisited neighbors E, F. Choose E.</td><td>A -> B</td></tr>
+                  <tr><td>3</td><td>E</td><td>No new neighbors. Backtrack to B.</td><td>A -> B -> E</td></tr>
+                  <tr><td>4</td><td>F</td><td>Between J and K, choose J.</td><td>A -> B -> E -> F</td></tr>
+                  <tr><td>5</td><td>J</td><td>No new neighbors. Backtrack to F.</td><td>A -> B -> E -> F -> J</td></tr>
+                  <tr><td>6</td><td>K</td><td>M remains as an unvisited neighbor.</td><td>A -> B -> E -> F -> J -> K</td></tr>
+                  <tr><td>7</td><td>M</td><td>The goal was found.</td><td>A -> B -> E -> F -> J -> K -> M</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="path">
+            <p class="eyebrow">6 | Distinction</p>
+            <h2>Exploration order and solution path</h2>
+            <p>
+              The exploration order and the solution path are not equivalent. The first
+              records the sequence in which DFS discovers nodes; the second contains
+              only the connections that join the start node to the goal.
+            </p>
+            <div class="info-grid">
+              <article class="detail-card"><span class="label">Exploration order</span><p>A -> B -> E -> F -> J -> K -> M</p></article>
+              <article class="detail-card"><span class="label">Solution path</span><p>A -> B -> F -> K -> M</p></article>
+            </div>
+            <aside class="warning callout"><strong>Careful.</strong> Finding nodes during exploration does not mean that all of them belong to the final route.</aside>
+          </section>
+
+          <section class="lesson-section" id="stack">
+            <p class="eyebrow">7 | Algorithm memory</p>
+            <h2>Stack, backtracking, and visited nodes</h2>
+            <p>
+              DFS is related to a stack. A stack follows the LIFO principle: last in,
+              first out. This structure remembers the active path and makes it possible
+              to return when a branch cannot continue.
+            </p>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Moment</th><th>Active stack</th><th>Action</th></tr></thead>
+                <tbody>
+                  <tr><td>Start</td><td>[A]</td><td>Visit the initial node.</td></tr>
+                  <tr><td>Go deeper</td><td>[A, B, E]</td><td>E has no new neighbors.</td></tr>
+                  <tr><td>Backtrack</td><td>[A, B]</td><td>E leaves the stack.</td></tr>
+                  <tr><td>New branch</td><td>[A, B, F, K, M]</td><td>The goal is found.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              In graphs, DFS also keeps a set of visited nodes. If a node appears again
+              after it was already visited, it should not be explored again. This avoids
+              repeated work and prevents cycles from trapping the search.
+            </p>
+            <aside class="callout"><strong>Practical rule.</strong> A visited node is not explored again.</aside>
+          </section>
+
+          <section class="lesson-section" id="limits">
+            <p class="eyebrow">8 | Scope</p>
+            <h2>DFS and the shortest path</h2>
+            <p>
+              DFS can find a solution, but it does not guarantee the shortest route.
+              Its strategy is to go deeper first, not to optimize path length.
+            </p>
+            <figure class="lesson-figure">
+              <div class="graph-panel compact">
+                <svg class="graph-svg" viewBox="0 0 460 300" role="img" aria-label="DFS may not find the shortest path">
+                  <path class="graph-edge" d="M100 55 L210 55 M100 55 L100 120 M100 120 L100 185 M100 185 L100 250 M100 250 L210 250"></path>
+                  <path class="graph-path" d="M100 55 L100 120 L100 185 L100 250 L210 250"></path>
+                  <path class="graph-short-path" d="M100 55 L210 55"></path>
+                  <g class="graph-node start"><circle cx="100" cy="55" r="25"></circle><text x="100" y="62">A</text></g>
+                  <g class="graph-node goal"><circle cx="210" cy="55" r="25"></circle><text x="210" y="62">M</text></g>
+                  <g class="graph-node"><circle cx="100" cy="120" r="23"></circle><text x="100" y="127">B</text></g>
+                  <g class="graph-node"><circle cx="100" cy="185" r="23"></circle><text x="100" y="192">C</text></g>
+                  <g class="graph-node"><circle cx="100" cy="250" r="23"></circle><text x="100" y="257">D</text></g>
+                  <g class="graph-node goal"><circle cx="210" cy="250" r="23"></circle><text x="210" y="257">M</text></g>
+                </svg>
+              </div>
+              <figcaption>Figure 5. If DFS explores B first, it may reach M through a long route even though A -> M exists.</figcaption>
+            </figure>
+            <aside class="warning callout"><strong>Key idea.</strong> Finding a solution does not necessarily mean finding the best solution.</aside>
+          </section>
+
+          <section class="lesson-section" id="activity-en">
+            <p class="eyebrow">9 | Practice</p>
+            <h2>Manual procedure for DFS</h2>
+            <ol class="step-list">
+              <li>Identify the initial node.</li>
+              <li>Identify the goal node.</li>
+              <li>Define the tie-break rule.</li>
+              <li>Mark the current node as visited.</li>
+              <li>Check whether the current node is the goal.</li>
+              <li>Identify unvisited neighbors.</li>
+              <li>Apply the tie-break rule if several alternatives exist.</li>
+              <li>Go deeper if an available neighbor exists.</li>
+              <li>Backtrack if no available neighbors exist.</li>
+              <li>Do not explore visited nodes again.</li>
+              <li>Stop the search when the goal is found.</li>
+            </ol>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Template</th><th>Answer</th></tr></thead>
+                <tbody>
+                  <tr><td>Initial node</td><td></td></tr>
+                  <tr><td>Goal node</td><td></td></tr>
+                  <tr><td>Tie-break rule</td><td></td></tr>
+                  <tr><td>DFS order</td><td></td></tr>
+                  <tr><td>Solution path</td><td></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="closing">
+            <p class="eyebrow">10 | Synthesis</p>
+            <h2>Key ideas</h2>
+            <ul>
+              <li>A graph represents possible states and connections.</li>
+              <li>DFS explores depth first.</li>
+              <li>When it cannot continue, it backtracks.</li>
+              <li>The successor order changes the traversal.</li>
+              <li>Graphs require controlling visited nodes.</li>
+              <li>The exploration order is not necessarily the solution path.</li>
+              <li>DFS can find a solution without finding the shortest one.</li>
+            </ul>
+            <aside class="callout"><strong>Summary phrase.</strong> DFS does not jump: it goes deeper or backtracks.</aside>
+          </section>
+
+          <section class="lesson-section" id="references-en">
+            <p class="eyebrow">R | References</p>
+            <h2>Sources used</h2>
+            <ul class="reference-list">
+              <li>Cormen, T. H., Leiserson, C. E., Rivest, R. L., & Stein, C. (2022). Introduction to algorithms (4th ed.). MIT Press.</li>
+              <li>Russell, S. J., & Norvig, P. (2021). Artificial intelligence: a modern approach (4th ed.). Pearson.</li>
+            </ul>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span data-lesson-i18n="footerText">Class 02 | Artificial Intelligence</span>
+      <a href="#top" data-lesson-i18n="backTop">Back to top</a>
+    </footer>
+    <script src="lesson.js?v=dfs-graphs-responsive-20260812"></script>
+  </body>
+</html>
