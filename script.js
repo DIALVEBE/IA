@@ -683,6 +683,10 @@ const ui = {
     session02Title: "Depth-First Search",
     session02Text:
       "Graph representation, search problems, DFS traversal, backtracking, stacks, visited nodes, and solution paths.",
+    session03Kicker: "Class 03",
+    session03Title: "Breadth-First Search",
+    session03Text:
+      "Graph traversal by levels, queue frontier, visited nodes, tie-break rules, and shortest paths in unweighted graphs.",
     openSession: "Open class",
     footerText: "Artificial Intelligence course notebook",
     labels: {
@@ -720,6 +724,10 @@ const ui = {
     session02Title: "Búsqueda en profundidad",
     session02Text:
       "Representación con grafos, problemas de búsqueda, recorrido DFS, retroceso, pila, nodos visitados y caminos solución.",
+    session03Kicker: "Clase 03",
+    session03Title: "Búsqueda en amplitud",
+    session03Text:
+      "Recorrido de grafos por niveles, frontera en cola, nodos visitados, reglas de desempate y rutas más cortas en grafos no ponderados.",
     openSession: "Abrir clase",
     footerText: "Cuaderno del curso de inteligencia artificial",
     labels: {

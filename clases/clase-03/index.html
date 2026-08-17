@@ -1,0 +1,604 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="Clase 03 de Inteligencia Artificial: búsqueda en amplitud BFS, grafos, cola, visitados y ruta más corta."
+    >
+    <title>Clase 03 | Búsqueda en amplitud BFS</title>
+    <link rel="stylesheet" href="../../styles.css?v=bfs-graphs-responsive-20260817">
+  </head>
+  <body class="lesson-page">
+    <header class="site-header">
+      <a class="brand" href="../../" aria-label="Volver al notebook de IA">
+        <span class="brand-mark">AI</span>
+        <span>Inteligencia Artificial</span>
+      </a>
+      <nav class="top-nav" aria-label="Navegación de la clase">
+        <a href="#ruta" data-lesson-i18n="navRoute">Route</a>
+        <a href="#actividad" data-lesson-nav="activity" data-lesson-i18n="navActivity">Activity</a>
+        <a href="#referencias" data-lesson-nav="references" data-lesson-i18n="navReferences">References</a>
+        <a class="repo-link" href="https://github.com/DIALVEBE/IA" rel="noreferrer">GitHub</a>
+      </nav>
+      <div class="language-switch" role="group" aria-label="Language switch">
+        <button class="lang-button is-active" type="button" data-lang="en">EN</button>
+        <button class="lang-button" type="button" data-lang="es">ES</button>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="lesson-hero">
+        <div class="hero-copy">
+          <p class="eyebrow" data-lesson-i18n="heroKicker">Search | Week 3</p>
+          <h1 data-lesson-i18n="heroTitle">Breadth-First Search</h1>
+          <p class="hero-text" data-lesson-i18n="heroText">
+            Explore a graph by levels, keep the frontier in a queue, avoid revisiting
+            nodes, and identify when BFS guarantees a shortest path.
+          </p>
+          <div class="hero-actions">
+            <a class="primary-action" href="#ruta" data-lesson-i18n="startClass">Start class</a>
+          </div>
+        </div>
+        <figure class="lesson-hero-visual">
+          <div class="bfs-hero-graph" aria-label="Breadth-first search by levels">
+            <svg viewBox="0 0 720 460" role="img">
+              <path class="graph-edge" d="M360 55 L190 145 M360 55 L360 145 M360 55 L530 145 M190 145 L110 245 M190 145 L270 245 M360 145 L360 245 M530 145 L455 245 M530 145 L610 245 M270 245 L220 345 M270 245 L320 345 M455 245 L455 345 M320 345 L360 415"></path>
+              <path class="graph-level-line" d="M70 55 H650 M70 145 H650 M70 245 H650 M70 345 H650 M70 415 H650"></path>
+              <g class="graph-node level-0"><circle cx="360" cy="55" r="28"></circle><text x="360" y="62">A</text></g>
+              <g class="graph-node level-1"><circle cx="190" cy="145" r="26"></circle><text x="190" y="152">B</text></g>
+              <g class="graph-node level-1"><circle cx="360" cy="145" r="26"></circle><text x="360" y="152">C</text></g>
+              <g class="graph-node level-1"><circle cx="530" cy="145" r="26"></circle><text x="530" y="152">D</text></g>
+              <g class="graph-node level-2"><circle cx="110" cy="245" r="24"></circle><text x="110" y="252">E</text></g>
+              <g class="graph-node level-2"><circle cx="270" cy="245" r="24"></circle><text x="270" y="252">F</text></g>
+              <g class="graph-node level-2"><circle cx="360" cy="245" r="24"></circle><text x="360" y="252">G</text></g>
+              <g class="graph-node level-2"><circle cx="455" cy="245" r="24"></circle><text x="455" y="252">H</text></g>
+              <g class="graph-node level-2"><circle cx="610" cy="245" r="24"></circle><text x="610" y="252">I</text></g>
+              <g class="graph-node level-3"><circle cx="220" cy="345" r="22"></circle><text x="220" y="352">J</text></g>
+              <g class="graph-node level-3"><circle cx="320" cy="345" r="22"></circle><text x="320" y="352">K</text></g>
+              <g class="graph-node level-3"><circle cx="455" cy="345" r="22"></circle><text x="455" y="352">L</text></g>
+              <g class="graph-node goal"><circle cx="360" cy="415" r="22"></circle><text x="360" y="422">M</text></g>
+            </svg>
+          </div>
+        </figure>
+      </section>
+
+      <section class="lesson-shell" id="ruta">
+        <aside class="topic-index lesson-index" aria-label="Índice de clase">
+          <div class="index-title" data-lesson-i18n="routeTitle">Route</div>
+          <a href="#grafos" data-lesson-nav="graphs" data-lesson-i18n="idxGraphs">1. Graphs</a>
+          <a href="#problema" data-lesson-nav="problem" data-lesson-i18n="idxProblem">2. Search problem</a>
+          <a href="#bfs-es" data-lesson-nav="bfs" data-lesson-i18n="idxBfs">3. BFS</a>
+          <a href="#desempate" data-lesson-nav="tie" data-lesson-i18n="idxTie">4. Tie-break rule</a>
+          <a href="#ejemplo" data-lesson-nav="example" data-lesson-i18n="idxExample">5. Solved example</a>
+          <a href="#orden-camino" data-lesson-nav="path" data-lesson-i18n="idxPath">6. Order vs path</a>
+          <a href="#cola-visitados" data-lesson-nav="queue" data-lesson-i18n="idxQueue">7. Queue and visited</a>
+          <a href="#limites" data-lesson-nav="limits" data-lesson-i18n="idxLimits">8. Shortest path</a>
+          <a href="#actividad" data-lesson-nav="activity" data-lesson-i18n="idxActivity">9. Activity</a>
+          <a href="#cierre" data-lesson-nav="closing" data-lesson-i18n="idxClosing">10. Closing</a>
+          <a href="#referencias" data-lesson-nav="references" data-lesson-i18n="idxReferences">R. References</a>
+        </aside>
+
+        <div class="lesson-content" data-lang-only="es" hidden>
+          <section class="lesson-section" id="grafos">
+            <p class="eyebrow">1 | Representación</p>
+            <h2>Búsqueda en grafos</h2>
+            <p>
+              Un problema de búsqueda puede representarse como un grafo: los nodos son
+              estados posibles y las aristas son conexiones o movimientos entre esos
+              estados. BFS utiliza esa representación para recorrer el grafo por capas.
+            </p>
+            <aside class="callout"><strong>Definición.</strong> Un grafo se expresa como G = (V, E), donde V es el conjunto de vértices o nodos y E es el conjunto de aristas o conexiones entre nodos.</aside>
+            <figure class="lesson-figure">
+              <div class="graph-panel">
+                <svg class="graph-svg" viewBox="0 0 720 460" role="img" aria-label="Grafo de ejemplo para BFS">
+                  <path class="graph-edge" d="M360 50 L190 135 M360 50 L360 135 M360 50 L530 135 M190 135 L110 230 M190 135 L270 230 M360 135 L360 230 M530 135 L455 230 M530 135 L610 230 M270 230 L220 325 M270 230 L320 325 M455 230 L455 325 M320 325 L360 410"></path>
+                  <g class="graph-node start"><circle cx="360" cy="50" r="28"></circle><text x="360" y="57">A</text></g>
+                  <g class="graph-node"><circle cx="190" cy="135" r="26"></circle><text x="190" y="142">B</text></g>
+                  <g class="graph-node"><circle cx="360" cy="135" r="26"></circle><text x="360" y="142">C</text></g>
+                  <g class="graph-node"><circle cx="530" cy="135" r="26"></circle><text x="530" y="142">D</text></g>
+                  <g class="graph-node"><circle cx="110" cy="230" r="24"></circle><text x="110" y="237">E</text></g>
+                  <g class="graph-node"><circle cx="270" cy="230" r="24"></circle><text x="270" y="237">F</text></g>
+                  <g class="graph-node"><circle cx="360" cy="230" r="24"></circle><text x="360" y="237">G</text></g>
+                  <g class="graph-node"><circle cx="455" cy="230" r="24"></circle><text x="455" y="237">H</text></g>
+                  <g class="graph-node"><circle cx="610" cy="230" r="24"></circle><text x="610" y="237">I</text></g>
+                  <g class="graph-node"><circle cx="220" cy="325" r="22"></circle><text x="220" y="332">J</text></g>
+                  <g class="graph-node"><circle cx="320" cy="325" r="22"></circle><text x="320" y="332">K</text></g>
+                  <g class="graph-node"><circle cx="455" cy="325" r="22"></circle><text x="455" y="332">L</text></g>
+                  <g class="graph-node goal"><circle cx="360" cy="410" r="22"></circle><text x="360" y="417">M</text></g>
+                </svg>
+              </div>
+              <figcaption>Figura 1. Grafo de ejemplo para comparar DFS y BFS.</figcaption>
+            </figure>
+          </section>
+
+          <section class="lesson-section" id="problema">
+            <p class="eyebrow">2 | Formulación</p>
+            <h2>Problema de búsqueda</h2>
+            <p>
+              El objetivo es encontrar una secuencia de nodos que conecte el punto de
+              partida con el estado objetivo. En el grafo de ejemplo, se desea llegar
+              desde A hasta M.
+            </p>
+            <div class="info-grid">
+              <article class="detail-card"><span class="label">Nodo inicial</span><p>Punto desde el cual comienza la búsqueda. En el ejemplo: A.</p></article>
+              <article class="detail-card"><span class="label">Nodo objetivo</span><p>Estado que se quiere encontrar. En el ejemplo: M.</p></article>
+              <article class="detail-card"><span class="label">Conexiones</span><p>Movimientos posibles entre estados.</p></article>
+              <article class="detail-card"><span class="label">Regla de desempate</span><p>Criterio usado cuando existen varias alternativas en el mismo nivel.</p></article>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="bfs-es">
+            <p class="eyebrow">3 | Estrategia</p>
+            <h2>Breadth-First Search</h2>
+            <p>
+              Breadth-First Search, o búsqueda en amplitud, explora primero los nodos
+              más cercanos al inicio. Recorre el grafo por niveles antes de avanzar a
+              una capa más profunda.
+            </p>
+            <figure class="lesson-figure">
+              <div class="lesson-diagram bfs-rule-diagram" role="img" aria-label="Regla conceptual de BFS">
+                <span>Nivel 0: inicio</span>
+                <span>Nivel 1: vecinos directos</span>
+                <span>Nivel 2: vecinos de vecinos</span>
+                <strong>Frontera por capas</strong>
+              </div>
+              <figcaption>Figura 2. BFS no profundiza primero: expande la frontera por capas.</figcaption>
+            </figure>
+            <aside class="callout"><strong>Regla de oro.</strong> BFS no profundiza primero: expande la frontera por capas.</aside>
+          </section>
+
+          <section class="lesson-section" id="desempate">
+            <p class="eyebrow">4 | Selección</p>
+            <h2>Regla de desempate</h2>
+            <p>
+              BFS determina que se exploran primero los nodos más cercanos al inicio.
+              Si varios nodos están en el mismo nivel, se aplica una regla de desempate.
+              En estos ejemplos se usa orden alfabético ascendente.
+            </p>
+            <figure class="lesson-figure">
+              <div class="graph-panel compact">
+                <svg class="graph-svg" viewBox="0 0 420 240" role="img" aria-label="Nodo A con tres vecinos">
+                  <path class="graph-edge" d="M210 55 L95 170 M210 55 L210 170 M210 55 L325 170"></path>
+                  <g class="graph-node start"><circle cx="210" cy="55" r="28"></circle><text x="210" y="62">A</text></g>
+                  <g class="graph-node visited"><circle cx="95" cy="170" r="26"></circle><text x="95" y="177">B</text></g>
+                  <g class="graph-node visited"><circle cx="210" cy="170" r="26"></circle><text x="210" y="177">C</text></g>
+                  <g class="graph-node visited"><circle cx="325" cy="170" r="26"></circle><text x="325" y="177">D</text></g>
+                </svg>
+              </div>
+              <figcaption>Figura 3. Si B, C y D están en el mismo nivel, se visitan en orden alfabético.</figcaption>
+            </figure>
+          </section>
+
+          <section class="lesson-section" id="ejemplo">
+            <p class="eyebrow">5 | Ejemplo resuelto</p>
+            <h2>Encontrar M desde A</h2>
+            <p>
+              Con nodo inicial A, nodo objetivo M y orden alfabético ascendente, BFS
+              visita todos los nodos de una capa antes de pasar a la siguiente.
+            </p>
+            <figure class="lesson-figure">
+              <div class="graph-panel">
+                <svg class="graph-svg" viewBox="0 0 720 460" role="img" aria-label="Orden de exploración BFS">
+                  <path class="graph-edge" d="M360 50 L190 135 M360 50 L360 135 M360 50 L530 135 M190 135 L110 230 M190 135 L270 230 M360 135 L360 230 M530 135 L455 230 M530 135 L610 230 M270 230 L220 325 M270 230 L320 325 M455 230 L455 325 M320 325 L360 410"></path>
+                  <path class="graph-level-line" d="M70 50 H650 M70 135 H650 M70 230 H650 M70 325 H650 M70 410 H650"></path>
+                  <path class="graph-path" d="M360 50 L190 135 L270 230 L320 325 L360 410"></path>
+                  <g class="graph-node level-0"><circle cx="360" cy="50" r="28"></circle><text x="360" y="57">A</text></g>
+                  <g class="graph-node level-1"><circle cx="190" cy="135" r="26"></circle><text x="190" y="142">B</text></g>
+                  <g class="graph-node level-1"><circle cx="360" cy="135" r="26"></circle><text x="360" y="142">C</text></g>
+                  <g class="graph-node level-1"><circle cx="530" cy="135" r="26"></circle><text x="530" y="142">D</text></g>
+                  <g class="graph-node level-2"><circle cx="110" cy="230" r="24"></circle><text x="110" y="237">E</text></g>
+                  <g class="graph-node level-2"><circle cx="270" cy="230" r="24"></circle><text x="270" y="237">F</text></g>
+                  <g class="graph-node level-2"><circle cx="360" cy="230" r="24"></circle><text x="360" y="237">G</text></g>
+                  <g class="graph-node level-2"><circle cx="455" cy="230" r="24"></circle><text x="455" y="237">H</text></g>
+                  <g class="graph-node level-2"><circle cx="610" cy="230" r="24"></circle><text x="610" y="237">I</text></g>
+                  <g class="graph-node level-3"><circle cx="220" cy="325" r="22"></circle><text x="220" y="332">J</text></g>
+                  <g class="graph-node level-3"><circle cx="320" cy="325" r="22"></circle><text x="320" y="332">K</text></g>
+                  <g class="graph-node level-3"><circle cx="455" cy="325" r="22"></circle><text x="455" y="332">L</text></g>
+                  <g class="graph-node goal"><circle cx="360" cy="410" r="22"></circle><text x="360" y="417">M</text></g>
+                </svg>
+              </div>
+              <figcaption>Figura 4. BFS encuentra M después de completar los niveles anteriores.</figcaption>
+            </figure>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Nivel</th><th>Nodos</th><th>Orden acumulado</th></tr></thead>
+                <tbody>
+                  <tr><td>0</td><td>A</td><td>A</td></tr>
+                  <tr><td>1</td><td>B, C, D</td><td>A -> B -> C -> D</td></tr>
+                  <tr><td>2</td><td>E, F, G, H, I</td><td>A -> B -> C -> D -> E -> F -> G -> H -> I</td></tr>
+                  <tr><td>3</td><td>J, K, L</td><td>A -> B -> C -> D -> E -> F -> G -> H -> I -> J -> K -> L</td></tr>
+                  <tr><td>4</td><td>M</td><td>A -> B -> C -> D -> E -> F -> G -> H -> I -> J -> K -> L -> M</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="orden-camino">
+            <p class="eyebrow">6 | Distinción</p>
+            <h2>Orden de exploración y camino solución</h2>
+            <p>
+              BFS puede visitar muchos nodos antes de llegar al objetivo. El orden de
+              exploración muestra la secuencia de visita; el camino solución muestra
+              solamente la ruta que conecta A con M.
+            </p>
+            <div class="info-grid">
+              <article class="detail-card"><span class="label">Orden de exploración</span><p>A -> B -> C -> D -> E -> F -> G -> H -> I -> J -> K -> L -> M</p></article>
+              <article class="detail-card"><span class="label">Camino solución</span><p>A -> B -> F -> K -> M</p></article>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="cola-visitados">
+            <p class="eyebrow">7 | Memoria del algoritmo</p>
+            <h2>Cola, frontera y visitados</h2>
+            <p>
+              BFS usa una cola o queue. Una cola sigue el principio FIFO: primero en
+              entrar, primero en salir. La cola conserva la frontera de búsqueda:
+              nodos descubiertos que todavía deben explorarse.
+            </p>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Momento</th><th>Cola</th><th>Acción</th></tr></thead>
+                <tbody>
+                  <tr><td>Inicio</td><td>[A]</td><td>Se encola el nodo inicial.</td></tr>
+                  <tr><td>Expandir A</td><td>[B, C, D]</td><td>Se agregan los vecinos de A.</td></tr>
+                  <tr><td>Expandir B</td><td>[C, D, E, F]</td><td>B sale de la cola; E y F entran al final.</td></tr>
+                  <tr><td>Expandir C</td><td>[D, E, F, G]</td><td>C sale de la cola; G entra al final.</td></tr>
+                  <tr><td>Expandir D</td><td>[E, F, G, H, I]</td><td>D sale de la cola; H e I entran al final.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              En grafos se mantiene un conjunto de visitados. Un nodo ya visitado no se
+              vuelve a encolar ni a explorar; así se evita repetir trabajo y quedar
+              atrapado en ciclos.
+            </p>
+          </section>
+
+          <section class="lesson-section" id="limites">
+            <p class="eyebrow">8 | Alcance</p>
+            <h2>BFS y la ruta más corta</h2>
+            <p>
+              En grafos no ponderados, BFS garantiza encontrar una ruta con el menor
+              número de aristas desde el nodo inicial hasta el objetivo. Si las aristas
+              tienen costos diferentes, el menor número de pasos no siempre equivale al
+              menor costo.
+            </p>
+            <figure class="lesson-figure">
+              <div class="graph-panel compact">
+                <svg class="graph-svg" viewBox="0 0 460 300" role="img" aria-label="BFS encuentra ruta más corta en grafo no ponderado">
+                  <path class="graph-edge" d="M100 55 L210 55 M100 55 L100 120 M100 120 L100 185 M100 185 L100 250 M100 250 L210 250"></path>
+                  <path class="graph-short-path" d="M100 55 L210 55"></path>
+                  <g class="graph-node start"><circle cx="100" cy="55" r="25"></circle><text x="100" y="62">A</text></g>
+                  <g class="graph-node goal"><circle cx="210" cy="55" r="25"></circle><text x="210" y="62">M</text></g>
+                  <g class="graph-node"><circle cx="100" cy="120" r="23"></circle><text x="100" y="127">B</text></g>
+                  <g class="graph-node"><circle cx="100" cy="185" r="23"></circle><text x="100" y="192">C</text></g>
+                  <g class="graph-node"><circle cx="100" cy="250" r="23"></circle><text x="100" y="257">D</text></g>
+                  <g class="graph-node goal"><circle cx="210" cy="250" r="23"></circle><text x="210" y="257">M</text></g>
+                </svg>
+              </div>
+              <figcaption>Figura 5. BFS encuentra A -> M antes de explorar rutas más profundas.</figcaption>
+            </figure>
+            <aside class="warning callout"><strong>Cuidado.</strong> Ruta más corta significa menor número de aristas solo cuando el grafo no está ponderado.</aside>
+          </section>
+
+          <section class="lesson-section" id="actividad">
+            <p class="eyebrow">9 | Práctica</p>
+            <h2>Procedimiento manual para BFS</h2>
+            <ol class="step-list">
+              <li>Identifica el nodo inicial.</li>
+              <li>Identifica el nodo objetivo.</li>
+              <li>Define la regla de desempate.</li>
+              <li>Crea una cola e inserta el nodo inicial.</li>
+              <li>Marca el nodo inicial como visitado.</li>
+              <li>Extrae el primer nodo de la cola.</li>
+              <li>Verifica si ese nodo es el objetivo.</li>
+              <li>Identifica sus vecinos no visitados.</li>
+              <li>Ordénalos con la regla de desempate.</li>
+              <li>Agrega los vecinos al final de la cola y márcalos como visitados.</li>
+              <li>Repite hasta encontrar el objetivo o hasta que la cola quede vacía.</li>
+            </ol>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Plantilla</th><th>Respuesta</th></tr></thead>
+                <tbody>
+                  <tr><td>Nodo inicial</td><td></td></tr>
+                  <tr><td>Nodo objetivo</td><td></td></tr>
+                  <tr><td>Regla de desempate</td><td></td></tr>
+                  <tr><td>Orden BFS</td><td></td></tr>
+                  <tr><td>Camino solución</td><td></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="cierre">
+            <p class="eyebrow">10 | Síntesis</p>
+            <h2>Ideas clave</h2>
+            <ul>
+              <li>Un grafo puede explorarse por profundidad o por amplitud.</li>
+              <li>BFS recorre primero los nodos más cercanos al inicio.</li>
+              <li>La cola conserva la frontera de búsqueda.</li>
+              <li>El orden de los sucesores modifica el orden de exploración.</li>
+              <li>En grafos es necesario controlar los nodos visitados.</li>
+              <li>El orden de exploración no es necesariamente el camino solución.</li>
+              <li>En grafos no ponderados, BFS encuentra una ruta con el menor número de aristas.</li>
+            </ul>
+            <aside class="callout"><strong>Frase resumen.</strong> BFS no profundiza primero: expande la frontera por capas.</aside>
+          </section>
+
+          <section class="lesson-section" id="referencias">
+            <p class="eyebrow">R | Referencias</p>
+            <h2>Fuentes utilizadas</h2>
+            <ul class="reference-list">
+              <li>Cormen, T. H., Leiserson, C. E., Rivest, R. L., & Stein, C. (2022). Introduction to algorithms (4th ed.). MIT Press.</li>
+              <li>Russell, S. J., & Norvig, P. (2021). Artificial intelligence: a modern approach (4th ed.). Pearson.</li>
+            </ul>
+          </section>
+        </div>
+
+        <div class="lesson-content" data-lang-only="en">
+          <section class="lesson-section" id="graphs">
+            <p class="eyebrow">1 | Representation</p>
+            <h2>Search in graphs</h2>
+            <p>
+              A search problem can be represented as a graph: nodes are possible states
+              and edges are connections or moves between states. BFS uses that
+              representation to traverse the graph layer by layer.
+            </p>
+            <aside class="callout"><strong>Definition.</strong> A graph is expressed as G = (V, E), where V is the set of vertices or nodes and E is the set of edges or connections between nodes.</aside>
+            <figure class="lesson-figure">
+              <div class="graph-panel">
+                <svg class="graph-svg" viewBox="0 0 720 460" role="img" aria-label="Example graph for BFS">
+                  <path class="graph-edge" d="M360 50 L190 135 M360 50 L360 135 M360 50 L530 135 M190 135 L110 230 M190 135 L270 230 M360 135 L360 230 M530 135 L455 230 M530 135 L610 230 M270 230 L220 325 M270 230 L320 325 M455 230 L455 325 M320 325 L360 410"></path>
+                  <g class="graph-node start"><circle cx="360" cy="50" r="28"></circle><text x="360" y="57">A</text></g>
+                  <g class="graph-node"><circle cx="190" cy="135" r="26"></circle><text x="190" y="142">B</text></g>
+                  <g class="graph-node"><circle cx="360" cy="135" r="26"></circle><text x="360" y="142">C</text></g>
+                  <g class="graph-node"><circle cx="530" cy="135" r="26"></circle><text x="530" y="142">D</text></g>
+                  <g class="graph-node"><circle cx="110" cy="230" r="24"></circle><text x="110" y="237">E</text></g>
+                  <g class="graph-node"><circle cx="270" cy="230" r="24"></circle><text x="270" y="237">F</text></g>
+                  <g class="graph-node"><circle cx="360" cy="230" r="24"></circle><text x="360" y="237">G</text></g>
+                  <g class="graph-node"><circle cx="455" cy="230" r="24"></circle><text x="455" y="237">H</text></g>
+                  <g class="graph-node"><circle cx="610" cy="230" r="24"></circle><text x="610" y="237">I</text></g>
+                  <g class="graph-node"><circle cx="220" cy="325" r="22"></circle><text x="220" y="332">J</text></g>
+                  <g class="graph-node"><circle cx="320" cy="325" r="22"></circle><text x="320" y="332">K</text></g>
+                  <g class="graph-node"><circle cx="455" cy="325" r="22"></circle><text x="455" y="332">L</text></g>
+                  <g class="graph-node goal"><circle cx="360" cy="410" r="22"></circle><text x="360" y="417">M</text></g>
+                </svg>
+              </div>
+              <figcaption>Figure 1. Example graph for comparing DFS and BFS.</figcaption>
+            </figure>
+          </section>
+
+          <section class="lesson-section" id="problem">
+            <p class="eyebrow">2 | Formulation</p>
+            <h2>Search problem</h2>
+            <p>
+              The goal is to find a sequence of nodes that connects the starting point
+              to the goal state. In the example graph, the search goes from A to M.
+            </p>
+            <div class="info-grid">
+              <article class="detail-card"><span class="label">Initial node</span><p>Point where the search begins. In the example: A.</p></article>
+              <article class="detail-card"><span class="label">Goal node</span><p>State we want to find. In the example: M.</p></article>
+              <article class="detail-card"><span class="label">Connections</span><p>Possible moves between states.</p></article>
+              <article class="detail-card"><span class="label">Tie-break rule</span><p>Criterion used when there are several alternatives in the same level.</p></article>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="bfs">
+            <p class="eyebrow">3 | Strategy</p>
+            <h2>Breadth-First Search</h2>
+            <p>
+              Breadth-First Search explores the nodes closest to the start first. It
+              traverses the graph by levels before moving to a deeper layer.
+            </p>
+            <figure class="lesson-figure">
+              <div class="lesson-diagram bfs-rule-diagram" role="img" aria-label="Conceptual rule for BFS">
+                <span>Level 0: start</span>
+                <span>Level 1: direct neighbors</span>
+                <span>Level 2: neighbors of neighbors</span>
+                <strong>Layered frontier</strong>
+              </div>
+              <figcaption>Figure 2. BFS does not go deep first: it expands the frontier by layers.</figcaption>
+            </figure>
+            <aside class="callout"><strong>Golden rule.</strong> BFS does not go deep first: it expands the frontier by layers.</aside>
+          </section>
+
+          <section class="lesson-section" id="tie">
+            <p class="eyebrow">4 | Selection</p>
+            <h2>Tie-break rule</h2>
+            <p>
+              BFS determines that the nodes closest to the start are explored first. If
+              several nodes are in the same level, a tie-break rule is applied. These
+              examples use ascending alphabetical order.
+            </p>
+            <figure class="lesson-figure">
+              <div class="graph-panel compact">
+                <svg class="graph-svg" viewBox="0 0 420 240" role="img" aria-label="Node A with three neighbors">
+                  <path class="graph-edge" d="M210 55 L95 170 M210 55 L210 170 M210 55 L325 170"></path>
+                  <g class="graph-node start"><circle cx="210" cy="55" r="28"></circle><text x="210" y="62">A</text></g>
+                  <g class="graph-node visited"><circle cx="95" cy="170" r="26"></circle><text x="95" y="177">B</text></g>
+                  <g class="graph-node visited"><circle cx="210" cy="170" r="26"></circle><text x="210" y="177">C</text></g>
+                  <g class="graph-node visited"><circle cx="325" cy="170" r="26"></circle><text x="325" y="177">D</text></g>
+                </svg>
+              </div>
+              <figcaption>Figure 3. If B, C, and D are in the same level, they are visited in alphabetical order.</figcaption>
+            </figure>
+          </section>
+
+          <section class="lesson-section" id="example">
+            <p class="eyebrow">5 | Solved example</p>
+            <h2>Find M from A</h2>
+            <p>
+              With initial node A, goal node M, and ascending alphabetical order, BFS
+              visits every node in one layer before moving to the next one.
+            </p>
+            <figure class="lesson-figure">
+              <div class="graph-panel">
+                <svg class="graph-svg" viewBox="0 0 720 460" role="img" aria-label="BFS exploration order">
+                  <path class="graph-edge" d="M360 50 L190 135 M360 50 L360 135 M360 50 L530 135 M190 135 L110 230 M190 135 L270 230 M360 135 L360 230 M530 135 L455 230 M530 135 L610 230 M270 230 L220 325 M270 230 L320 325 M455 230 L455 325 M320 325 L360 410"></path>
+                  <path class="graph-level-line" d="M70 50 H650 M70 135 H650 M70 230 H650 M70 325 H650 M70 410 H650"></path>
+                  <path class="graph-path" d="M360 50 L190 135 L270 230 L320 325 L360 410"></path>
+                  <g class="graph-node level-0"><circle cx="360" cy="50" r="28"></circle><text x="360" y="57">A</text></g>
+                  <g class="graph-node level-1"><circle cx="190" cy="135" r="26"></circle><text x="190" y="142">B</text></g>
+                  <g class="graph-node level-1"><circle cx="360" cy="135" r="26"></circle><text x="360" y="142">C</text></g>
+                  <g class="graph-node level-1"><circle cx="530" cy="135" r="26"></circle><text x="530" y="142">D</text></g>
+                  <g class="graph-node level-2"><circle cx="110" cy="230" r="24"></circle><text x="110" y="237">E</text></g>
+                  <g class="graph-node level-2"><circle cx="270" cy="230" r="24"></circle><text x="270" y="237">F</text></g>
+                  <g class="graph-node level-2"><circle cx="360" cy="230" r="24"></circle><text x="360" y="237">G</text></g>
+                  <g class="graph-node level-2"><circle cx="455" cy="230" r="24"></circle><text x="455" y="237">H</text></g>
+                  <g class="graph-node level-2"><circle cx="610" cy="230" r="24"></circle><text x="610" y="237">I</text></g>
+                  <g class="graph-node level-3"><circle cx="220" cy="325" r="22"></circle><text x="220" y="332">J</text></g>
+                  <g class="graph-node level-3"><circle cx="320" cy="325" r="22"></circle><text x="320" y="332">K</text></g>
+                  <g class="graph-node level-3"><circle cx="455" cy="325" r="22"></circle><text x="455" y="332">L</text></g>
+                  <g class="graph-node goal"><circle cx="360" cy="410" r="22"></circle><text x="360" y="417">M</text></g>
+                </svg>
+              </div>
+              <figcaption>Figure 4. BFS finds M after completing the previous levels.</figcaption>
+            </figure>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Level</th><th>Nodes</th><th>Accumulated order</th></tr></thead>
+                <tbody>
+                  <tr><td>0</td><td>A</td><td>A</td></tr>
+                  <tr><td>1</td><td>B, C, D</td><td>A -> B -> C -> D</td></tr>
+                  <tr><td>2</td><td>E, F, G, H, I</td><td>A -> B -> C -> D -> E -> F -> G -> H -> I</td></tr>
+                  <tr><td>3</td><td>J, K, L</td><td>A -> B -> C -> D -> E -> F -> G -> H -> I -> J -> K -> L</td></tr>
+                  <tr><td>4</td><td>M</td><td>A -> B -> C -> D -> E -> F -> G -> H -> I -> J -> K -> L -> M</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="path">
+            <p class="eyebrow">6 | Distinction</p>
+            <h2>Exploration order and solution path</h2>
+            <p>
+              BFS may visit many nodes before reaching the goal. The exploration order
+              shows the visiting sequence; the solution path shows only the route that
+              connects A to M.
+            </p>
+            <div class="info-grid">
+              <article class="detail-card"><span class="label">Exploration order</span><p>A -> B -> C -> D -> E -> F -> G -> H -> I -> J -> K -> L -> M</p></article>
+              <article class="detail-card"><span class="label">Solution path</span><p>A -> B -> F -> K -> M</p></article>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="queue">
+            <p class="eyebrow">7 | Algorithm memory</p>
+            <h2>Queue, frontier, and visited nodes</h2>
+            <p>
+              BFS uses a queue. A queue follows the FIFO principle: first in, first
+              out. The queue stores the search frontier: discovered nodes that still
+              need to be explored.
+            </p>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Moment</th><th>Queue</th><th>Action</th></tr></thead>
+                <tbody>
+                  <tr><td>Start</td><td>[A]</td><td>Enqueue the initial node.</td></tr>
+                  <tr><td>Expand A</td><td>[B, C, D]</td><td>Add A's neighbors.</td></tr>
+                  <tr><td>Expand B</td><td>[C, D, E, F]</td><td>B leaves the queue; E and F enter at the end.</td></tr>
+                  <tr><td>Expand C</td><td>[D, E, F, G]</td><td>C leaves the queue; G enters at the end.</td></tr>
+                  <tr><td>Expand D</td><td>[E, F, G, H, I]</td><td>D leaves the queue; H and I enter at the end.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              In graphs, BFS keeps a set of visited nodes. A visited node is not
+              enqueued or explored again; this avoids repeated work and prevents cycles
+              from trapping the search.
+            </p>
+          </section>
+
+          <section class="lesson-section" id="limits">
+            <p class="eyebrow">8 | Scope</p>
+            <h2>BFS and the shortest path</h2>
+            <p>
+              In unweighted graphs, BFS guarantees a route with the minimum number of
+              edges from the initial node to the goal. If edges have different costs,
+              the smallest number of steps is not always the lowest cost.
+            </p>
+            <figure class="lesson-figure">
+              <div class="graph-panel compact">
+                <svg class="graph-svg" viewBox="0 0 460 300" role="img" aria-label="BFS finds shortest path in an unweighted graph">
+                  <path class="graph-edge" d="M100 55 L210 55 M100 55 L100 120 M100 120 L100 185 M100 185 L100 250 M100 250 L210 250"></path>
+                  <path class="graph-short-path" d="M100 55 L210 55"></path>
+                  <g class="graph-node start"><circle cx="100" cy="55" r="25"></circle><text x="100" y="62">A</text></g>
+                  <g class="graph-node goal"><circle cx="210" cy="55" r="25"></circle><text x="210" y="62">M</text></g>
+                  <g class="graph-node"><circle cx="100" cy="120" r="23"></circle><text x="100" y="127">B</text></g>
+                  <g class="graph-node"><circle cx="100" cy="185" r="23"></circle><text x="100" y="192">C</text></g>
+                  <g class="graph-node"><circle cx="100" cy="250" r="23"></circle><text x="100" y="257">D</text></g>
+                  <g class="graph-node goal"><circle cx="210" cy="250" r="23"></circle><text x="210" y="257">M</text></g>
+                </svg>
+              </div>
+              <figcaption>Figure 5. BFS finds A -> M before exploring deeper routes.</figcaption>
+            </figure>
+            <aside class="warning callout"><strong>Careful.</strong> Shortest path means the fewest edges only when the graph is unweighted.</aside>
+          </section>
+
+          <section class="lesson-section" id="activity-en">
+            <p class="eyebrow">9 | Practice</p>
+            <h2>Manual procedure for BFS</h2>
+            <ol class="step-list">
+              <li>Identify the initial node.</li>
+              <li>Identify the goal node.</li>
+              <li>Define the tie-break rule.</li>
+              <li>Create a queue and insert the initial node.</li>
+              <li>Mark the initial node as visited.</li>
+              <li>Remove the first node from the queue.</li>
+              <li>Check whether that node is the goal.</li>
+              <li>Identify its unvisited neighbors.</li>
+              <li>Order them using the tie-break rule.</li>
+              <li>Add the neighbors to the end of the queue and mark them as visited.</li>
+              <li>Repeat until the goal is found or the queue becomes empty.</li>
+            </ol>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Template</th><th>Answer</th></tr></thead>
+                <tbody>
+                  <tr><td>Initial node</td><td></td></tr>
+                  <tr><td>Goal node</td><td></td></tr>
+                  <tr><td>Tie-break rule</td><td></td></tr>
+                  <tr><td>BFS order</td><td></td></tr>
+                  <tr><td>Solution path</td><td></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="closing">
+            <p class="eyebrow">10 | Synthesis</p>
+            <h2>Key ideas</h2>
+            <ul>
+              <li>A graph can be explored by depth or by breadth.</li>
+              <li>BFS visits the nodes closest to the start first.</li>
+              <li>The queue stores the search frontier.</li>
+              <li>The successor order changes the exploration order.</li>
+              <li>Graphs require controlling visited nodes.</li>
+              <li>The exploration order is not necessarily the solution path.</li>
+              <li>In unweighted graphs, BFS finds a route with the fewest edges.</li>
+            </ul>
+            <aside class="callout"><strong>Summary phrase.</strong> BFS does not go deep first: it expands the frontier by layers.</aside>
+          </section>
+
+          <section class="lesson-section" id="references-en">
+            <p class="eyebrow">R | References</p>
+            <h2>Sources used</h2>
+            <ul class="reference-list">
+              <li>Cormen, T. H., Leiserson, C. E., Rivest, R. L., & Stein, C. (2022). Introduction to algorithms (4th ed.). MIT Press.</li>
+              <li>Russell, S. J., & Norvig, P. (2021). Artificial intelligence: a modern approach (4th ed.). Pearson.</li>
+            </ul>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span data-lesson-i18n="footerText">Class 03 | Artificial Intelligence</span>
+      <a href="#top" data-lesson-i18n="backTop">Back to top</a>
+    </footer>
+    <script src="lesson.js?v=bfs-graphs-responsive-20260817"></script>
+  </body>
+</html>

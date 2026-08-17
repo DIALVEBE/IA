@@ -743,6 +743,7 @@ th {
 }
 
 .dfs-hero-graph,
+.bfs-hero-graph,
 .graph-panel {
   position: relative;
   overflow: hidden;
@@ -754,7 +755,8 @@ th {
   box-shadow: var(--shadow), inset 0 0 48px rgba(0, 240, 255, 0.1);
 }
 
-.dfs-hero-graph {
+.dfs-hero-graph,
+.bfs-hero-graph {
   display: grid;
   min-height: clamp(20rem, 52vw, 38rem);
   place-items: center;
@@ -770,6 +772,7 @@ th {
 }
 
 .dfs-hero-graph::before,
+.bfs-hero-graph::before,
 .graph-panel::before {
   position: absolute;
   inset: 0;
@@ -783,6 +786,7 @@ th {
 }
 
 .dfs-hero-graph svg,
+.bfs-hero-graph svg,
 .graph-svg {
   position: relative;
   z-index: 1;
@@ -794,7 +798,8 @@ th {
 
 .graph-edge,
 .graph-path,
-.graph-short-path {
+.graph-short-path,
+.graph-level-line {
   fill: none;
   stroke-linecap: round;
   stroke-linejoin: round;
@@ -816,6 +821,12 @@ th {
   stroke-dasharray: 12 10;
   stroke-width: 8;
   filter: drop-shadow(0 0 10px rgba(185, 255, 99, 0.45));
+}
+
+.graph-level-line {
+  stroke: rgba(255, 255, 255, 0.2);
+  stroke-dasharray: 7 14;
+  stroke-width: 3;
 }
 
 .graph-node circle {
@@ -846,7 +857,31 @@ th {
   stroke: rgba(255, 209, 102, 0.82);
 }
 
-.dfs-rule-diagram {
+.graph-node.level-0 circle,
+.graph-node.level-1 circle,
+.graph-node.level-2 circle,
+.graph-node.level-3 circle {
+  stroke: rgba(0, 240, 255, 0.72);
+}
+
+.graph-node.level-0 circle {
+  stroke: rgba(255, 57, 212, 0.82);
+}
+
+.graph-node.level-1 circle {
+  stroke: rgba(0, 240, 255, 0.82);
+}
+
+.graph-node.level-2 circle {
+  stroke: rgba(255, 209, 102, 0.82);
+}
+
+.graph-node.level-3 circle {
+  stroke: rgba(185, 255, 99, 0.82);
+}
+
+.dfs-rule-diagram,
+.bfs-rule-diagram {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   min-height: 12rem;
 }
@@ -1461,6 +1496,7 @@ th {
 
   .hero-diagram,
   .dfs-hero-graph,
+  .bfs-hero-graph,
   .metric-diagram,
   .concept-diagram,
   .timeline-diagram,
@@ -1527,12 +1563,14 @@ th {
     overflow-x: auto;
   }
 
-  .dfs-hero-graph {
+  .dfs-hero-graph,
+  .bfs-hero-graph {
     min-height: 17rem;
     clip-path: none;
   }
 
-  .dfs-hero-graph svg {
+  .dfs-hero-graph svg,
+  .bfs-hero-graph svg {
     min-width: 22rem;
   }
 
@@ -1540,7 +1578,8 @@ th {
     font-size: 1.3rem;
   }
 
-  .dfs-rule-diagram {
+  .dfs-rule-diagram,
+  .bfs-rule-diagram {
     grid-template-columns: 1fr;
   }
 }
