@@ -687,6 +687,10 @@ const ui = {
     session03Title: "Breadth-First Search",
     session03Text:
       "Graph traversal by levels, queue frontier, visited nodes, tie-break rules, and shortest paths in unweighted graphs.",
+    session04Kicker: "Class 04",
+    session04Title: "Weighted Graphs and Dijkstra",
+    session04Text:
+      "Weighted graphs, path cost, edge relaxation, tentative distances, predecessors, shortest paths, and non-negative weight conditions.",
     openSession: "Open class",
     footerText: "Artificial Intelligence course notebook",
     labels: {
@@ -728,6 +732,10 @@ const ui = {
     session03Title: "Búsqueda en amplitud",
     session03Text:
       "Recorrido de grafos por niveles, frontera en cola, nodos visitados, reglas de desempate y rutas más cortas en grafos no ponderados.",
+    session04Kicker: "Clase 04",
+    session04Title: "Grafos ponderados y Dijkstra",
+    session04Text:
+      "Grafos ponderados, costo de caminos, relajación de aristas, distancias tentativas, predecesores, rutas mínimas y condición de pesos no negativos.",
     openSession: "Abrir clase",
     footerText: "Cuaderno del curso de inteligencia artificial",
     labels: {

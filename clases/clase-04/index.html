@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="Clase 04 de Inteligencia Artificial: grafos ponderados y algoritmo de Dijkstra."
+    >
+    <title>Clase 04 | Grafos ponderados y Dijkstra</title>
+    <link rel="stylesheet" href="../../styles.css?v=dijkstra-weighted-graphs-20260822">
+  </head>
+  <body class="lesson-page">
+    <header class="site-header">
+      <a class="brand" href="../../" aria-label="Volver al notebook de IA">
+        <span class="brand-mark">AI</span>
+        <span>Inteligencia Artificial</span>
+      </a>
+      <nav class="top-nav" aria-label="Navegación de la clase">
+        <a href="#ruta" data-lesson-i18n="navRoute">Route</a>
+        <a href="#actividad" data-lesson-nav="activity" data-lesson-i18n="navActivity">Activity</a>
+        <a href="#referencias" data-lesson-nav="references" data-lesson-i18n="navReferences">References</a>
+        <a class="repo-link" href="https://github.com/DIALVEBE/IA" rel="noreferrer">GitHub</a>
+      </nav>
+      <div class="language-switch" role="group" aria-label="Language switch">
+        <button class="lang-button is-active" type="button" data-lang="en">EN</button>
+        <button class="lang-button" type="button" data-lang="es">ES</button>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="lesson-hero">
+        <div class="hero-copy">
+          <p class="eyebrow" data-lesson-i18n="heroKicker">Search | Week 4</p>
+          <h1 data-lesson-i18n="heroTitle">Weighted Graphs and Dijkstra</h1>
+          <p class="hero-text" data-lesson-i18n="heroText">
+            Move from counting edges to minimizing accumulated cost with weighted
+            graphs, relaxation, tentative distances, predecessors, and Dijkstra's
+            algorithm.
+          </p>
+          <div class="hero-actions">
+            <a class="primary-action" href="#ruta" data-lesson-i18n="startClass">Start class</a>
+          </div>
+        </div>
+        <figure class="lesson-hero-visual">
+          <div class="weighted-hero-graph" aria-label="Weighted graph shortest path">
+            <svg viewBox="0 0 680 420" role="img">
+              <path class="graph-edge" d="M90 90 L260 80 M90 90 L220 230 M260 80 L220 230 M260 80 L430 100 M220 230 L450 285 M430 100 L450 285 M430 100 L590 115 M450 285 L590 115"></path>
+              <path class="graph-path" d="M90 90 L220 230 L260 80 L430 100 L450 285 L590 115"></path>
+              <g><rect class="graph-weight" x="162" y="66" width="32" height="24" rx="6"></rect><text class="graph-weight-label" x="178" y="84">4</text></g>
+              <g><rect class="graph-weight" x="140" y="150" width="32" height="24" rx="6"></rect><text class="graph-weight-label" x="156" y="168">2</text></g>
+              <g><rect class="graph-weight" x="230" y="145" width="32" height="24" rx="6"></rect><text class="graph-weight-label" x="246" y="163">1</text></g>
+              <g><rect class="graph-weight" x="334" y="76" width="32" height="24" rx="6"></rect><text class="graph-weight-label" x="350" y="94">5</text></g>
+              <g><rect class="graph-weight" x="320" y="240" width="38" height="24" rx="6"></rect><text class="graph-weight-label" x="339" y="258">10</text></g>
+              <g><rect class="graph-weight" x="432" y="180" width="32" height="24" rx="6"></rect><text class="graph-weight-label" x="448" y="198">2</text></g>
+              <g><rect class="graph-weight" x="505" y="92" width="32" height="24" rx="6"></rect><text class="graph-weight-label" x="521" y="110">6</text></g>
+              <g><rect class="graph-weight" x="520" y="190" width="32" height="24" rx="6"></rect><text class="graph-weight-label" x="536" y="208">3</text></g>
+              <g class="graph-node start"><circle cx="90" cy="90" r="28"></circle><text x="90" y="97">A</text><text class="graph-distance-label" x="90" y="132">0</text></g>
+              <g class="graph-node final"><circle cx="260" cy="80" r="26"></circle><text x="260" y="87">B</text><text class="graph-distance-label" x="260" y="121">3</text></g>
+              <g class="graph-node final"><circle cx="220" cy="230" r="26"></circle><text x="220" y="237">C</text><text class="graph-distance-label" x="220" y="271">2</text></g>
+              <g class="graph-node final"><circle cx="430" cy="100" r="26"></circle><text x="430" y="107">D</text><text class="graph-distance-label" x="430" y="141">8</text></g>
+              <g class="graph-node final"><circle cx="450" cy="285" r="26"></circle><text x="450" y="292">E</text><text class="graph-distance-label" x="450" y="326">10</text></g>
+              <g class="graph-node goal"><circle cx="590" cy="115" r="26"></circle><text x="590" y="122">F</text><text class="graph-distance-label" x="590" y="156">13</text></g>
+            </svg>
+          </div>
+        </figure>
+      </section>
+
+      <section class="lesson-shell" id="ruta">
+        <aside class="topic-index lesson-index" aria-label="Índice de clase">
+          <div class="index-title" data-lesson-i18n="routeTitle">Route</div>
+          <a href="#ponderados" data-lesson-nav="weighted" data-lesson-i18n="idxWeighted">1. Weighted graphs</a>
+          <a href="#costo" data-lesson-nav="cost" data-lesson-i18n="idxCost">2. Path cost</a>
+          <a href="#problema" data-lesson-nav="problem" data-lesson-i18n="idxProblem">3. Main graph</a>
+          <a href="#dijkstra-es" data-lesson-nav="dijkstra" data-lesson-i18n="idxDijkstra">4. Dijkstra</a>
+          <a href="#relajacion" data-lesson-nav="relaxation" data-lesson-i18n="idxRelaxation">5. Relaxation</a>
+          <a href="#pasos" data-lesson-nav="steps" data-lesson-i18n="idxSteps">6. Step by step</a>
+          <a href="#camino" data-lesson-nav="path" data-lesson-i18n="idxPath">7. Reconstruct path</a>
+          <a href="#restricciones" data-lesson-nav="limits" data-lesson-i18n="idxLimits">8. Conditions</a>
+          <a href="#actividad" data-lesson-nav="activity" data-lesson-i18n="idxActivity">9. Activity</a>
+          <a href="#cierre" data-lesson-nav="closing" data-lesson-i18n="idxClosing">10. Closing</a>
+          <a href="#referencias" data-lesson-nav="references" data-lesson-i18n="idxReferences">R. References</a>
+        </aside>
+
+        <div class="lesson-content" data-lang-only="es" hidden>
+          <section class="lesson-section" id="ponderados">
+            <p class="eyebrow">1 | Costos</p>
+            <h2>Grafos ponderados</h2>
+            <p>
+              En un grafo no ponderado, una arista indica que existe una conexión entre
+              dos nodos. En muchos problemas reales no basta con saber que la conexión
+              existe: también importa cuánto cuesta recorrerla.
+            </p>
+            <aside class="callout"><strong>Definición.</strong> Un grafo ponderado es un grafo en el que cada arista tiene asociado un valor numérico llamado peso.</aside>
+            <div class="concept-list">
+              <article><h3>Distancia</h3><p>El peso puede representar kilómetros entre dos lugares.</p></article>
+              <article><h3>Tiempo</h3><p>Puede representar minutos de desplazamiento o latencia de red.</p></article>
+              <article><h3>Costo</h3><p>Puede representar dinero, energía o recursos consumidos.</p></article>
+              <article><h3>Riesgo</h3><p>Puede representar dificultad o exposición asociada a una decisión.</p></article>
+            </div>
+            <aside class="question"><strong>Pregunta clave.</strong> Ya no basta con preguntar cuántas aristas tiene el camino; también hay que preguntar cuál es el costo total.</aside>
+          </section>
+
+          <section class="lesson-section" id="costo">
+            <p class="eyebrow">2 | Camino</p>
+            <h2>Costo de un camino</h2>
+            <p>
+              Un camino es una secuencia de nodos conectados por aristas. El costo de
+              un camino se obtiene sumando los pesos de las aristas que lo componen.
+            </p>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Camino</th><th>Pesos</th><th>Costo total</th></tr></thead>
+                <tbody>
+                  <tr><td>A -> B -> D -> F</td><td>4 + 5 + 6</td><td>15</td></tr>
+                  <tr><td>A -> C -> E -> F</td><td>2 + 10 + 3</td><td>15</td></tr>
+                  <tr><td>A -> C -> B -> D -> F</td><td>2 + 1 + 5 + 6</td><td>14</td></tr>
+                  <tr><td>A -> C -> B -> D -> E -> F</td><td>2 + 1 + 5 + 2 + 3</td><td>13</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <aside class="warning callout"><strong>Idea clave.</strong> El camino con menos aristas no necesariamente es el camino de menor costo.</aside>
+          </section>
+
+          <section class="lesson-section" id="problema">
+            <p class="eyebrow">3 | Ejemplo principal</p>
+            <h2>Encontrar el menor costo de A a F</h2>
+            <figure class="lesson-figure">
+              <div class="graph-panel">
+                <svg class="graph-svg" viewBox="0 0 680 420" role="img" aria-label="Grafo ponderado principal">
+                  <path class="graph-edge" d="M90 90 L260 80 M90 90 L220 230 M260 80 L220 230 M260 80 L430 100 M220 230 L450 285 M430 100 L450 285 M430 100 L590 115 M450 285 L590 115"></path>
+                  <path class="graph-path" d="M90 90 L220 230 L260 80 L430 100 L450 285 L590 115"></path>
+                  <g><rect class="graph-weight" x="162" y="66" width="32" height="24" rx="6"></rect><text class="graph-weight-label" x="178" y="84">4</text></g>
+                  <g><rect class="graph-weight" x="140" y="150" width="32" height="24" rx="6"></rect><text class="graph-weight-label" x="156" y="168">2</text></g>
+                  <g><rect class="graph-weight" x="230" y="145" width="32" height="24" rx="6"></rect><text class="graph-weight-label" x="246" y="163">1</text></g>
+                  <g><rect class="graph-weight" x="334" y="76" width="32" height="24" rx="6"></rect><text class="graph-weight-label" x="350" y="94">5</text></g>
+                  <g><rect class="graph-weight" x="320" y="240" width="38" height="24" rx="6"></rect><text class="graph-weight-label" x="339" y="258">10</text></g>
+                  <g><rect class="graph-weight" x="432" y="180" width="32" height="24" rx="6"></rect><text class="graph-weight-label" x="448" y="198">2</text></g>
+                  <g><rect class="graph-weight" x="505" y="92" width="32" height="24" rx="6"></rect><text class="graph-weight-label" x="521" y="110">6</text></g>
+                  <g><rect class="graph-weight" x="520" y="190" width="32" height="24" rx="6"></rect><text class="graph-weight-label" x="536" y="208">3</text></g>
+                  <g class="graph-node start"><circle cx="90" cy="90" r="28"></circle><text x="90" y="97">A</text></g>
+                  <g class="graph-node"><circle cx="260" cy="80" r="26"></circle><text x="260" y="87">B</text></g>
+                  <g class="graph-node"><circle cx="220" cy="230" r="26"></circle><text x="220" y="237">C</text></g>
+                  <g class="graph-node"><circle cx="430" cy="100" r="26"></circle><text x="430" y="107">D</text></g>
+                  <g class="graph-node"><circle cx="450" cy="285" r="26"></circle><text x="450" y="292">E</text></g>
+                  <g class="graph-node goal"><circle cx="590" cy="115" r="26"></circle><text x="590" y="122">F</text></g>
+                </svg>
+              </div>
+              <figcaption>Figura 1. La ruta resaltada tiene costo 13: A -> C -> B -> D -> E -> F.</figcaption>
+            </figure>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Arista</th><th>Peso</th><th>Arista</th><th>Peso</th></tr></thead>
+                <tbody>
+                  <tr><td>A - B</td><td>4</td><td>A - C</td><td>2</td></tr>
+                  <tr><td>B - C</td><td>1</td><td>B - D</td><td>5</td></tr>
+                  <tr><td>C - E</td><td>10</td><td>D - E</td><td>2</td></tr>
+                  <tr><td>D - F</td><td>6</td><td>E - F</td><td>3</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="dijkstra-es">
+            <p class="eyebrow">4 | Algoritmo</p>
+            <h2>Dijkstra</h2>
+            <p>
+              El algoritmo de Dijkstra encuentra distancias mínimas desde un nodo origen
+              hacia los demás nodos de un grafo con pesos no negativos. Para cada nodo
+              mantiene la mejor distancia conocida y el predecesor que produjo esa mejora.
+            </p>
+            <figure class="lesson-figure">
+              <div class="lesson-diagram dijkstra-rule-diagram" role="img" aria-label="Ideas centrales de Dijkstra">
+                <span>Distancia tentativa</span>
+                <span>Nodo no finalizado de menor distancia</span>
+                <span>Relajación de aristas</span>
+                <strong>Predecesores para reconstruir</strong>
+              </div>
+              <figcaption>Figura 2. Dijkstra avanza por menor costo acumulado conocido.</figcaption>
+            </figure>
+          </section>
+
+          <section class="lesson-section" id="relajacion">
+            <p class="eyebrow">5 | Mejora</p>
+            <h2>Relajación de una arista</h2>
+            <p>
+              Relajar una arista significa verificar si llegar a un nodo pasando por
+              otro nodo produce una ruta más barata que la mejor conocida hasta ahora.
+            </p>
+            <aside class="callout"><strong>Regla.</strong> nuevo_costo = distancia[u] + peso(u,v). Si nuevo_costo &lt; distancia[v], se actualiza distancia[v] y predecesor[v].</aside>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Caso</th><th>Cálculo</th><th>Resultado</th></tr></thead>
+                <tbody>
+                  <tr><td>Mejorar B pasando por C</td><td>dist(C) + peso(C,B) = 2 + 1 = 3</td><td>3 &lt; 4, entonces B mejora.</td></tr>
+                  <tr><td>Mejorar E pasando por D</td><td>dist(D) + peso(D,E) = 8 + 2 = 10</td><td>10 &lt; 12, entonces E mejora.</td></tr>
+                  <tr><td>Mejorar F pasando por E</td><td>dist(E) + peso(E,F) = 10 + 3 = 13</td><td>13 &lt; 14, entonces F mejora.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="pasos">
+            <p class="eyebrow">6 | Ejecución</p>
+            <h2>Dijkstra paso a paso</h2>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Iteración</th><th>Nodo procesado</th><th>Actualizaciones</th><th>Distancias después</th></tr></thead>
+                <tbody>
+                  <tr><td>Inicial</td><td>-</td><td>A = 0; los demás = ∞.</td><td>A:0, B:∞, C:∞, D:∞, E:∞, F:∞</td></tr>
+                  <tr><td>1</td><td>A</td><td>B = 4 por A; C = 2 por A.</td><td>A:0, B:4, C:2, D:∞, E:∞, F:∞</td></tr>
+                  <tr><td>2</td><td>C</td><td>B mejora a 3 por C; E = 12 por C.</td><td>A:0, B:3, C:2, D:∞, E:12, F:∞</td></tr>
+                  <tr><td>3</td><td>B</td><td>D = 8 por B.</td><td>A:0, B:3, C:2, D:8, E:12, F:∞</td></tr>
+                  <tr><td>4</td><td>D</td><td>E mejora a 10 por D; F = 14 por D.</td><td>A:0, B:3, C:2, D:8, E:10, F:14</td></tr>
+                  <tr><td>5</td><td>E</td><td>F mejora a 13 por E.</td><td>A:0, B:3, C:2, D:8, E:10, F:13</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <aside class="study-note">El siguiente nodo siempre es el no finalizado con menor distancia tentativa, no el primero por orden alfabético.</aside>
+          </section>
+
+          <section class="lesson-section" id="camino">
+            <p class="eyebrow">7 | Resultado</p>
+            <h2>Reconstrucción del camino</h2>
+            <p>
+              La distancia mínima hasta F es 13. Para conocer la ruta se siguen los
+              predecesores desde el objetivo hacia el origen y luego se lee la secuencia
+              en sentido contrario.
+            </p>
+            <div class="info-grid">
+              <article class="detail-card"><span class="label">Predecesores</span><p>F <- E, E <- D, D <- B, B <- C, C <- A</p></article>
+              <article class="detail-card"><span class="label">Camino mínimo</span><p>A -> C -> B -> D -> E -> F</p></article>
+              <article class="detail-card"><span class="label">Costo mínimo</span><p>2 + 1 + 5 + 2 + 3 = 13</p></article>
+              <article class="detail-card"><span class="label">Resultado</span><p>Llegar no es suficiente: se busca llegar con el menor costo posible.</p></article>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="restricciones">
+            <p class="eyebrow">8 | Condiciones</p>
+            <h2>Pesos negativos y errores frecuentes</h2>
+            <p>
+              Dijkstra requiere pesos no negativos. Una arista negativa puede hacer que
+              una ruta que parecía definitiva se vuelva más barata después.
+            </p>
+            <div class="concept-list">
+              <article><h3>Nodo finalizado</h3><p>Cuando Dijkstra selecciona el nodo no visitado de menor distancia, su distancia queda definitiva bajo las condiciones del algoritmo.</p></article>
+              <article><h3>Predecesor</h3><p>El predecesor solo se actualiza cuando aparece una ruta de menor costo.</p></article>
+              <article><h3>Costo acumulado</h3><p>No se suma únicamente la última arista: se suma la distancia acumulada más el peso nuevo.</p></article>
+              <article><h3>Pesos negativos</h3><p>Para grafos con pesos negativos se usan otros algoritmos, como Bellman-Ford.</p></article>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="actividad">
+            <p class="eyebrow">9 | Práctica</p>
+            <h2>Procedimiento manual para Dijkstra</h2>
+            <ol class="step-list">
+              <li>Asigna 0 al nodo inicial.</li>
+              <li>Asigna infinito a todos los demás nodos.</li>
+              <li>Selecciona el nodo no finalizado con menor distancia.</li>
+              <li>Revisa cada vecino conectado por una arista.</li>
+              <li>Calcula distancia_actual + peso_de_la_arista.</li>
+              <li>Si el nuevo costo es menor, actualiza distancia y predecesor.</li>
+              <li>Finaliza el nodo actual.</li>
+              <li>Repite hasta llegar al objetivo o finalizar todos los nodos alcanzables.</li>
+              <li>Reconstruye el camino usando los predecesores.</li>
+            </ol>
+            <div class="table-wrap">
+              <table>
+                <caption>Ejercicio de comprobación</caption>
+                <thead><tr><th>Arista</th><th>Peso</th><th>Arista</th><th>Peso</th></tr></thead>
+                <tbody>
+                  <tr><td>A - B</td><td>3</td><td>A - C</td><td>6</td></tr>
+                  <tr><td>B - D</td><td>2</td><td>C - D</td><td>1</td></tr>
+                  <tr><td>B - C</td><td>5</td><td>Inicio / objetivo</td><td>A -> D</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="cierre">
+            <p class="eyebrow">10 | Síntesis</p>
+            <h2>Ideas clave</h2>
+            <ul>
+              <li>Un grafo ponderado asigna costos a sus aristas.</li>
+              <li>Un camino se evalúa sumando sus pesos.</li>
+              <li>Menos pasos no significa necesariamente menor costo.</li>
+              <li>Dijkstra mantiene la mejor distancia conocida hacia cada nodo.</li>
+              <li>La relajación intenta mejorar una distancia existente.</li>
+              <li>Los predecesores permiten reconstruir el camino mínimo.</li>
+              <li>Dijkstra requiere pesos no negativos.</li>
+            </ul>
+            <aside class="callout"><strong>Frase resumen.</strong> Dijkstra no busca llegar primero; busca llegar con el menor costo acumulado.</aside>
+          </section>
+
+          <section class="lesson-section" id="referencias">
+            <p class="eyebrow">R | Referencias</p>
+            <h2>Fuentes utilizadas</h2>
+            <ul class="reference-list">
+              <li>Cormen, T. H., Leiserson, C. E., Rivest, R. L., & Stein, C. (2022). Introduction to algorithms (4th ed.). MIT Press.</li>
+              <li>Dijkstra, E. W. (1959). A note on two problems in connexion with graphs. Numerische Mathematik, 1, 269-271.</li>
+              <li>Russell, S. J., & Norvig, P. (2021). Artificial intelligence: a modern approach (4th ed.). Pearson.</li>
+            </ul>
+          </section>
+        </div>
+
+        <div class="lesson-content" data-lang-only="en">
+          <section class="lesson-section" id="weighted">
+            <p class="eyebrow">1 | Costs</p>
+            <h2>Weighted graphs</h2>
+            <p>
+              In an unweighted graph, an edge only says that a connection exists between
+              two nodes. In many real problems, knowing that the connection exists is
+              not enough: the cost of using it also matters.
+            </p>
+            <aside class="callout"><strong>Definition.</strong> A weighted graph is a graph where each edge has an associated numerical value called a weight.</aside>
+            <div class="concept-list">
+              <article><h3>Distance</h3><p>A weight can represent kilometers between two places.</p></article>
+              <article><h3>Time</h3><p>It can represent travel minutes or network latency.</p></article>
+              <article><h3>Cost</h3><p>It can represent money, energy, or consumed resources.</p></article>
+              <article><h3>Risk</h3><p>It can represent difficulty or exposure associated with a decision.</p></article>
+            </div>
+            <aside class="question"><strong>Key question.</strong> It is no longer enough to ask how many edges a path has; we also need to ask its total cost.</aside>
+          </section>
+
+          <section class="lesson-section" id="cost">
+            <p class="eyebrow">2 | Path</p>
+            <h2>Path cost</h2>
+            <p>
+              A path is a sequence of nodes connected by edges. The cost of a path is
+              obtained by adding the weights of the edges that compose it.
+            </p>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Path</th><th>Weights</th><th>Total cost</th></tr></thead>
+                <tbody>
+                  <tr><td>A -> B -> D -> F</td><td>4 + 5 + 6</td><td>15</td></tr>
+                  <tr><td>A -> C -> E -> F</td><td>2 + 10 + 3</td><td>15</td></tr>
+                  <tr><td>A -> C -> B -> D -> F</td><td>2 + 1 + 5 + 6</td><td>14</td></tr>
+                  <tr><td>A -> C -> B -> D -> E -> F</td><td>2 + 1 + 5 + 2 + 3</td><td>13</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <aside class="warning callout"><strong>Key idea.</strong> The path with fewer edges is not necessarily the path with the lowest cost.</aside>
+          </section>
+
+          <section class="lesson-section" id="problem">
+            <p class="eyebrow">3 | Main example</p>
+            <h2>Find the lowest cost from A to F</h2>
+            <figure class="lesson-figure">
+              <div class="graph-panel">
+                <svg class="graph-svg" viewBox="0 0 680 420" role="img" aria-label="Main weighted graph">
+                  <path class="graph-edge" d="M90 90 L260 80 M90 90 L220 230 M260 80 L220 230 M260 80 L430 100 M220 230 L450 285 M430 100 L450 285 M430 100 L590 115 M450 285 L590 115"></path>
+                  <path class="graph-path" d="M90 90 L220 230 L260 80 L430 100 L450 285 L590 115"></path>
+                  <g><rect class="graph-weight" x="162" y="66" width="32" height="24" rx="6"></rect><text class="graph-weight-label" x="178" y="84">4</text></g>
+                  <g><rect class="graph-weight" x="140" y="150" width="32" height="24" rx="6"></rect><text class="graph-weight-label" x="156" y="168">2</text></g>
+                  <g><rect class="graph-weight" x="230" y="145" width="32" height="24" rx="6"></rect><text class="graph-weight-label" x="246" y="163">1</text></g>
+                  <g><rect class="graph-weight" x="334" y="76" width="32" height="24" rx="6"></rect><text class="graph-weight-label" x="350" y="94">5</text></g>
+                  <g><rect class="graph-weight" x="320" y="240" width="38" height="24" rx="6"></rect><text class="graph-weight-label" x="339" y="258">10</text></g>
+                  <g><rect class="graph-weight" x="432" y="180" width="32" height="24" rx="6"></rect><text class="graph-weight-label" x="448" y="198">2</text></g>
+                  <g><rect class="graph-weight" x="505" y="92" width="32" height="24" rx="6"></rect><text class="graph-weight-label" x="521" y="110">6</text></g>
+                  <g><rect class="graph-weight" x="520" y="190" width="32" height="24" rx="6"></rect><text class="graph-weight-label" x="536" y="208">3</text></g>
+                  <g class="graph-node start"><circle cx="90" cy="90" r="28"></circle><text x="90" y="97">A</text></g>
+                  <g class="graph-node"><circle cx="260" cy="80" r="26"></circle><text x="260" y="87">B</text></g>
+                  <g class="graph-node"><circle cx="220" cy="230" r="26"></circle><text x="220" y="237">C</text></g>
+                  <g class="graph-node"><circle cx="430" cy="100" r="26"></circle><text x="430" y="107">D</text></g>
+                  <g class="graph-node"><circle cx="450" cy="285" r="26"></circle><text x="450" y="292">E</text></g>
+                  <g class="graph-node goal"><circle cx="590" cy="115" r="26"></circle><text x="590" y="122">F</text></g>
+                </svg>
+              </div>
+              <figcaption>Figure 1. The highlighted route costs 13: A -> C -> B -> D -> E -> F.</figcaption>
+            </figure>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Edge</th><th>Weight</th><th>Edge</th><th>Weight</th></tr></thead>
+                <tbody>
+                  <tr><td>A - B</td><td>4</td><td>A - C</td><td>2</td></tr>
+                  <tr><td>B - C</td><td>1</td><td>B - D</td><td>5</td></tr>
+                  <tr><td>C - E</td><td>10</td><td>D - E</td><td>2</td></tr>
+                  <tr><td>D - F</td><td>6</td><td>E - F</td><td>3</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="dijkstra">
+            <p class="eyebrow">4 | Algorithm</p>
+            <h2>Dijkstra</h2>
+            <p>
+              Dijkstra's algorithm finds minimum distances from one source node to the
+              other nodes of a graph with non-negative weights. For each node, it keeps
+              the best known distance and the predecessor that produced that improvement.
+            </p>
+            <figure class="lesson-figure">
+              <div class="lesson-diagram dijkstra-rule-diagram" role="img" aria-label="Core ideas of Dijkstra">
+                <span>Tentative distance</span>
+                <span>Unfinished node with lowest distance</span>
+                <span>Edge relaxation</span>
+                <strong>Predecessors for reconstruction</strong>
+              </div>
+              <figcaption>Figure 2. Dijkstra advances by the lowest known accumulated cost.</figcaption>
+            </figure>
+          </section>
+
+          <section class="lesson-section" id="relaxation">
+            <p class="eyebrow">5 | Improvement</p>
+            <h2>Edge relaxation</h2>
+            <p>
+              Relaxing an edge means checking whether reaching a node through another
+              node produces a cheaper route than the best one known so far.
+            </p>
+            <aside class="callout"><strong>Rule.</strong> new_cost = distance[u] + weight(u,v). If new_cost &lt; distance[v], update distance[v] and predecessor[v].</aside>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Case</th><th>Calculation</th><th>Result</th></tr></thead>
+                <tbody>
+                  <tr><td>Improve B through C</td><td>dist(C) + weight(C,B) = 2 + 1 = 3</td><td>3 &lt; 4, so B improves.</td></tr>
+                  <tr><td>Improve E through D</td><td>dist(D) + weight(D,E) = 8 + 2 = 10</td><td>10 &lt; 12, so E improves.</td></tr>
+                  <tr><td>Improve F through E</td><td>dist(E) + weight(E,F) = 10 + 3 = 13</td><td>13 &lt; 14, so F improves.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="steps">
+            <p class="eyebrow">6 | Execution</p>
+            <h2>Dijkstra step by step</h2>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Iteration</th><th>Processed node</th><th>Updates</th><th>Distances after</th></tr></thead>
+                <tbody>
+                  <tr><td>Initial</td><td>-</td><td>A = 0; all others = ∞.</td><td>A:0, B:∞, C:∞, D:∞, E:∞, F:∞</td></tr>
+                  <tr><td>1</td><td>A</td><td>B = 4 through A; C = 2 through A.</td><td>A:0, B:4, C:2, D:∞, E:∞, F:∞</td></tr>
+                  <tr><td>2</td><td>C</td><td>B improves to 3 through C; E = 12 through C.</td><td>A:0, B:3, C:2, D:∞, E:12, F:∞</td></tr>
+                  <tr><td>3</td><td>B</td><td>D = 8 through B.</td><td>A:0, B:3, C:2, D:8, E:12, F:∞</td></tr>
+                  <tr><td>4</td><td>D</td><td>E improves to 10 through D; F = 14 through D.</td><td>A:0, B:3, C:2, D:8, E:10, F:14</td></tr>
+                  <tr><td>5</td><td>E</td><td>F improves to 13 through E.</td><td>A:0, B:3, C:2, D:8, E:10, F:13</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <aside class="study-note">The next node is always the unfinished node with the lowest tentative distance, not the first one alphabetically.</aside>
+          </section>
+
+          <section class="lesson-section" id="path">
+            <p class="eyebrow">7 | Result</p>
+            <h2>Path reconstruction</h2>
+            <p>
+              The minimum distance to F is 13. To recover the route, follow the
+              predecessors from the goal back to the source and then read the sequence
+              in reverse order.
+            </p>
+            <div class="info-grid">
+              <article class="detail-card"><span class="label">Predecessors</span><p>F <- E, E <- D, D <- B, B <- C, C <- A</p></article>
+              <article class="detail-card"><span class="label">Minimum path</span><p>A -> C -> B -> D -> E -> F</p></article>
+              <article class="detail-card"><span class="label">Minimum cost</span><p>2 + 1 + 5 + 2 + 3 = 13</p></article>
+              <article class="detail-card"><span class="label">Result</span><p>Reaching the goal is not enough: the goal is to arrive with the lowest possible cost.</p></article>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="limits">
+            <p class="eyebrow">8 | Conditions</p>
+            <h2>Negative weights and common errors</h2>
+            <p>
+              Dijkstra requires non-negative weights. A negative edge can make a route
+              that looked definitive become cheaper later.
+            </p>
+            <div class="concept-list">
+              <article><h3>Finalized node</h3><p>When Dijkstra selects the unvisited node with the lowest distance, its distance becomes final under the algorithm conditions.</p></article>
+              <article><h3>Predecessor</h3><p>The predecessor is updated only when a lower-cost route appears.</p></article>
+              <article><h3>Accumulated cost</h3><p>Do not add only the last edge: add the accumulated distance plus the new weight.</p></article>
+              <article><h3>Negative weights</h3><p>Graphs with negative weights require other algorithms, such as Bellman-Ford.</p></article>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="activity-en">
+            <p class="eyebrow">9 | Practice</p>
+            <h2>Manual procedure for Dijkstra</h2>
+            <ol class="step-list">
+              <li>Assign 0 to the initial node.</li>
+              <li>Assign infinity to all other nodes.</li>
+              <li>Select the unfinished node with the lowest distance.</li>
+              <li>Check each neighbor connected by an edge.</li>
+              <li>Compute current_distance + edge_weight.</li>
+              <li>If the new cost is lower, update distance and predecessor.</li>
+              <li>Finalize the current node.</li>
+              <li>Repeat until the goal is reached or all reachable nodes are finalized.</li>
+              <li>Reconstruct the path using predecessors.</li>
+            </ol>
+            <div class="table-wrap">
+              <table>
+                <caption>Check exercise</caption>
+                <thead><tr><th>Edge</th><th>Weight</th><th>Edge</th><th>Weight</th></tr></thead>
+                <tbody>
+                  <tr><td>A - B</td><td>3</td><td>A - C</td><td>6</td></tr>
+                  <tr><td>B - D</td><td>2</td><td>C - D</td><td>1</td></tr>
+                  <tr><td>B - C</td><td>5</td><td>Start / goal</td><td>A -> D</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="closing">
+            <p class="eyebrow">10 | Synthesis</p>
+            <h2>Key ideas</h2>
+            <ul>
+              <li>A weighted graph assigns costs to its edges.</li>
+              <li>A path is evaluated by adding its weights.</li>
+              <li>Fewer steps does not necessarily mean lower cost.</li>
+              <li>Dijkstra keeps the best known distance to each node.</li>
+              <li>Relaxation tries to improve an existing distance.</li>
+              <li>Predecessors make it possible to reconstruct the minimum path.</li>
+              <li>Dijkstra requires non-negative weights.</li>
+            </ul>
+            <aside class="callout"><strong>Summary phrase.</strong> Dijkstra does not try to arrive first; it tries to arrive with the lowest accumulated cost.</aside>
+          </section>
+
+          <section class="lesson-section" id="references-en">
+            <p class="eyebrow">R | References</p>
+            <h2>Sources used</h2>
+            <ul class="reference-list">
+              <li>Cormen, T. H., Leiserson, C. E., Rivest, R. L., & Stein, C. (2022). Introduction to algorithms (4th ed.). MIT Press.</li>
+              <li>Dijkstra, E. W. (1959). A note on two problems in connexion with graphs. Numerische Mathematik, 1, 269-271.</li>
+              <li>Russell, S. J., & Norvig, P. (2021). Artificial intelligence: a modern approach (4th ed.). Pearson.</li>
+            </ul>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span data-lesson-i18n="footerText">Class 04 | Artificial Intelligence</span>
+      <a href="#top" data-lesson-i18n="backTop">Back to top</a>
+    </footer>
+    <script src="lesson.js?v=dijkstra-weighted-graphs-20260822"></script>
+  </body>
+</html>
