@@ -691,6 +691,10 @@ const ui = {
     session04Title: "Weighted Graphs and Dijkstra",
     session04Text:
       "Weighted graphs, path cost, edge relaxation, tentative distances, predecessors, shortest paths, and non-negative weight conditions.",
+    session05Kicker: "Class 05",
+    session05Title: "Uncertainty in Artificial Intelligence",
+    session05Text:
+      "Probability, prior and posterior beliefs, Bayes' theorem, base rates, Naive Bayes, imperfect sensors, and decisions under uncertainty.",
     openSession: "Open class",
     footerText: "Artificial Intelligence course notebook",
     labels: {
@@ -736,6 +740,10 @@ const ui = {
     session04Title: "Grafos ponderados y Dijkstra",
     session04Text:
       "Grafos ponderados, costo de caminos, relajación de aristas, distancias tentativas, predecesores, rutas mínimas y condición de pesos no negativos.",
+    session05Kicker: "Clase 05",
+    session05Title: "Incertidumbre en inteligencia artificial",
+    session05Text:
+      "Probabilidad, creencias previas y posteriores, teorema de Bayes, tasas base, Naive Bayes, sensores imperfectos y decisiones bajo incertidumbre.",
     openSession: "Abrir clase",
     footerText: "Cuaderno del curso de inteligencia artificial",
     labels: {

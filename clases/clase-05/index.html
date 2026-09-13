@@ -1,0 +1,559 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="Clase 05 de Inteligencia Artificial: incertidumbre, probabilidad, Bayes y decisiones probabilísticas."
+    >
+    <title>Clase 05 | Incertidumbre en IA</title>
+    <link rel="stylesheet" href="../../styles.css?v=uncertainty-bayes-20260913">
+  </head>
+  <body class="lesson-page">
+    <header class="site-header">
+      <a class="brand" href="../../" aria-label="Volver al notebook de IA">
+        <span class="brand-mark">AI</span>
+        <span>Inteligencia Artificial</span>
+      </a>
+      <nav class="top-nav" aria-label="Navegación de la clase">
+        <a href="#ruta" data-lesson-i18n="navRoute">Route</a>
+        <a href="#practice-en" data-lesson-nav="practice" data-lesson-i18n="navPractice">Practice</a>
+        <a href="#references-en" data-lesson-nav="references" data-lesson-i18n="navReferences">References</a>
+        <a class="repo-link" href="https://github.com/DIALVEBE/IA" rel="noreferrer">GitHub</a>
+      </nav>
+      <div class="language-switch" role="group" aria-label="Language switch">
+        <button class="lang-button is-active" type="button" data-lang="en">EN</button>
+        <button class="lang-button" type="button" data-lang="es">ES</button>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="lesson-hero">
+        <div class="hero-copy">
+          <p class="eyebrow" data-lesson-i18n="heroKicker">Reasoning | Week 5</p>
+          <h1 data-lesson-i18n="heroTitle">Uncertainty in Artificial Intelligence</h1>
+          <p class="hero-text" data-lesson-i18n="heroText">
+            Reason with incomplete evidence, update beliefs with Bayes, and separate
+            probabilistic inference from decisions and actions.
+          </p>
+          <div class="hero-actions">
+            <a class="primary-action" href="#ruta" data-lesson-i18n="startClass">Start class</a>
+          </div>
+        </div>
+        <figure class="lesson-hero-visual">
+          <div class="uncertainty-hero-diagram" role="img" aria-label="Bayesian update flow">
+            <svg viewBox="0 0 720 440">
+              <defs>
+                <marker id="arrowhead" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                  <path d="M 0 0 L 10 5 L 0 10 z" fill="rgba(0, 240, 255, 0.8)"></path>
+                </marker>
+              </defs>
+              <path class="prob-arrow" d="M175 220 L282 220"></path>
+              <path class="prob-arrow" d="M438 220 L545 220"></path>
+              <g class="prob-node">
+                <rect x="55" y="160" width="120" height="120" rx="18"></rect>
+                <text x="115" y="208" data-lesson-i18n="heroPrior">Prior</text>
+                <text class="muted-label" x="115" y="238">P(H)</text>
+              </g>
+              <g class="prob-node is-risk">
+                <rect x="295" y="150" width="130" height="140" rx="18"></rect>
+                <text x="360" y="204" data-lesson-i18n="heroEvidence">Evidence</text>
+                <text class="muted-label" x="360" y="236">P(E|H)</text>
+              </g>
+              <g class="prob-node is-posterior">
+                <rect x="545" y="160" width="125" height="120" rx="18"></rect>
+                <text x="607" y="208" data-lesson-i18n="heroPosterior">Posterior</text>
+                <text class="muted-label" x="607" y="238">P(H|E)</text>
+              </g>
+            </svg>
+          </div>
+        </figure>
+      </section>
+
+      <section class="lesson-shell" id="ruta">
+        <aside class="topic-index lesson-index" aria-label="Índice de clase">
+          <div class="index-title" data-lesson-i18n="routeTitle">Route</div>
+          <a href="#uncertainty-en" data-lesson-nav="uncertainty" data-lesson-i18n="idxUncertainty">1. Uncertainty</a>
+          <a href="#probability-en" data-lesson-nav="probability" data-lesson-i18n="idxProbability">2. Probability</a>
+          <a href="#concepts-en" data-lesson-nav="concepts" data-lesson-i18n="idxConcepts">3. Concepts</a>
+          <a href="#bayes-en" data-lesson-nav="bayes" data-lesson-i18n="idxBayes">4. Bayes</a>
+          <a href="#boxes-en" data-lesson-nav="boxes" data-lesson-i18n="idxBoxes">5. Three boxes</a>
+          <a href="#medical-en" data-lesson-nav="medical" data-lesson-i18n="idxMedical">6. Base rate</a>
+          <a href="#spam-en" data-lesson-nav="spam" data-lesson-i18n="idxSpam">7. Spam</a>
+          <a href="#robot-en" data-lesson-nav="robot" data-lesson-i18n="idxRobot">8. Sensor</a>
+          <a href="#network-en" data-lesson-nav="network" data-lesson-i18n="idxNetwork">9. Bayesian networks</a>
+          <a href="#simulation-en" data-lesson-nav="simulation" data-lesson-i18n="idxSimulation">10. Simulation</a>
+          <a href="#practice-en" data-lesson-nav="practice" data-lesson-i18n="idxPractice">11. Practice</a>
+          <a href="#references-en" data-lesson-nav="references" data-lesson-i18n="idxReferences">R. References</a>
+        </aside>
+
+        <div class="lesson-content" data-lang-only="es" hidden>
+          <section class="lesson-section" id="incertidumbre">
+            <p class="eyebrow">1 | Mundo real</p>
+            <h2>Incertidumbre en inteligencia artificial</h2>
+            <p>
+              La inteligencia artificial no siempre opera en mundos perfectamente
+              conocidos. En problemas reales, un sistema puede tener información
+              incompleta, ambigua, ruidosa o probabilística.
+            </p>
+            <aside class="question"><strong>Pregunta central.</strong> ¿Qué tan probable es que una hipótesis sea verdadera dadas las evidencias disponibles?</aside>
+            <div class="concept-list">
+              <article><h3>Vehículo autónomo</h3><p>Un objeto detectado puede ser una persona, una sombra o una señal parcialmente oculta.</p></article>
+              <article><h3>Diagnóstico médico</h3><p>Fiebre y tos no identifican una sola enfermedad con certeza absoluta.</p></article>
+              <article><h3>Fraude</h3><p>Una transacción extraña puede ser fraude o una compra legítima poco común.</p></article>
+              <article><h3>Robot</h3><p>Un sensor puede detectar un obstáculo inexistente o fallar ante uno real.</p></article>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="probabilidad">
+            <p class="eyebrow">2 | Representación</p>
+            <h2>Probabilidad</h2>
+            <p>Una probabilidad representa un grado de creencia o posibilidad entre 0 y 1.</p>
+            <code class="prob-formula">0 <= P(A) <= 1</code>
+            <div class="probability-scale" aria-label="Escala de probabilidad">
+              <div class="scale-track"></div>
+              <div class="scale-labels"><span>0 imposible</span><span>0.5 incierto</span><span>1 seguro</span></div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Probabilidad</th><th>Interpretación aproximada</th></tr></thead>
+                <tbody>
+                  <tr><td>0.10</td><td>Muy poco probable</td></tr>
+                  <tr><td>0.50</td><td>Tan probable como improbable</td></tr>
+                  <tr><td>0.80</td><td>Bastante probable</td></tr>
+                  <tr><td>0.99</td><td>Extremadamente probable, pero no certeza absoluta</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <aside class="warning callout"><strong>Precisión conceptual.</strong> Una probabilidad de 70 % no significa que el evento esté 70 % ocurrido; significa que existe incertidumbre sobre si ocurrirá.</aside>
+          </section>
+
+          <section class="lesson-section" id="conceptos">
+            <p class="eyebrow">3 | Lenguaje probabilístico</p>
+            <h2>Conceptos fundamentales</h2>
+            <div class="concept-list">
+              <article><h3>Evento</h3><p>Algo que puede ocurrir: lluvia, fraude, enfermedad o una alarma.</p></article>
+              <article><h3>Prior</h3><p>Creencia antes de observar nueva evidencia. Ejemplo: P(fraude) = 0.01.</p></article>
+              <article><h3>Evidencia</h3><p>Información observada: una palabra en un correo, un resultado positivo o un beep.</p></article>
+              <article><h3>Likelihood</h3><p>Compatibilidad de la evidencia con una hipótesis: P(evidencia | hipótesis).</p></article>
+              <article><h3>Posterior</h3><p>Nueva creencia después de observar evidencia: P(hipótesis | evidencia).</p></article>
+              <article><h3>Condicional</h3><p>El símbolo | se lee como “dado que”. P(A | B) es la probabilidad de A dado B.</p></article>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="bayes-es">
+            <p class="eyebrow">4 | Actualización</p>
+            <h2>Teorema de Bayes</h2>
+            <p>Bayes permite actualizar una creencia cuando aparece nueva evidencia.</p>
+            <code class="prob-formula">P(H | E) = P(E | H)P(H) / P(E)</code>
+            <figure class="lesson-figure">
+              <div class="lesson-diagram bayes-flow" role="img" aria-label="Ciclo de actualización bayesiana">
+                <span>Creencia anterior</span><span>+</span><span>Evidencia</span><strong>Actualizar</strong><span>Nueva creencia</span>
+              </div>
+              <figcaption>Figura 1. La posterior puede convertirse en el nuevo prior cuando llega otra observación.</figcaption>
+            </figure>
+          </section>
+
+          <section class="lesson-section" id="cajas">
+            <p class="eyebrow">5 | Ejemplo secuencial</p>
+            <h2>Las tres cajas</h2>
+            <p>Hay tres cajas igualmente probables. Cada caja tiene una probabilidad distinta de entregar una moneda de oro.</p>
+            <figure class="lesson-figure">
+              <div class="lesson-diagram boxes-diagram" role="img" aria-label="Tres cajas con probabilidades de oro">
+                <strong>Caja A<br>Oro 0.70<br>Plata 0.30</strong>
+                <span>Caja B<br>Oro 0.40<br>Plata 0.60</span>
+                <span>Caja C<br>Oro 0.10<br>Plata 0.90</span>
+              </div>
+              <figcaption>Figura 2. Observar oro aumenta la creencia en la caja A, pero no elimina totalmente las demás hipótesis.</figcaption>
+            </figure>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Momento</th><th>A</th><th>B</th><th>C</th></tr></thead>
+                <tbody>
+                  <tr><td>Antes de observar</td><td>33.33 %</td><td>33.33 %</td><td>33.33 %</td></tr>
+                  <tr><td>Después de oro</td><td>58.33 %</td><td>33.33 %</td><td>8.33 %</td></tr>
+                  <tr><td>Después de oro, oro</td><td>74.24 %</td><td>24.24 %</td><td>1.52 %</td></tr>
+                  <tr><td>Después de oro, oro, plata</td><td>58.33 %</td><td>38.10 %</td><td>3.57 %</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <pre><code>def actualizar(creencias, probabilidades_evidencia):
+    no_normalizadas = {}
+
+    for hipotesis in creencias:
+        no_normalizadas[hipotesis] = (
+            creencias[hipotesis] * probabilidades_evidencia[hipotesis]
+        )
+
+    total = sum(no_normalizadas.values())
+
+    return {
+        hipotesis: valor / total
+        for hipotesis, valor in no_normalizadas.items()
+    }</code></pre>
+          </section>
+
+          <section class="lesson-section" id="medica">
+            <p class="eyebrow">6 | Tasa base</p>
+            <h2>Una prueba médica que acierta el 95 %</h2>
+            <p>Si una enfermedad afecta al 1 % de la población, un resultado positivo no implica automáticamente 95 % de probabilidad de enfermedad.</p>
+            <figure class="lesson-figure">
+              <div class="lesson-diagram medical-diagram" role="img" aria-label="Prueba médica y tasa base">
+                <span>10 000 personas</span><span>100 enfermas</span><strong>95 positivos verdaderos</strong><span>9 900 sanas</span><strong>495 falsos positivos</strong>
+              </div>
+              <figcaption>Figura 3. Entre 590 positivos, solo 95 son positivos verdaderos.</figcaption>
+            </figure>
+            <code class="prob-formula">P(enfermedad | +) = 95 / (95 + 495) ≈ 16.1 %</code>
+            <aside class="warning callout"><strong>Idea clave.</strong> Las probabilidades previas importan. Ignorar la tasa base puede producir conclusiones equivocadas.</aside>
+          </section>
+
+          <section class="lesson-section" id="spam">
+            <p class="eyebrow">7 | Clasificación</p>
+            <h2>Detector de spam</h2>
+            <p>La palabra “premio” puede ser evidencia para estimar si un correo es spam.</p>
+            <code class="prob-formula">P(spam | "premio") = (0.80 x 0.30) / ((0.80 x 0.30) + (0.05 x 0.70)) ≈ 87.27 %</code>
+            <p>Si aparecen varias evidencias, Naive Bayes introduce una suposición simplificadora: las características son condicionalmente independientes dada la clase.</p>
+            <code class="prob-formula">P(premio, urgente | spam) ≈ P(premio | spam) x P(urgente | spam)</code>
+            <pre><code>p_spam = 0.30
+p_no_spam = 0.70
+
+p_premio_spam = 0.80
+p_premio_no_spam = 0.05
+
+posterior = (
+    p_premio_spam * p_spam
+) / (
+    p_premio_spam * p_spam
+    + p_premio_no_spam * p_no_spam
+)</code></pre>
+          </section>
+
+          <section class="lesson-section" id="robot">
+            <p class="eyebrow">8 | Inferencia y acción</p>
+            <h2>Robot con sensor imperfecto</h2>
+            <p>Antes del sensor, P(obstáculo) = 0.20. Si el sensor emite beep, con P(beep | obstáculo) = 0.90 y P(beep | no obstáculo) = 0.10:</p>
+            <code class="prob-formula">P(obstáculo | beep) = 0.18 / (0.18 + 0.08) ≈ 69.23 %</code>
+            <figure class="lesson-figure">
+              <div class="lesson-diagram decision-flow" role="img" aria-label="Inferencia y decisión">
+                <span>Evidencia</span><span>Inferencia</span><strong>Probabilidad</strong><span>Decisión</span><span>Acción</span>
+              </div>
+              <figcaption>Figura 4. Inferir una probabilidad no es lo mismo que decidir qué hacer.</figcaption>
+            </figure>
+            <pre><code>prob_obstaculo = 0.6923
+umbral = 0.60
+
+if prob_obstaculo >= umbral:
+    print("DETENER ROBOT")
+else:
+    print("CONTINUAR")</code></pre>
+          </section>
+
+          <section class="lesson-section" id="redes">
+            <p class="eyebrow">9 | Dependencias</p>
+            <h2>Redes bayesianas</h2>
+            <p>Una red bayesiana representa variables y dependencias probabilísticas mediante un grafo dirigido acíclico.</p>
+            <figure class="lesson-figure">
+              <div class="lesson-diagram network-diagram" role="img" aria-label="Red bayesiana simple">
+                <strong>Enfermedad</strong><span>Fiebre</span><span>Tos</span><span>Fatiga</span>
+              </div>
+              <figcaption>Figura 5. Las flechas indican dependencias probabilísticas directas.</figcaption>
+            </figure>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Enfermedad</th><th>P(Fiebre = sí)</th></tr></thead>
+                <tbody><tr><td>Sí</td><td>0.80</td></tr><tr><td>No</td><td>0.10</td></tr></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="simulacion">
+            <p class="eyebrow">10 | Experimento</p>
+            <h2>Simular incertidumbre con Python</h2>
+            <p>También podemos estudiar eventos inciertos con simulaciones.</p>
+            <pre><code>import random
+
+probabilidad_lluvia = 0.30
+dias = 10_000
+dias_con_lluvia = 0
+
+for _ in range(dias):
+    if random.random() < probabilidad_lluvia:
+        dias_con_lluvia += 1
+
+frecuencia = dias_con_lluvia / dias
+print(frecuencia)</code></pre>
+            <aside class="callout"><strong>Lectura.</strong> La frecuencia simulada debería acercarse a 0.30, aunque no será exactamente igual en cada ejecución.</aside>
+          </section>
+
+          <section class="lesson-section" id="practica">
+            <p class="eyebrow">11 | Práctica</p>
+            <h2>Ejercicios</h2>
+            <div class="concept-list">
+              <article><h3>Condicional</h3><p>En 200 personas, 120 usan Python y 60 usan Python y ML. Calcula P(ML | Python).</p></article>
+              <article><h3>Fraude</h3><p>P(fraude)=0.02, P(alerta|fraude)=0.90, P(alerta|no fraude)=0.04. Calcula P(fraude|alerta).</p></article>
+              <article><h3>Sensor de humo</h3><p>P(incendio)=0.005, P(alarma|incendio)=0.99, P(alarma|no incendio)=0.02. Calcula P(incendio|alarma).</p></article>
+              <article><h3>Actualización secuencial</h3><p>Tres cajas producen rojo con probabilidades 0.80, 0.50 y 0.20. Observa rojo, rojo, no rojo.</p></article>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="cierre">
+            <p class="eyebrow">12 | Cierre</p>
+            <h2>Idea central</h2>
+            <p>Una IA inteligente no necesita saber todo con certeza. Necesita representar lo que no sabe, usar evidencia disponible, actualizar creencias, estimar riesgos y tomar decisiones razonables.</p>
+            <ul>
+              <li>La incertidumbre no es un error: es parte del problema.</li>
+              <li>Bayes conecta creencias previas, evidencia y creencias posteriores.</li>
+              <li>Una probabilidad alta no significa certeza.</li>
+              <li>Inferir no es lo mismo que decidir.</li>
+            </ul>
+          </section>
+
+          <section class="lesson-section" id="referencias">
+            <p class="eyebrow">R | Referencias</p>
+            <h2>Fuentes recomendadas</h2>
+            <ul class="reference-list">
+              <li>Russell, S. J., & Norvig, P. (2021). Artificial intelligence: a modern approach (4th ed.). Pearson.</li>
+              <li>Murphy, K. P. (2022). Probabilistic machine learning: an introduction. MIT Press.</li>
+              <li>Pearl, J. (1988). Probabilistic reasoning in intelligent systems. Morgan Kaufmann.</li>
+            </ul>
+          </section>
+        </div>
+
+        <div class="lesson-content" data-lang-only="en">
+          <section class="lesson-section" id="uncertainty-en">
+            <p class="eyebrow">1 | Real world</p>
+            <h2>Uncertainty in artificial intelligence</h2>
+            <p>Artificial intelligence does not always operate in perfectly known worlds. In real problems, a system may face incomplete, ambiguous, noisy, or probabilistic information.</p>
+            <aside class="question"><strong>Central question.</strong> How likely is a hypothesis to be true given the available evidence?</aside>
+            <div class="concept-list">
+              <article><h3>Autonomous vehicle</h3><p>A detected object may be a person, a shadow, or a partially hidden sign.</p></article>
+              <article><h3>Medical diagnosis</h3><p>Fever and cough do not identify one disease with absolute certainty.</p></article>
+              <article><h3>Fraud</h3><p>An unusual transaction may be fraud or a rare legitimate purchase.</p></article>
+              <article><h3>Robot</h3><p>A sensor may detect a nonexistent obstacle or miss a real one.</p></article>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="probability-en">
+            <p class="eyebrow">2 | Representation</p>
+            <h2>Probability</h2>
+            <p>A probability represents a degree of belief or possibility between 0 and 1.</p>
+            <code class="prob-formula">0 <= P(A) <= 1</code>
+            <div class="probability-scale" aria-label="Probability scale">
+              <div class="scale-track"></div>
+              <div class="scale-labels"><span>0 impossible</span><span>0.5 uncertain</span><span>1 certain</span></div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Probability</th><th>Approximate interpretation</th></tr></thead>
+                <tbody>
+                  <tr><td>0.10</td><td>Very unlikely</td></tr>
+                  <tr><td>0.50</td><td>As likely as unlikely</td></tr>
+                  <tr><td>0.80</td><td>Quite likely</td></tr>
+                  <tr><td>0.99</td><td>Extremely likely, but not absolute certainty</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <aside class="warning callout"><strong>Conceptual precision.</strong> A probability of 70% does not mean that the event is 70% completed; it means there is uncertainty about whether it will occur.</aside>
+          </section>
+
+          <section class="lesson-section" id="concepts-en">
+            <p class="eyebrow">3 | Probabilistic language</p>
+            <h2>Fundamental concepts</h2>
+            <div class="concept-list">
+              <article><h3>Event</h3><p>Something that may occur: rain, fraud, disease, or an alarm.</p></article>
+              <article><h3>Prior</h3><p>Belief before observing new evidence. Example: P(fraud) = 0.01.</p></article>
+              <article><h3>Evidence</h3><p>Observed information: a word in an email, a positive test, or a beep.</p></article>
+              <article><h3>Likelihood</h3><p>Compatibility of the evidence with a hypothesis: P(evidence | hypothesis).</p></article>
+              <article><h3>Posterior</h3><p>New belief after observing evidence: P(hypothesis | evidence).</p></article>
+              <article><h3>Conditional</h3><p>The symbol | is read as “given”. P(A | B) is the probability of A given B.</p></article>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="bayes-en">
+            <p class="eyebrow">4 | Updating</p>
+            <h2>Bayes' theorem</h2>
+            <p>Bayes lets us update a belief when new evidence appears.</p>
+            <code class="prob-formula">P(H | E) = P(E | H)P(H) / P(E)</code>
+            <figure class="lesson-figure">
+              <div class="lesson-diagram bayes-flow" role="img" aria-label="Bayesian update cycle">
+                <span>Prior belief</span><span>+</span><span>Evidence</span><strong>Update</strong><span>New belief</span>
+              </div>
+              <figcaption>Figure 1. The posterior can become the new prior when another observation arrives.</figcaption>
+            </figure>
+          </section>
+
+          <section class="lesson-section" id="boxes-en">
+            <p class="eyebrow">5 | Sequential example</p>
+            <h2>The three boxes</h2>
+            <p>There are three equally likely boxes. Each box has a different probability of producing a gold coin.</p>
+            <figure class="lesson-figure">
+              <div class="lesson-diagram boxes-diagram" role="img" aria-label="Three boxes with gold probabilities">
+                <strong>Box A<br>Gold 0.70<br>Silver 0.30</strong>
+                <span>Box B<br>Gold 0.40<br>Silver 0.60</span>
+                <span>Box C<br>Gold 0.10<br>Silver 0.90</span>
+              </div>
+              <figcaption>Figure 2. Observing gold increases belief in box A, but it does not eliminate the other hypotheses.</figcaption>
+            </figure>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Moment</th><th>A</th><th>B</th><th>C</th></tr></thead>
+                <tbody>
+                  <tr><td>Before observing</td><td>33.33%</td><td>33.33%</td><td>33.33%</td></tr>
+                  <tr><td>After gold</td><td>58.33%</td><td>33.33%</td><td>8.33%</td></tr>
+                  <tr><td>After gold, gold</td><td>74.24%</td><td>24.24%</td><td>1.52%</td></tr>
+                  <tr><td>After gold, gold, silver</td><td>58.33%</td><td>38.10%</td><td>3.57%</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <pre><code>def update(beliefs, evidence_probabilities):
+    unnormalized = {}
+
+    for hypothesis in beliefs:
+        unnormalized[hypothesis] = (
+            beliefs[hypothesis] * evidence_probabilities[hypothesis]
+        )
+
+    total = sum(unnormalized.values())
+
+    return {
+        hypothesis: value / total
+        for hypothesis, value in unnormalized.items()
+    }</code></pre>
+          </section>
+
+          <section class="lesson-section" id="medical-en">
+            <p class="eyebrow">6 | Base rate</p>
+            <h2>A medical test that is 95% sensitive</h2>
+            <p>If a disease affects 1% of the population, a positive test does not automatically imply a 95% probability of disease.</p>
+            <figure class="lesson-figure">
+              <div class="lesson-diagram medical-diagram" role="img" aria-label="Medical test and base rate">
+                <span>10,000 people</span><span>100 sick</span><strong>95 true positives</strong><span>9,900 healthy</span><strong>495 false positives</strong>
+              </div>
+              <figcaption>Figure 3. Among 590 positive results, only 95 are true positives.</figcaption>
+            </figure>
+            <code class="prob-formula">P(disease | +) = 95 / (95 + 495) ≈ 16.1%</code>
+            <aside class="warning callout"><strong>Key idea.</strong> Prior probabilities matter. Ignoring the base rate can produce wrong conclusions.</aside>
+          </section>
+
+          <section class="lesson-section" id="spam-en">
+            <p class="eyebrow">7 | Classification</p>
+            <h2>Spam detector</h2>
+            <p>The word “prize” can be evidence for estimating whether an email is spam.</p>
+            <code class="prob-formula">P(spam | "prize") = (0.80 x 0.30) / ((0.80 x 0.30) + (0.05 x 0.70)) ≈ 87.27%</code>
+            <p>When several pieces of evidence appear, Naive Bayes introduces a simplifying assumption: features are conditionally independent given the class.</p>
+            <code class="prob-formula">P(prize, urgent | spam) ≈ P(prize | spam) x P(urgent | spam)</code>
+            <pre><code>p_spam = 0.30
+p_not_spam = 0.70
+
+p_prize_spam = 0.80
+p_prize_not_spam = 0.05
+
+posterior = (
+    p_prize_spam * p_spam
+) / (
+    p_prize_spam * p_spam
+    + p_prize_not_spam * p_not_spam
+)</code></pre>
+          </section>
+
+          <section class="lesson-section" id="robot-en">
+            <p class="eyebrow">8 | Inference and action</p>
+            <h2>Robot with an imperfect sensor</h2>
+            <p>Before the sensor, P(obstacle) = 0.20. If the sensor emits a beep, with P(beep | obstacle) = 0.90 and P(beep | no obstacle) = 0.10:</p>
+            <code class="prob-formula">P(obstacle | beep) = 0.18 / (0.18 + 0.08) ≈ 69.23%</code>
+            <figure class="lesson-figure">
+              <div class="lesson-diagram decision-flow" role="img" aria-label="Inference and decision">
+                <span>Evidence</span><span>Inference</span><strong>Probability</strong><span>Decision</span><span>Action</span>
+              </div>
+              <figcaption>Figure 4. Inferring a probability is not the same as deciding what to do.</figcaption>
+            </figure>
+            <pre><code>obstacle_probability = 0.6923
+threshold = 0.60
+
+if obstacle_probability >= threshold:
+    print("STOP ROBOT")
+else:
+    print("CONTINUE")</code></pre>
+          </section>
+
+          <section class="lesson-section" id="network-en">
+            <p class="eyebrow">9 | Dependencies</p>
+            <h2>Bayesian networks</h2>
+            <p>A Bayesian network represents variables and probabilistic dependencies using a directed acyclic graph.</p>
+            <figure class="lesson-figure">
+              <div class="lesson-diagram network-diagram" role="img" aria-label="Simple Bayesian network">
+                <strong>Disease</strong><span>Fever</span><span>Cough</span><span>Fatigue</span>
+              </div>
+              <figcaption>Figure 5. Arrows indicate direct probabilistic dependencies.</figcaption>
+            </figure>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Disease</th><th>P(Fever = yes)</th></tr></thead>
+                <tbody><tr><td>Yes</td><td>0.80</td></tr><tr><td>No</td><td>0.10</td></tr></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="simulation-en">
+            <p class="eyebrow">10 | Experiment</p>
+            <h2>Simulating uncertainty with Python</h2>
+            <p>We can also study uncertain events with simulations.</p>
+            <pre><code>import random
+
+rain_probability = 0.30
+days = 10_000
+rainy_days = 0
+
+for _ in range(days):
+    if random.random() < rain_probability:
+        rainy_days += 1
+
+frequency = rainy_days / days
+print(frequency)</code></pre>
+            <aside class="callout"><strong>Reading.</strong> The simulated frequency should approach 0.30, although it will not be exactly the same on every run.</aside>
+          </section>
+
+          <section class="lesson-section" id="practice-en">
+            <p class="eyebrow">11 | Practice</p>
+            <h2>Exercises</h2>
+            <div class="concept-list">
+              <article><h3>Conditional</h3><p>In 200 people, 120 use Python and 60 use Python and ML. Calculate P(ML | Python).</p></article>
+              <article><h3>Fraud</h3><p>P(fraud)=0.02, P(alert|fraud)=0.90, P(alert|no fraud)=0.04. Calculate P(fraud|alert).</p></article>
+              <article><h3>Smoke sensor</h3><p>P(fire)=0.005, P(alarm|fire)=0.99, P(alarm|no fire)=0.02. Calculate P(fire|alarm).</p></article>
+              <article><h3>Sequential update</h3><p>Three boxes produce red with probabilities 0.80, 0.50, and 0.20. Observe red, red, not red.</p></article>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="closing-en">
+            <p class="eyebrow">12 | Closing</p>
+            <h2>Central idea</h2>
+            <p>An intelligent AI system does not need to know everything with certainty. It needs to represent what it does not know, use available evidence, update beliefs, estimate risks, and make reasonable decisions.</p>
+            <ul>
+              <li>Uncertainty is not an error: it is part of the problem.</li>
+              <li>Bayes connects prior beliefs, evidence, and posterior beliefs.</li>
+              <li>A high probability does not mean certainty.</li>
+              <li>Inference is not the same as decision-making.</li>
+            </ul>
+          </section>
+
+          <section class="lesson-section" id="references-en">
+            <p class="eyebrow">R | References</p>
+            <h2>Recommended sources</h2>
+            <ul class="reference-list">
+              <li>Russell, S. J., & Norvig, P. (2021). Artificial intelligence: a modern approach (4th ed.). Pearson.</li>
+              <li>Murphy, K. P. (2022). Probabilistic machine learning: an introduction. MIT Press.</li>
+              <li>Pearl, J. (1988). Probabilistic reasoning in intelligent systems. Morgan Kaufmann.</li>
+            </ul>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span data-lesson-i18n="footerText">Class 05 | Artificial Intelligence</span>
+      <a href="#top" data-lesson-i18n="backTop">Back to top</a>
+    </footer>
+    <script src="lesson.js?v=uncertainty-bayes-20260913"></script>
+  </body>
+</html>
