@@ -24,6 +24,8 @@ const lessonUi = {
     idxSimulation: "10. Simulation",
     idxPractice: "11. Practice",
     idxReferences: "R. References",
+    copyCode: "Copy",
+    copiedCode: "Copied",
     footerText: "Class 05 | Artificial Intelligence",
     backTop: "Back to top"
   },
@@ -52,6 +54,8 @@ const lessonUi = {
     idxSimulation: "10. Simulación",
     idxPractice: "11. Práctica",
     idxReferences: "R. Referencias",
+    copyCode: "Copiar",
+    copiedCode: "Copiado",
     footerText: "Clase 05 | Inteligencia Artificial",
     backTop: "Volver arriba"
   }
@@ -109,14 +113,54 @@ function renderLesson(language) {
     button.classList.toggle("is-active", isActive);
     button.setAttribute("aria-pressed", String(isActive));
   });
+
+  document.querySelectorAll(".copy-code-button").forEach((button) => {
+    button.textContent = lessonUi[safeLanguage].copyCode;
+    button.setAttribute("aria-label", lessonUi[safeLanguage].copyCode);
+  });
+}
+
+function enhanceCodeBlocks() {
+  document.querySelectorAll("pre > code").forEach((codeBlock) => {
+    const pre = codeBlock.parentElement;
+    if (!pre || pre.parentElement.classList.contains("code-copy-wrap")) return;
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "code-copy-wrap";
+
+    const button = document.createElement("button");
+    button.className = "copy-code-button";
+    button.type = "button";
+    button.dataset.copyCode = "";
+
+    pre.parentNode.insertBefore(wrapper, pre);
+    wrapper.appendChild(button);
+    wrapper.appendChild(pre);
+  });
 }
 
 document.addEventListener("click", (event) => {
   const button = event.target.closest(".lang-button");
-  if (!button) return;
-  event.preventDefault();
-  localStorage.setItem("ia-language", button.dataset.lang);
-  renderLesson(button.dataset.lang);
+  if (button) {
+    event.preventDefault();
+    localStorage.setItem("ia-language", button.dataset.lang);
+    renderLesson(button.dataset.lang);
+    return;
+  }
+
+  const copyButton = event.target.closest(".copy-code-button");
+  if (!copyButton) return;
+
+  const code = copyButton.parentElement.querySelector("code");
+  const currentLanguage = localStorage.getItem("ia-language") || document.documentElement.lang || "en";
+  const safeLanguage = lessonUi[currentLanguage] ? currentLanguage : "en";
+  navigator.clipboard.writeText(code.textContent).then(() => {
+    copyButton.textContent = lessonUi[safeLanguage].copiedCode;
+    window.setTimeout(() => {
+      copyButton.textContent = lessonUi[safeLanguage].copyCode;
+    }, 1400);
+  });
 });
 
+enhanceCodeBlocks();
 renderLesson(localStorage.getItem("ia-language") || "en");

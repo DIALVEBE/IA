@@ -985,6 +985,39 @@ th {
   white-space: nowrap;
 }
 
+.code-copy-wrap {
+  position: relative;
+  margin: 1rem 0;
+}
+
+.code-copy-wrap pre {
+  margin: 0;
+  padding-top: 3.15rem;
+}
+
+.copy-code-button {
+  position: absolute;
+  top: 0.7rem;
+  right: 0.7rem;
+  z-index: 2;
+  min-height: 2rem;
+  padding: 0.35rem 0.65rem;
+  border: 1px solid rgba(0, 240, 255, 0.42);
+  background: rgba(5, 10, 28, 0.92);
+  color: var(--cyan-2);
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.copy-code-button:hover,
+.copy-code-button:focus-visible {
+  border-color: rgba(185, 255, 99, 0.78);
+  color: var(--lime);
+}
+
 .probability-scale {
   display: grid;
   gap: 0.75rem;
@@ -1735,5 +1768,15 @@ th {
 
   .prob-formula {
     font-size: 0.8rem;
+  }
+
+  .copy-code-button {
+    position: static;
+    width: 100%;
+    margin-bottom: 0.45rem;
+  }
+
+  .code-copy-wrap pre {
+    padding-top: 1rem;
   }
 }

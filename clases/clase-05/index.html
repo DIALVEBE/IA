@@ -158,7 +158,18 @@
           <section class="lesson-section" id="cajas">
             <p class="eyebrow">5 | Ejemplo secuencial</p>
             <h2>Las tres cajas</h2>
-            <p>Hay tres cajas igualmente probables. Cada caja tiene una probabilidad distinta de entregar una moneda de oro.</p>
+            <p>
+              Imagina que alguien escoge una caja al azar, pero no te dice cuál fue.
+              Las tres cajas representan tres hipótesis posibles: A, B o C. Al inicio
+              no tienes una razón para preferir una sobre otra, por eso empiezan con la
+              misma probabilidad.
+            </p>
+            <p>
+              Las cajas son diferentes porque su composición interna no es la misma:
+              la caja A tiene más monedas de oro, la caja B está más balanceada y la
+              caja C casi siempre entrega plata. No observas la caja directamente; solo
+              observas las monedas que van saliendo.
+            </p>
             <figure class="lesson-figure">
               <div class="lesson-diagram boxes-diagram" role="img" aria-label="Tres cajas con probabilidades de oro">
                 <strong>Caja A<br>Oro 0.70<br>Plata 0.30</strong>
@@ -178,6 +189,7 @@
                 </tbody>
               </table>
             </div>
+            <aside class="callout"><strong>Lectura.</strong> Si aparece una moneda de oro, la caja A se vuelve más probable porque esa evidencia era más esperable bajo A. Si después aparece plata, B gana peso porque producir plata es más compatible con B que con A.</aside>
             <pre><code>def actualizar(creencias, probabilidades_evidencia):
     no_normalizadas = {}
 
@@ -386,7 +398,18 @@ print(frecuencia)</code></pre>
           <section class="lesson-section" id="boxes-en">
             <p class="eyebrow">5 | Sequential example</p>
             <h2>The three boxes</h2>
-            <p>There are three equally likely boxes. Each box has a different probability of producing a gold coin.</p>
+            <p>
+              Imagine that someone chooses one box at random but does not tell you
+              which one it was. The three boxes represent three possible hypotheses:
+              A, B, or C. At the beginning, there is no reason to prefer one over
+              another, so they start with the same probability.
+            </p>
+            <p>
+              The boxes are different because their internal composition is not the
+              same: box A contains more gold coins, box B is more balanced, and box C
+              almost always produces silver. You do not observe the box directly; you
+              only observe the coins that come out.
+            </p>
             <figure class="lesson-figure">
               <div class="lesson-diagram boxes-diagram" role="img" aria-label="Three boxes with gold probabilities">
                 <strong>Box A<br>Gold 0.70<br>Silver 0.30</strong>
@@ -406,6 +429,7 @@ print(frecuencia)</code></pre>
                 </tbody>
               </table>
             </div>
+            <aside class="callout"><strong>Reading.</strong> If a gold coin appears, box A becomes more likely because that evidence was more expected under A. If silver appears later, B gains weight because producing silver is more compatible with B than with A.</aside>
             <pre><code>def update(beliefs, evidence_probabilities):
     unnormalized = {}
 
