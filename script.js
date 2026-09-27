@@ -695,6 +695,10 @@ const ui = {
     session05Title: "Uncertainty in Artificial Intelligence",
     session05Text:
       "Probability, prior and posterior beliefs, Bayes' theorem, base rates, Naive Bayes, imperfect sensors, and decisions under uncertainty.",
+    session06Kicker: "Class 06",
+    session06Title: "Optimization and Hill Climbing",
+    session06Text:
+      "Objective functions, candidate solutions, search spaces, neighbors, Hill Climbing, local optima, random restarts, and optimization in ML.",
     openSession: "Open class",
     footerText: "Artificial Intelligence course notebook",
     labels: {
@@ -744,6 +748,10 @@ const ui = {
     session05Title: "Incertidumbre en inteligencia artificial",
     session05Text:
       "Probabilidad, creencias previas y posteriores, teorema de Bayes, tasas base, Naive Bayes, sensores imperfectos y decisiones bajo incertidumbre.",
+    session06Kicker: "Clase 06",
+    session06Title: "Optimización y Hill Climbing",
+    session06Text:
+      "Funciones objetivo, soluciones candidatas, espacios de búsqueda, vecinos, Hill Climbing, óptimos locales, reinicios aleatorios y optimización en ML.",
     openSession: "Abrir clase",
     footerText: "Cuaderno del curso de inteligencia artificial",
     labels: {

@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="Clase 06 de Inteligencia Artificial: optimización, función objetivo, Hill Climbing y óptimos locales."
+    >
+    <title>Clase 06 | Optimización y Hill Climbing</title>
+    <link rel="stylesheet" href="../../styles.css?v=optimization-hill-climbing-20260927">
+  </head>
+  <body class="lesson-page">
+    <header class="site-header">
+      <a class="brand" href="../../" aria-label="Volver al notebook de IA">
+        <span class="brand-mark">AI</span>
+        <span>Inteligencia Artificial</span>
+      </a>
+      <nav class="top-nav" aria-label="Navegación de la clase">
+        <a href="#ruta" data-lesson-i18n="navRoute">Route</a>
+        <a href="#practice-en" data-lesson-nav="practice" data-lesson-i18n="navPractice">Practice</a>
+        <a href="#references-en" data-lesson-nav="references" data-lesson-i18n="navReferences">References</a>
+        <a class="repo-link" href="https://github.com/DIALVEBE/IA" rel="noreferrer">GitHub</a>
+      </nav>
+      <div class="language-switch" role="group" aria-label="Language switch">
+        <button class="lang-button is-active" type="button" data-lang="en">EN</button>
+        <button class="lang-button" type="button" data-lang="es">ES</button>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="lesson-hero">
+        <div class="hero-copy">
+          <p class="eyebrow" data-lesson-i18n="heroKicker">Optimization | Week 6</p>
+          <h1 data-lesson-i18n="heroTitle">Optimization and Hill Climbing</h1>
+          <p class="hero-text" data-lesson-i18n="heroText">
+            Move from finding any solution to improving candidate solutions with an objective function, neighbors, and local decisions.
+          </p>
+          <div class="hero-actions">
+            <a class="primary-action" href="#ruta" data-lesson-i18n="startClass">Start class</a>
+          </div>
+        </div>
+        <figure class="lesson-hero-visual">
+          <div class="optimization-hero-diagram" role="img" aria-label="Optimization landscape">
+            <svg viewBox="0 0 720 440">
+              <path class="landscape-line" d="M55 340 C110 310 126 212 178 202 C232 190 235 280 288 276 C340 272 354 185 405 150 C455 116 500 142 532 100 C572 48 622 80 670 56"></path>
+              <path class="landscape-path" d="M80 332 C120 295 136 232 178 202 C213 178 240 245 288 276"></path>
+              <circle class="landscape-point" cx="80" cy="332" r="12"></circle>
+              <circle class="landscape-point local" cx="178" cy="202" r="13"></circle>
+              <circle class="landscape-point global" cx="670" cy="56" r="13"></circle>
+              <text class="landscape-label" x="80" y="370" data-lesson-i18n="heroStart">Start</text>
+              <text class="landscape-label" x="178" y="170" data-lesson-i18n="heroLocal">Local optimum</text>
+              <text class="landscape-label" x="610" y="40" data-lesson-i18n="heroGlobal">Global optimum</text>
+            </svg>
+          </div>
+        </figure>
+      </section>
+
+      <section class="lesson-shell" id="ruta">
+        <aside class="topic-index lesson-index" aria-label="Índice de clase">
+          <div class="index-title" data-lesson-i18n="routeTitle">Route</div>
+          <a href="#optimization-en" data-lesson-nav="optimization" data-lesson-i18n="idxOptimization">1. Optimization</a>
+          <a href="#objective-en" data-lesson-nav="objective" data-lesson-i18n="idxObjective">2. Objective function</a>
+          <a href="#hill-en" data-lesson-nav="hill" data-lesson-i18n="idxHill">3. Hill Climbing</a>
+          <a href="#steps-en" data-lesson-nav="steps" data-lesson-i18n="idxSteps">4. Step by step</a>
+          <a href="#code-en" data-lesson-nav="code" data-lesson-i18n="idxCode">5. Code</a>
+          <a href="#space-en" data-lesson-nav="space" data-lesson-i18n="idxSpace">6. Search space</a>
+          <a href="#local-en" data-lesson-nav="local" data-lesson-i18n="idxLocal">7. Local optimum</a>
+          <a href="#restart-en" data-lesson-nav="restart" data-lesson-i18n="idxRestart">8. Random restarts</a>
+          <a href="#ml-en" data-lesson-nav="ml" data-lesson-i18n="idxMl">9. ML connection</a>
+          <a href="#beyond-en" data-lesson-nav="beyond" data-lesson-i18n="idxBeyond">10. Beyond Hill Climbing</a>
+          <a href="#practice-en" data-lesson-nav="practice" data-lesson-i18n="idxPractice">11. Practice</a>
+          <a href="#references-en" data-lesson-nav="references" data-lesson-i18n="idxReferences">R. References</a>
+        </aside>
+
+        <div class="lesson-content" data-lang-only="es" hidden>
+          <section class="lesson-section" id="optimizacion">
+            <p class="eyebrow">1 | Mejorar</p>
+            <h2>Optimización en inteligencia artificial</h2>
+            <p>
+              En inteligencia artificial no siempre basta con encontrar una solución.
+              En muchos problemas existen muchas respuestas posibles y la pregunta
+              importante es cuál de ellas es mejor según un criterio.
+            </p>
+            <aside class="question"><strong>Idea central.</strong> Buscar es encontrar una solución. Optimizar es intentar encontrar la mejor solución o una suficientemente buena.</aside>
+            <div class="concept-list">
+              <article><h3>Rutas</h3><p>Minimizar distancia, costo o tiempo.</p></article>
+              <article><h3>Modelos</h3><p>Minimizar el error de predicción.</p></article>
+              <article><h3>Videojuegos</h3><p>Maximizar la puntuación de un agente.</p></article>
+              <article><h3>Horarios</h3><p>Reducir conflictos entre clases, salones y recursos disponibles.</p></article>
+            </div>
+            <figure class="lesson-figure">
+              <div class="lesson-diagram optimization-flow" role="img" aria-label="Ciclo general de optimización">
+                <span>Proponer</span><span>Evaluar</span><strong>Comparar</strong><span>Mejorar</span><span>Repetir</span>
+              </div>
+              <figcaption>Figura 1. Optimizar implica comparar soluciones según una medida de calidad.</figcaption>
+            </figure>
+          </section>
+
+          <section class="lesson-section" id="objetivo">
+            <p class="eyebrow">2 | Medir</p>
+            <h2>Función objetivo</h2>
+            <p>La función objetivo mide qué tan buena es una solución candidata.</p>
+            <code class="prob-formula">f(x) = -(x - 7)^2 + 50</code>
+            <p>En este ejemplo, cada valor de <code>x</code> representa una posición y <code>f(x)</code> representa la altura.</p>
+            <pre><code>def altura(x):
+    return -(x - 7)**2 + 50</code></pre>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>x</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th></tr></thead>
+                <tbody><tr><td>altura</td><td>1</td><td>14</td><td>25</td><td>34</td><td>41</td><td>46</td><td>49</td><td>50</td><td>49</td></tr></tbody>
+              </table>
+            </div>
+            <div class="info-grid">
+              <article class="objective-card"><strong>Maximizar</strong><span>Buscar el valor más alto: ganancia, puntuación, rendimiento o fitness.</span></article>
+              <article class="objective-card"><strong>Minimizar</strong><span>Buscar el valor más bajo: distancia, tiempo, costo, energía o error.</span></article>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="hill-es">
+            <p class="eyebrow">3 | Estrategia local</p>
+            <h2>Hill Climbing</h2>
+            <p>Hill Climbing observa soluciones cercanas y se mueve hacia una que mejore el valor actual.</p>
+            <figure class="lesson-figure">
+              <div class="lesson-diagram optimization-flow" role="img" aria-label="Funcionamiento de Hill Climbing">
+                <span>Posición inicial</span><span>Evaluar actual</span><strong>Evaluar vecinos</strong><span>Mover si mejora</span><span>Detener si no mejora</span>
+              </div>
+              <figcaption>Figura 2. El algoritmo no ve todo el paisaje; decide con información local.</figcaption>
+            </figure>
+            <aside class="callout"><strong>Regla.</strong> Si un vecino cercano es mejor que la solución actual, el algoritmo se mueve hacia ese vecino.</aside>
+          </section>
+
+          <section class="lesson-section" id="pasos">
+            <p class="eyebrow">4 | Ejecución manual</p>
+            <h2>Hill Climbing paso a paso</h2>
+            <p>Comenzamos en <code>x = 0</code>. Los vecinos son <code>x - 1</code> y <code>x + 1</code>.</p>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Actual</th><th>Izquierda</th><th>Actual</th><th>Derecha</th><th>Decisión</th></tr></thead>
+                <tbody>
+                  <tr><td>x = 0</td><td>-14</td><td>1</td><td>14</td><td>Mover a x = 1</td></tr>
+                  <tr><td>x = 1</td><td>1</td><td>14</td><td>25</td><td>Mover a x = 2</td></tr>
+                  <tr><td>x = 2</td><td>14</td><td>25</td><td>34</td><td>Mover a x = 3</td></tr>
+                  <tr><td>x = 6</td><td>46</td><td>49</td><td>50</td><td>Mover a x = 7</td></tr>
+                  <tr><td>x = 7</td><td>49</td><td>50</td><td>49</td><td>Detener</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <code class="prob-formula">49 &lt; 50 &gt; 49</code>
+            <aside class="callout"><strong>Resultado.</strong> El algoritmo se detiene en x = 7 porque ningún vecino inmediato mejora la altura 50.</aside>
+          </section>
+
+          <section class="lesson-section" id="codigo">
+            <p class="eyebrow">5 | Implementación</p>
+            <h2>Código completo</h2>
+            <p>Este código implementa Hill Climbing sobre la función de altura. El botón Copiar permite llevarlo directamente al editor.</p>
+            <pre><code>def altura(x):
+    return -(x - 7)**2 + 50
+
+
+posicion = 0
+
+while True:
+    actual = altura(posicion)
+    izquierda = altura(posicion - 1)
+    derecha = altura(posicion + 1)
+
+    print(f"x={posicion:2} | altura={actual:2}")
+
+    if derecha > actual:
+        posicion += 1
+    elif izquierda > actual:
+        posicion -= 1
+    else:
+        break
+
+print("Mejor solucion encontrada")
+print(f"x = {posicion}")
+print(f"altura = {altura(posicion)}")</code></pre>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Concepto</th><th>En el código</th></tr></thead>
+                <tbody>
+                  <tr><td>Solución candidata</td><td><code>posicion</code></td></tr>
+                  <tr><td>Función objetivo</td><td><code>altura(x)</code></td></tr>
+                  <tr><td>Vecinos</td><td><code>posicion - 1</code> y <code>posicion + 1</code></td></tr>
+                  <tr><td>Criterio de mejora</td><td><code>derecha &gt; actual</code> o <code>izquierda &gt; actual</code></td></tr>
+                  <tr><td>Criterio de parada</td><td>Ningún vecino mejora</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="espacio">
+            <p class="eyebrow">6 | Vecinos</p>
+            <h2>Espacio de búsqueda</h2>
+            <p>El espacio de búsqueda contiene todas las soluciones posibles. Hill Climbing explora principalmente soluciones cercanas a la actual.</p>
+            <code class="prob-formula">... 0 1 2 3 4 5 6 7 8 ... -> 1 14 25 34 41 46 49 50 49 ...</code>
+            <div class="concept-list">
+              <article><h3>En una línea</h3><p>Los vecinos de x son x - 1 y x + 1.</p></article>
+              <article><h3>En un tablero</h3><p>Los vecinos pueden ser arriba, abajo, izquierda y derecha.</p></article>
+              <article><h3>En rutas</h3><p>Un vecino puede aparecer al intercambiar dos ciudades.</p></article>
+              <article><h3>En horarios</h3><p>Un vecino puede cambiar una clase de salón o franja.</p></article>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="local">
+            <p class="eyebrow">7 | Riesgo</p>
+            <h2>Óptimos locales y globales</h2>
+            <p>Un óptimo local es mejor que sus vecinos cercanos, pero no necesariamente es la mejor solución de todo el problema.</p>
+            <figure class="lesson-figure">
+              <div class="graph-panel">
+                <svg class="optimization-svg" viewBox="0 0 720 360" role="img" aria-label="Paisaje con óptimo local y global">
+                  <path class="landscape-line" d="M55 290 C105 250 120 165 170 155 C222 146 238 230 285 228 C340 224 356 196 398 180 C456 158 486 88 535 70 C588 50 630 64 675 42"></path>
+                  <circle class="landscape-point local" cx="170" cy="155" r="13"></circle>
+                  <circle class="landscape-point global" cx="675" cy="42" r="13"></circle>
+                  <text class="landscape-label" x="170" y="125">Óptimo local</text>
+                  <text class="landscape-label" x="610" y="31">Óptimo global</text>
+                </svg>
+              </div>
+              <figcaption>Figura 3. Desde una región localmente buena, todos los vecinos pueden parecer peores aunque exista una cima más alta lejos.</figcaption>
+            </figure>
+            <aside class="warning callout"><strong>Límite.</strong> Hill Climbing no garantiza encontrar siempre el óptimo global.</aside>
+          </section>
+
+          <section class="lesson-section" id="reinicios">
+            <p class="eyebrow">8 | Exploración</p>
+            <h2>Reinicios aleatorios</h2>
+            <p>Una mejora sencilla consiste en ejecutar Hill Climbing varias veces desde posiciones iniciales diferentes y conservar el mejor resultado.</p>
+            <figure class="lesson-figure">
+              <div class="lesson-diagram restart-flow" role="img" aria-label="Reinicios aleatorios">
+                <span>Inicio 1</span><span>Inicio 2</span><span>Inicio 3</span><strong>Comparar resultados</strong><span>Conservar mejor</span>
+              </div>
+              <figcaption>Figura 4. Los reinicios no garantizan el óptimo global, pero reducen la dependencia de un único punto inicial.</figcaption>
+            </figure>
+          </section>
+
+          <section class="lesson-section" id="ml">
+            <p class="eyebrow">9 | Aprendizaje</p>
+            <h2>Optimización y Machine Learning</h2>
+            <p>Entrenar un modelo puede verse como un problema de optimización: se ajustan parámetros para reducir el error.</p>
+            <figure class="lesson-figure">
+              <div class="lesson-diagram ml-optimization-flow" role="img" aria-label="Optimización en aprendizaje automático">
+                <span>Datos</span><span>Modelo</span><strong>Predicción</strong><span>Calcular error</span><span>Ajustar parámetros</span>
+              </div>
+              <figcaption>Figura 5. Muchos modelos modernos aprenden minimizando una función de error.</figcaption>
+            </figure>
+            <aside class="callout"><strong>Conexión.</strong> Hill Climbing no suele entrenar redes neuronales modernas, pero ayuda a entender la idea de evaluar parámetros y buscar valores mejores.</aside>
+          </section>
+
+          <section class="lesson-section" id="mas-alla">
+            <p class="eyebrow">10 | Metaheurísticas</p>
+            <h2>Más allá de Hill Climbing</h2>
+            <p>Los óptimos locales motivan estrategias que exploran más allá del vecino inmediato.</p>
+            <div class="concept-list">
+              <article><h3>Simulated Annealing</h3><p>Puede aceptar temporalmente movimientos peores para escapar de una cima local.</p></article>
+              <article><h3>Algoritmos genéticos</h3><p>Mantienen una población de soluciones, seleccionan, cruzan y mutan candidatos.</p></article>
+              <article><h3>Random Restart</h3><p>Repite Hill Climbing desde diferentes inicios.</p></article>
+              <article><h3>Otras metaheurísticas</h3><p>Buscan equilibrar explotación de regiones buenas y exploración de regiones nuevas.</p></article>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="practica">
+            <p class="eyebrow">11 | Práctica</p>
+            <h2>Actividad</h2>
+            <p>Modifica el ejemplo original para que la posición inicial sea aleatoria, muestre vecinos, indique la decisión tomada, cuente movimientos y ejecute varios reinicios.</p>
+            <pre><code>import random
+
+def altura(x):
+    return -(x - 7)**2 + 50
+
+mejor_posicion = None
+mejor_altura = float("-inf")
+
+for intento in range(5):
+    posicion = random.randint(-5, 12)
+    movimientos = 0
+
+    while True:
+        actual = altura(posicion)
+        izquierda = altura(posicion - 1)
+        derecha = altura(posicion + 1)
+
+        if derecha > actual:
+            posicion += 1
+            movimientos += 1
+        elif izquierda > actual:
+            posicion -= 1
+            movimientos += 1
+        else:
+            break
+
+    if altura(posicion) > mejor_altura:
+        mejor_posicion = posicion
+        mejor_altura = altura(posicion)
+
+print(mejor_posicion, mejor_altura)</code></pre>
+          </section>
+
+          <section class="lesson-section" id="cierre">
+            <p class="eyebrow">12 | Cierre</p>
+            <h2>Idea central</h2>
+            <p>Un sistema de IA optimiza aquello que definimos como objetivo. Por eso la función objetivo no es un detalle técnico: define qué comportamiento considerará mejor el sistema.</p>
+            <ul>
+              <li>Optimizar requiere representar soluciones candidatas.</li>
+              <li>La función objetivo mide calidad.</li>
+              <li>Hill Climbing mejora usando vecinos.</li>
+              <li>El punto inicial puede cambiar el resultado.</li>
+              <li>Explotar y explorar deben equilibrarse.</li>
+            </ul>
+          </section>
+
+          <section class="lesson-section" id="referencias">
+            <p class="eyebrow">R | Referencias</p>
+            <h2>Fuentes recomendadas</h2>
+            <ul class="reference-list">
+              <li>Russell, S. J., & Norvig, P. (2021). Artificial intelligence: a modern approach (4th ed.). Pearson.</li>
+              <li>Luke, S. (2013). Essentials of metaheuristics (2nd ed.). Lulu.</li>
+              <li>Goodfellow, I., Bengio, Y., & Courville, A. (2016). Deep learning. MIT Press.</li>
+            </ul>
+          </section>
+        </div>
+
+        <div class="lesson-content" data-lang-only="en">
+          <section class="lesson-section" id="optimization-en">
+            <p class="eyebrow">1 | Improve</p>
+            <h2>Optimization in artificial intelligence</h2>
+            <p>In artificial intelligence, finding one solution is not always enough. Many problems have many possible answers, and the important question is which one is better according to a criterion.</p>
+            <aside class="question"><strong>Core idea.</strong> Searching means finding a solution. Optimizing means trying to find the best solution or one that is good enough.</aside>
+            <div class="concept-list">
+              <article><h3>Routes</h3><p>Minimize distance, cost, or time.</p></article>
+              <article><h3>Models</h3><p>Minimize prediction error.</p></article>
+              <article><h3>Games</h3><p>Maximize an agent's score.</p></article>
+              <article><h3>Schedules</h3><p>Reduce conflicts between classes, rooms, and constraints.</p></article>
+            </div>
+            <figure class="lesson-figure">
+              <div class="lesson-diagram optimization-flow" role="img" aria-label="General optimization cycle">
+                <span>Propose</span><span>Evaluate</span><strong>Compare</strong><span>Improve</span><span>Repeat</span>
+              </div>
+              <figcaption>Figure 1. Optimization compares solutions using a quality measure.</figcaption>
+            </figure>
+          </section>
+
+          <section class="lesson-section" id="objective-en">
+            <p class="eyebrow">2 | Measure</p>
+            <h2>Objective function</h2>
+            <p>The objective function measures how good a candidate solution is.</p>
+            <code class="prob-formula">f(x) = -(x - 7)^2 + 50</code>
+            <p>In this example, each value of <code>x</code> represents a position and <code>f(x)</code> represents height.</p>
+            <pre><code>def height(x):
+    return -(x - 7)**2 + 50</code></pre>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>x</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th></tr></thead>
+                <tbody><tr><td>height</td><td>1</td><td>14</td><td>25</td><td>34</td><td>41</td><td>46</td><td>49</td><td>50</td><td>49</td></tr></tbody>
+              </table>
+            </div>
+            <div class="info-grid">
+              <article class="objective-card"><strong>Maximize</strong><span>Seek the highest value: profit, score, performance, or fitness.</span></article>
+              <article class="objective-card"><strong>Minimize</strong><span>Seek the lowest value: distance, time, cost, energy, or error.</span></article>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="hill-en">
+            <p class="eyebrow">3 | Local strategy</p>
+            <h2>Hill Climbing</h2>
+            <p>Hill Climbing looks at nearby solutions and moves toward one that improves the current value.</p>
+            <figure class="lesson-figure">
+              <div class="lesson-diagram optimization-flow" role="img" aria-label="Hill Climbing behavior">
+                <span>Initial position</span><span>Evaluate current</span><strong>Evaluate neighbors</strong><span>Move if better</span><span>Stop if not better</span>
+              </div>
+              <figcaption>Figure 2. The algorithm does not see the whole landscape; it decides with local information.</figcaption>
+            </figure>
+            <aside class="callout"><strong>Rule.</strong> If a nearby neighbor is better than the current solution, the algorithm moves to that neighbor.</aside>
+          </section>
+
+          <section class="lesson-section" id="steps-en">
+            <p class="eyebrow">4 | Manual run</p>
+            <h2>Hill Climbing step by step</h2>
+            <p>We start at <code>x = 0</code>. The neighbors are <code>x - 1</code> and <code>x + 1</code>.</p>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Current</th><th>Left</th><th>Current</th><th>Right</th><th>Decision</th></tr></thead>
+                <tbody>
+                  <tr><td>x = 0</td><td>-14</td><td>1</td><td>14</td><td>Move to x = 1</td></tr>
+                  <tr><td>x = 1</td><td>1</td><td>14</td><td>25</td><td>Move to x = 2</td></tr>
+                  <tr><td>x = 2</td><td>14</td><td>25</td><td>34</td><td>Move to x = 3</td></tr>
+                  <tr><td>x = 6</td><td>46</td><td>49</td><td>50</td><td>Move to x = 7</td></tr>
+                  <tr><td>x = 7</td><td>49</td><td>50</td><td>49</td><td>Stop</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <code class="prob-formula">49 &lt; 50 &gt; 49</code>
+            <aside class="callout"><strong>Result.</strong> The algorithm stops at x = 7 because no immediate neighbor improves height 50.</aside>
+          </section>
+
+          <section class="lesson-section" id="code-en">
+            <p class="eyebrow">5 | Implementation</p>
+            <h2>Complete code</h2>
+            <p>This code implements Hill Climbing over the height function. The Copy button sends it directly to the editor.</p>
+            <pre><code>def height(x):
+    return -(x - 7)**2 + 50
+
+
+position = 0
+
+while True:
+    current = height(position)
+    left = height(position - 1)
+    right = height(position + 1)
+
+    print(f"x={position:2} | height={current:2}")
+
+    if right > current:
+        position += 1
+    elif left > current:
+        position -= 1
+    else:
+        break
+
+print("Best solution found")
+print(f"x = {position}")
+print(f"height = {height(position)}")</code></pre>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Concept</th><th>In the code</th></tr></thead>
+                <tbody>
+                  <tr><td>Candidate solution</td><td><code>position</code></td></tr>
+                  <tr><td>Objective function</td><td><code>height(x)</code></td></tr>
+                  <tr><td>Neighbors</td><td><code>position - 1</code> and <code>position + 1</code></td></tr>
+                  <tr><td>Improvement criterion</td><td><code>right &gt; current</code> or <code>left &gt; current</code></td></tr>
+                  <tr><td>Stopping criterion</td><td>No neighbor improves</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="space-en">
+            <p class="eyebrow">6 | Neighbors</p>
+            <h2>Search space</h2>
+            <p>The search space contains all possible solutions. Hill Climbing mainly explores solutions near the current one.</p>
+            <code class="prob-formula">... 0 1 2 3 4 5 6 7 8 ... -> 1 14 25 34 41 46 49 50 49 ...</code>
+            <div class="concept-list">
+              <article><h3>On a line</h3><p>The neighbors of x are x - 1 and x + 1.</p></article>
+              <article><h3>On a board</h3><p>Neighbors may be up, down, left, and right.</p></article>
+              <article><h3>In routes</h3><p>A neighbor may appear by swapping two cities.</p></article>
+              <article><h3>In schedules</h3><p>A neighbor may change a class to another room or time slot.</p></article>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="local-en">
+            <p class="eyebrow">7 | Risk</p>
+            <h2>Local and global optima</h2>
+            <p>A local optimum is better than nearby solutions, but it is not necessarily the best solution in the whole problem.</p>
+            <figure class="lesson-figure">
+              <div class="graph-panel">
+                <svg class="optimization-svg" viewBox="0 0 720 360" role="img" aria-label="Landscape with local and global optima">
+                  <path class="landscape-line" d="M55 290 C105 250 120 165 170 155 C222 146 238 230 285 228 C340 224 356 196 398 180 C456 158 486 88 535 70 C588 50 630 64 675 42"></path>
+                  <circle class="landscape-point local" cx="170" cy="155" r="13"></circle>
+                  <circle class="landscape-point global" cx="675" cy="42" r="13"></circle>
+                  <text class="landscape-label" x="170" y="125">Local optimum</text>
+                  <text class="landscape-label" x="610" y="31">Global optimum</text>
+                </svg>
+              </div>
+              <figcaption>Figure 3. From a locally good region, every neighbor may look worse even though a higher peak exists far away.</figcaption>
+            </figure>
+            <aside class="warning callout"><strong>Limit.</strong> Hill Climbing does not guarantee that it will always find the global optimum.</aside>
+          </section>
+
+          <section class="lesson-section" id="restart-en">
+            <p class="eyebrow">8 | Exploration</p>
+            <h2>Random restarts</h2>
+            <p>A simple improvement is to run Hill Climbing several times from different starting positions and keep the best result.</p>
+            <figure class="lesson-figure">
+              <div class="lesson-diagram restart-flow" role="img" aria-label="Random restarts">
+                <span>Start 1</span><span>Start 2</span><span>Start 3</span><strong>Compare results</strong><span>Keep best</span>
+              </div>
+              <figcaption>Figure 4. Restarts do not guarantee the global optimum, but they reduce dependence on a single starting point.</figcaption>
+            </figure>
+          </section>
+
+          <section class="lesson-section" id="ml-en">
+            <p class="eyebrow">9 | Learning</p>
+            <h2>Optimization and Machine Learning</h2>
+            <p>Training a model can be seen as an optimization problem: parameters are adjusted to reduce error.</p>
+            <figure class="lesson-figure">
+              <div class="lesson-diagram ml-optimization-flow" role="img" aria-label="Optimization in machine learning">
+                <span>Data</span><span>Model</span><strong>Prediction</strong><span>Compute error</span><span>Adjust parameters</span>
+              </div>
+              <figcaption>Figure 5. Many modern models learn by minimizing an error function.</figcaption>
+            </figure>
+            <aside class="callout"><strong>Connection.</strong> Hill Climbing is not usually used to train modern neural networks, but it helps understand the idea of evaluating parameters and searching for better values.</aside>
+          </section>
+
+          <section class="lesson-section" id="beyond-en">
+            <p class="eyebrow">10 | Metaheuristics</p>
+            <h2>Beyond Hill Climbing</h2>
+            <p>Local optima motivate strategies that explore beyond the immediate neighbor.</p>
+            <div class="concept-list">
+              <article><h3>Simulated Annealing</h3><p>Can temporarily accept worse moves to escape a local peak.</p></article>
+              <article><h3>Genetic algorithms</h3><p>Keep a population of solutions, then select, crossover, and mutate candidates.</p></article>
+              <article><h3>Random Restart</h3><p>Runs Hill Climbing again from different starting points.</p></article>
+              <article><h3>Other metaheuristics</h3><p>Seek a balance between exploiting good regions and exploring new ones.</p></article>
+            </div>
+          </section>
+
+          <section class="lesson-section" id="practice-en">
+            <p class="eyebrow">11 | Practice</p>
+            <h2>Activity</h2>
+            <p>Modify the original example so the starting position is random, neighbors are printed, each decision is shown, moves are counted, and several restarts are executed.</p>
+            <pre><code>import random
+
+def height(x):
+    return -(x - 7)**2 + 50
+
+best_position = None
+best_height = float("-inf")
+
+for attempt in range(5):
+    position = random.randint(-5, 12)
+    moves = 0
+
+    while True:
+        current = height(position)
+        left = height(position - 1)
+        right = height(position + 1)
+
+        if right > current:
+            position += 1
+            moves += 1
+        elif left > current:
+            position -= 1
+            moves += 1
+        else:
+            break
+
+    if height(position) > best_height:
+        best_position = position
+        best_height = height(position)
+
+print(best_position, best_height)</code></pre>
+          </section>
+
+          <section class="lesson-section" id="closing-en">
+            <p class="eyebrow">12 | Closing</p>
+            <h2>Central idea</h2>
+            <p>An AI system optimizes what we define as the objective. That is why the objective function is not a small technical detail: it defines what behavior the system will consider better.</p>
+            <ul>
+              <li>Optimization requires representing candidate solutions.</li>
+              <li>The objective function measures quality.</li>
+              <li>Hill Climbing improves using neighbors.</li>
+              <li>The starting point can change the result.</li>
+              <li>Exploitation and exploration must be balanced.</li>
+            </ul>
+          </section>
+
+          <section class="lesson-section" id="references-en">
+            <p class="eyebrow">R | References</p>
+            <h2>Recommended sources</h2>
+            <ul class="reference-list">
+              <li>Russell, S. J., & Norvig, P. (2021). Artificial intelligence: a modern approach (4th ed.). Pearson.</li>
+              <li>Luke, S. (2013). Essentials of metaheuristics (2nd ed.). Lulu.</li>
+              <li>Goodfellow, I., Bengio, Y., & Courville, A. (2016). Deep learning. MIT Press.</li>
+            </ul>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span data-lesson-i18n="footerText">Class 06 | Artificial Intelligence</span>
+      <a href="#top" data-lesson-i18n="backTop">Back to top</a>
+    </footer>
+    <script src="lesson.js?v=optimization-hill-climbing-20260927"></script>
+  </body>
+</html>
