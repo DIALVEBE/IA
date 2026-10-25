@@ -114,6 +114,20 @@ function enhanceCode() {
   });
 }
 
+function integrateProgram() {
+  const source = document.querySelector(".shared-code .lesson-section");
+  if (!source) return;
+  ["practice-en", "practice-es"].forEach(id => {
+    const practice = document.getElementById(id);
+    if (!practice) return;
+    const program = source.cloneNode(true);
+    program.classList.remove("lesson-section");
+    program.classList.add("program-panel");
+    practice.append(program);
+  });
+  source.closest(".shared-code").remove();
+}
+
 document.addEventListener("click", async event => {
   const languageButton = event.target.closest(".lang-button");
   if (languageButton) {
@@ -139,5 +153,6 @@ document.addEventListener("click", async event => {
   window.setTimeout(() => { copyButton.textContent = ui[document.documentElement.lang].copy; }, 1600);
 });
 
+integrateProgram();
 enhanceCode();
 render(localStorage.getItem("ia-language") || "en");

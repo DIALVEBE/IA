@@ -1191,6 +1191,19 @@ th {
 
 .asset-link { margin-top: 1.5rem; }
 
+.program-panel {
+  margin-top: 1.5rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(0, 240, 255, 0.22);
+}
+
+.program-panel h2 {
+  max-width: none;
+  font-size: 1.45rem;
+}
+
+.program-panel p { color: var(--muted); }
+
 .asset-download-page {
   display: block;
   width: min(100%, 82rem);
