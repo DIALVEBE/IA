@@ -699,6 +699,10 @@ const ui = {
     session06Title: "Optimization and Hill Climbing",
     session06Text:
       "Objective functions, candidate solutions, search spaces, neighbors, Hill Climbing, local optima, random restarts, and optimization in ML.",
+    session07Kicker: "Class 07",
+    session07Title: "Neural Networks: Neurito",
+    session07Text:
+      "Build a small neural network with NumPy, train it on synthetic examples, evaluate its predictions, and connect its outputs to an animated Pygame pet.",
     openSession: "Open class",
     footerText: "Artificial Intelligence course notebook",
     labels: {
@@ -752,6 +756,10 @@ const ui = {
     session06Title: "Optimización y Hill Climbing",
     session06Text:
       "Funciones objetivo, soluciones candidatas, espacios de búsqueda, vecinos, Hill Climbing, óptimos locales, reinicios aleatorios y optimización en ML.",
+    session07Kicker: "Clase 07",
+    session07Title: "Redes neuronales: Neurito",
+    session07Text:
+      "Construye una red neuronal pequeña con NumPy, entrénala con ejemplos sintéticos, evalúa sus predicciones y conecta sus salidas con una mascota animada en Pygame.",
     openSession: "Abrir clase",
     footerText: "Cuaderno del curso de inteligencia artificial",
     labels: {

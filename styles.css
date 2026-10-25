@@ -1018,6 +1018,233 @@ th {
   color: var(--lime);
 }
 
+.neurito-hero {
+  min-height: 0;
+  padding-top: 4rem;
+}
+
+.neurito-hero-art {
+  display: grid;
+  justify-items: center;
+  margin: 0;
+  min-width: 0;
+}
+
+.neurito-hero-art img {
+  width: min(100%, 24rem);
+  aspect-ratio: 1;
+  object-fit: contain;
+  border: 0;
+  box-shadow: none;
+  clip-path: none;
+}
+
+.neurito-hero-art figcaption,
+.lesson-section .lesson-figure figcaption {
+  max-width: 62ch;
+}
+
+.neurito-needs,
+.sprite-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.85rem;
+  margin: 1.2rem 0;
+}
+
+.neurito-needs article,
+.sprite-gallery figure {
+  min-width: 0;
+  margin: 0;
+  padding: 1rem;
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.neurito-needs h3 {
+  margin: 0.55rem 0 0.25rem;
+}
+
+.neurito-needs p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.need-symbol {
+  display: grid;
+  width: 2.25rem;
+  aspect-ratio: 1;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(0, 240, 255, 0.12);
+  color: var(--cyan-2);
+  font-weight: 900;
+}
+
+.need-symbol.hunger { color: #ffb36b; }
+.need-symbol.energy { color: #a7ff88; }
+.need-symbol.boredom { color: #a8b8ff; }
+
+.need-action-flow,
+.training-flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  padding: 1.2rem;
+  border: 1px solid rgba(0, 240, 255, 0.22);
+  background: rgba(5, 10, 28, 0.72);
+}
+
+.need-action-flow span,
+.need-action-flow strong,
+.training-flow span {
+  padding: 0.65rem 0.8rem;
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  background: rgba(0, 240, 255, 0.07);
+  color: var(--text);
+  text-align: center;
+}
+
+.need-action-flow b,
+.training-flow b { color: var(--lime); }
+
+.need-action-flow .action-pill {
+  border-color: rgba(185, 255, 99, 0.48);
+  color: var(--lime);
+}
+
+.math-block {
+  margin: 1rem 0;
+  padding: 1rem;
+  overflow-x: auto;
+  border-left: 3px solid var(--lime);
+  background: rgba(0, 0, 0, 0.32);
+  color: var(--cyan-2);
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 0.94rem;
+  line-height: 1.8;
+}
+
+.network-diagram {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 14rem;
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  background: rgba(5, 10, 28, 0.8);
+}
+
+.network-visual {
+  max-width: 100%;
+  overflow-x: auto;
+  border: 1px solid rgba(0, 240, 255, 0.2);
+}
+
+.network-visual .network-diagram { border: 0; }
+
+.network-edge {
+  stroke: rgba(0, 240, 255, 0.23);
+  stroke-width: 1.25;
+}
+
+.network-node {
+  fill: #101d3a;
+  stroke: var(--cyan-2);
+  stroke-width: 2.5;
+}
+
+.network-node.layer-1 { stroke: #b9ff63; }
+.network-node.layer-2 { stroke: #ffb36b; }
+
+.network-label,
+.network-layer-label {
+  fill: var(--text);
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.network-layer-label {
+  fill: var(--muted);
+  font-size: 15px;
+}
+
+.sprite-gallery figure {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+}
+
+.sprite-gallery img {
+  display: block;
+  width: min(100%, 11rem);
+  aspect-ratio: 1;
+  object-fit: contain;
+}
+
+.sprite-gallery figcaption {
+  color: var(--text);
+  font-weight: 800;
+}
+
+.asset-link { margin-top: 1.5rem; }
+
+.asset-download-page {
+  display: block;
+  width: min(100%, 82rem);
+  margin-inline: auto;
+}
+
+.asset-download-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr));
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+}
+
+.asset-download-grid a {
+  display: grid;
+  justify-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem;
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  color: var(--text);
+  text-align: center;
+  text-decoration: none;
+}
+
+.asset-download-grid a:hover,
+.asset-download-grid a:focus-visible {
+  border-color: var(--lime);
+}
+
+.asset-download-grid img {
+  display: block;
+  width: min(100%, 9rem);
+  aspect-ratio: 1;
+  object-fit: contain;
+}
+
+.asset-download-grid span { font-weight: 800; }
+
+@media (max-width: 720px) {
+  .neurito-hero { grid-template-columns: minmax(0, 1fr); }
+  .neurito-hero-art img { width: min(72vw, 19rem); }
+  .neurito-needs { gap: 0.5rem; }
+  .neurito-needs article { padding: 0.7rem; }
+  .neurito-needs p { font-size: 0.78rem; }
+  .need-action-flow,
+  .training-flow { gap: 0.45rem; padding: 0.8rem; }
+  .need-action-flow span,
+  .need-action-flow strong,
+  .training-flow span { padding: 0.5rem; font-size: 0.82rem; }
+  .network-visual .network-diagram { width: 660px; max-width: none; min-height: 0; }
+  .network-label { font-size: 16px; }
+  .sprite-gallery figure { padding: 0.45rem; }
+}
+
 .probability-scale {
   display: grid;
   gap: 0.75rem;

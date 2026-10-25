@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Neurito Assets | Class 07</title>
+  <link rel="stylesheet" href="../../../styles.css?v=class-07-neurito">
+</head>
+<body class="lesson-page">
+  <header class="site-header">
+    <a class="brand" href="../../../"><span class="brand-mark">AI</span><span>Artificial Intelligence</span></a>
+    <nav class="top-nav"><a href="../" data-i18n="back">Back to Class 07</a></nav>
+    <div class="language-switch" role="group" aria-label="Language"><button class="lang-button is-active" data-lang="en" aria-pressed="true">EN</button><button class="lang-button" data-lang="es" aria-pressed="false">ES</button></div>
+  </header>
+  <main class="lesson-shell asset-download-page">
+    <section class="lesson-section" data-content="en">
+      <p class="eyebrow">Class 07 | Neurito</p><h1>Animation image assets</h1>
+      <p>Download the PNG frames and place them in the <code>assets</code> folder beside <code>main.py</code>. Each image has a transparent background and a 1254 × 1254 pixel canvas.</p>
+      <p><a href="../../../assets/Clase_7_Neurito.md" download>Download the full class source in Markdown</a></p>
+      <div class="asset-download-grid">
+        <a href="neutral_1.png" download><img src="neutral_1.png" alt="Neurito neutral frame 1"><span>Neutral 1</span></a>
+        <a href="neutral_2.png" download><img src="neutral_2.png" alt="Neurito neutral frame 2"><span>Neutral 2</span></a>
+        <a href="neutral_3.png" download><img src="neutral_3.png" alt="Neurito neutral frame 3"><span>Neutral 3</span></a>
+        <a href="comer_1.png" download><img src="comer_1.png" alt="Neurito eating frame 1"><span>Eat 1</span></a>
+        <a href="comer_2.png" download><img src="comer_2.png" alt="Neurito eating frame 2"><span>Eat 2</span></a>
+        <a href="dormir_1.png" download><img src="dormir_1.png" alt="Neurito sleeping frame 1"><span>Sleep 1</span></a>
+        <a href="dormir_2.png" download><img src="dormir_2.png" alt="Neurito sleeping frame 2"><span>Sleep 2</span></a>
+        <a href="jugar_1.png" download><img src="jugar_1.png" alt="Neurito playing frame 1"><span>Play 1</span></a>
+        <a href="jugar_2.png" download><img src="jugar_2.png" alt="Neurito playing frame 2"><span>Play 2</span></a>
+      </div>
+    </section>
+    <section class="lesson-section" data-content="es" hidden>
+      <p class="eyebrow">Clase 07 | Neurito</p><h1>Recursos para la animación</h1>
+      <p>Descarga los cuadros PNG y colócalos en la carpeta <code>assets</code> junto a <code>main.py</code>. Cada imagen tiene fondo transparente y un lienzo de 1254 × 1254 píxeles.</p>
+      <p><a href="../../../assets/Clase_7_Neurito.md" download>Descargar el material completo de la clase en Markdown</a></p>
+      <div class="asset-download-grid">
+        <a href="neutral_1.png" download><img src="neutral_1.png" alt="Neurito neutral, cuadro 1"><span>Neutral 1</span></a>
+        <a href="neutral_2.png" download><img src="neutral_2.png" alt="Neurito neutral, cuadro 2"><span>Neutral 2</span></a>
+        <a href="neutral_3.png" download><img src="neutral_3.png" alt="Neurito neutral, cuadro 3"><span>Neutral 3</span></a>
+        <a href="comer_1.png" download><img src="comer_1.png" alt="Neurito comiendo, cuadro 1"><span>Comer 1</span></a>
+        <a href="comer_2.png" download><img src="comer_2.png" alt="Neurito comiendo, cuadro 2"><span>Comer 2</span></a>
+        <a href="dormir_1.png" download><img src="dormir_1.png" alt="Neurito durmiendo, cuadro 1"><span>Dormir 1</span></a>
+        <a href="dormir_2.png" download><img src="dormir_2.png" alt="Neurito durmiendo, cuadro 2"><span>Dormir 2</span></a>
+        <a href="jugar_1.png" download><img src="jugar_1.png" alt="Neurito jugando, cuadro 1"><span>Jugar 1</span></a>
+        <a href="jugar_2.png" download><img src="jugar_2.png" alt="Neurito jugando, cuadro 2"><span>Jugar 2</span></a>
+      </div>
+    </section>
+  </main>
+  <script>
+    const text = {en:{back:"Back to Class 07"},es:{back:"Volver a la Clase 07"}};
+    function setLanguage(lang) {
+      document.documentElement.lang = lang;
+      document.querySelectorAll("[data-content]").forEach(el => el.hidden = el.dataset.content !== lang);
+      document.querySelectorAll("[data-i18n]").forEach(el => el.textContent = text[lang][el.dataset.i18n]);
+      document.querySelectorAll(".lang-button").forEach(btn => {
+        const active = btn.dataset.lang === lang;
+        btn.classList.toggle("is-active", active);
+        btn.setAttribute("aria-pressed", String(active));
+      });
+      localStorage.setItem("ia-language", lang);
+    }
+    document.addEventListener("click", event => {
+      const button = event.target.closest(".lang-button");
+      if (button) setLanguage(button.dataset.lang);
+    });
+    setLanguage(localStorage.getItem("ia-language") || "en");
+  </script>
+</body>
+</html>

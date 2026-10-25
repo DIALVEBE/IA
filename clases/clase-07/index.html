@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Build and understand Neurito, a NumPy neural network connected to an animated virtual pet.">
+    <title>Class 07 | Neural Networks: Neurito</title>
+    <link rel="stylesheet" href="../../styles.css?v=class-07-neurito">
+  </head>
+  <body class="lesson-page neurito-page">
+    <header class="site-header">
+      <a class="brand" href="../../" aria-label="Artificial Intelligence course notebook"><span class="brand-mark">AI</span><span>Artificial Intelligence</span></a>
+      <nav class="top-nav" aria-label="Class navigation"><a href="#route" data-i18n="navRoute">Route</a><a href="#practice-en" data-nav="practice" data-i18n="navPractice">Explore</a><a href="https://github.com/DIALVEBE/IA" rel="noreferrer">GitHub</a></nav>
+      <div class="language-switch" role="group" aria-label="Language"><button class="lang-button is-active" type="button" data-lang="en" aria-pressed="true">EN</button><button class="lang-button" type="button" data-lang="es" aria-pressed="false">ES</button></div>
+    </header>
+    <main id="top">
+      <section class="lesson-hero neurito-hero">
+        <div class="hero-copy"><p class="eyebrow" data-i18n="kicker">Neural networks | Class 07</p><h1 data-i18n="title">Neurito: a virtual pet with an artificial brain</h1><p class="hero-text" data-i18n="intro">Follow three needs through a neural network to an action you can see. Build the model with NumPy and connect its prediction to an animated Pygame pet.</p><div class="hero-actions"><a class="primary-action" href="#route" data-i18n="start">Explore the class</a></div></div>
+        <figure class="neurito-hero-art"><img src="assets/neutral_1.png" alt="Neurito in a calm, neutral state" data-alt-en="Neurito in a calm, neutral state" data-alt-es="Neurito en estado tranquilo y neutral"><figcaption data-i18n="heroCaption">The network predicts an action; the program turns it into an animated state.</figcaption></figure>
+      </section>
+      <section class="lesson-shell" id="route">
+        <aside class="topic-index lesson-index" aria-label="Class contents"><div class="index-title" data-i18n="contents">Contents</div>
+          <a href="#problem-en" data-nav="problem" data-i18n="idxProblem">1. The problem</a><a href="#neuron-en" data-nav="neuron" data-i18n="idxNeuron">2. One artificial neuron</a><a href="#network-en" data-nav="network" data-i18n="idxNetwork">3. Network architecture</a><a href="#forward-en" data-nav="forward" data-i18n="idxForward">4. From input to prediction</a><a href="#training-en" data-nav="training" data-i18n="idxTraining">5. Training</a><a href="#evaluation-en" data-nav="evaluation" data-i18n="idxEvaluation">6. Evaluation and limits</a><a href="#pet-en" data-nav="pet" data-i18n="idxPet">7. The animated pet</a><a href="#practice-en" data-nav="practice" data-i18n="idxPractice">8. Run and experiment</a>
+        </aside>
+        <div class="lesson-content" data-content="en">
+          <section class="lesson-section" id="problem-en"><p class="eyebrow">1 | Inputs and actions</p><h2>What decision should Neurito make?</h2><p>Neurito has three needs, each represented by a number between 0 and 1. Hunger and boredom grow as their values rise; energy works the other way around: low energy means tiredness. The network receives these measurements and predicts one of three actions.</p>
+            <div class="neurito-needs"><article><span class="need-symbol hunger">H</span><h3>Hunger</h3><p>0 = not hungry<br>1 = very hungry</p></article><article><span class="need-symbol energy">E</span><h3>Energy</h3><p>0 = exhausted<br>1 = full of energy</p></article><article><span class="need-symbol boredom">B</span><h3>Boredom</h3><p>0 = not bored<br>1 = very bored</p></article></div>
+            <p>For example, <code>[0.75, 0.20, 0.40]</code> means high hunger, low energy, and moderate boredom. Which action should take priority? The examples use a simple policy: compare hunger, tiredness (<code>1 - energy</code>), and boredom; choose the strongest need.</p><figure class="lesson-figure"><div class="need-action-flow" role="img" aria-label="Three needs enter a neural network and produce an action"><span>Hunger</span><span>Energy</span><span>Boredom</span><b>→</b><strong>Neural network</strong><b>→</b><span class="action-pill">Eat · Sleep · Play</span></div><figcaption>The same inputs create the example answers and feed the model's predictions.</figcaption></figure>
+          </section>
+          <section class="lesson-section" id="neuron-en"><p class="eyebrow">2 | Weighted sum</p><h2>What does one artificial neuron calculate?</h2><p>A neuron multiplies each input by a <strong>weight</strong>, adds a <strong>bias</strong>, then transforms the result with an activation function. Weights control each input's influence; bias shifts the sum.</p><div class="math-block">z = x₁w₁ + x₂w₂ + x₃w₃ + b<br>ReLU(z) = max(0, z)</div><p>With inputs 0.8, 0.2, 0.5; weights 0.7, -0.5, 0.3; and bias 0.1:</p><div class="math-block">z = 0.8×0.7 + 0.2×(-0.5) + 0.5×0.3 + 0.1 = 0.71<br>ReLU(0.71) = 0.71</div><p>This 0.71 is an activation, not a 71% chance of eating. One neuron has not chosen an action; the network needs multiple neurons and three output values.</p><pre><code>hunger, energy, boredom = 0.8, 0.2, 0.5
+w1, w2, w3, bias = 0.7, -0.5, 0.3, 0.1
+z = hunger * w1 + energy * w2 + boredom * w3 + bias
+activation = max(0, z)
+print(activation)  # 0.71</code></pre></section>
+            <section class="lesson-section" id="network-en"><p class="eyebrow">3 | 3 → 6 → 3</p><h2>How are neurons connected?</h2><p>Neurito has three inputs, six hidden neurons, and three output neurons. Each hidden neuron combines the inputs with its own weights and bias, then applies ReLU. The output layer scores Eat, Sleep, and Play.</p><figure class="lesson-figure"><div class="network-visual"><svg id="networkDiagram" class="network-diagram" viewBox="0 0 900 430" role="img"></svg></div><figcaption>Each line is a connection with a learned weight. The diagram shows architecture, not current weight values.</figcaption></figure><div class="table-wrap"><table><thead><tr><th>Parameter</th><th>Shape</th><th>Meaning</th></tr></thead><tbody><tr><td><code>W1</code></td><td>(3, 6)</td><td>3 inputs to 6 hidden neurons</td></tr><tr><td><code>b1</code></td><td>(1, 6)</td><td>Bias for each hidden neuron</td></tr><tr><td><code>W2</code></td><td>(6, 3)</td><td>6 hidden neurons to 3 outputs</td></tr><tr><td><code>b2</code></td><td>(1, 3)</td><td>Bias for each output</td></tr></tbody></table></div><p>Weights start with small random values. The network has no useful learned behavior yet: training must adjust weights and biases from examples.</p></section>
+          <section class="lesson-section" id="forward-en"><p class="eyebrow">4 | Prediction</p><h2>From needs to action: forward propagation</h2><p>Forward propagation carries input through the layers. In NumPy, <code>@</code means matrix multiplication. ReLU transforms hidden values; Softmax converts the three final scores into positive values that sum to 1.</p><pre><code>z1 = data @ W1 + b1
+a1 = relu(z1)
+z2 = a1 @ W2 + b2
+probabilities = softmax(z2)</code></pre><div class="math-block">softmax(zᵢ) = exp(zᵢ) / Σⱼ exp(zⱼ)</div><p>If the outputs are Eat 0.70, Sleep 0.20, and Play 0.10, the model selects Eat because it has the largest value. These are model probabilities, not guarantees or measures of hunger. <code>argmax</code> selects the index of the largest output.</p><aside class="callout"><strong>Two different jobs:</strong> ReLU adds a non-linear transformation in the hidden layer; Softmax makes the final scores comparable.</aside></section>
+          <section class="lesson-section" id="training-en"><p class="eyebrow">5 | Learning from examples</p><h2>How does training change the network?</h2><p>The project generates 3,000 synthetic rows of random needs. A simple policy creates target labels by comparing hunger, tiredness (<code>1 - energy</code>), and boredom. This is what the network practices reproducing; the label rule is not the game's action-selection code.</p><pre><code>np.random.seed(42)
+X = np.random.rand(3000, 3)
+needs = np.column_stack((X[:, 0], 1 - X[:, 1], X[:, 2]))
+y = np.argmax(needs, axis=1)</code></pre><p>The seed makes the sample repeatable. If energy is 0.1, tiredness is 0.9; the target is Sleep when 0.9 is the largest priority. <strong>Cross-entropy loss</strong> measures probability assigned to the correct answer. Backpropagation uses derivatives and the chain rule to calculate parameter changes; gradient descent updates weights to reduce loss.</p><div class="math-block">w_new = w_old - η × ∂L/∂w</div><p>The learning rate η controls step size, not a percentage of information learned. One epoch is a pass through the examples. The reference uses 1,200 epochs with full-batch updates.</p><figure class="lesson-figure"><div class="training-flow" role="img" aria-label="Training cycle: examples, prediction, loss, backpropagation, parameter update"><span>Examples</span><b>→</b><span>Forward pass</span><b>→</b><span>Prediction</span><b>→</b><span>Loss</span><b>→</b><span>Backpropagation</span><b>→</b><span>Update weights</span></div><figcaption>Updated parameters feed the next forward pass. Training repeats this cycle.</figcaption></figure></section>
+          <section class="lesson-section" id="evaluation-en"><p class="eyebrow">6 | Test on new cases</p><h2>What does high accuracy tell us?</h2><p>After training, the model predicts 1,000 newly generated situations. Predictions are compared with labels from the same synthetic policy.</p><pre><code>test_data = np.random.rand(1000, 3)
+expected = label_policy(test_data)
+predicted = np.argmax(predict(test_data), axis=1)
+accuracy = np.mean(predicted == expected)
+print(f"Accuracy: {accuracy:.2%}")</code></pre><p>99.4% accuracy would mean 994 matches out of 1,000 test cases. It shows how well the model imitates this policy on new synthetic cases. It does not establish general intelligence, knowledge of a real pet, or that the policy itself is appropriate.</p><aside class="callout"><strong>Evaluation depends on the target.</strong> High accuracy can mean the model learned a simplistic rule very well.</aside></section>
+          <section class="lesson-section" id="pet-en"><p class="eyebrow">7 | Prediction becomes visible</p><h2>Connect the model to Neurito</h2><p>Pygame displays need bars, prediction scores, and sprite animation. The predicted action chooses Eat, Sleep, or Play. Frames change every 500 ms. Images visualize a decision; they are not neural-network training data.</p><div class="sprite-gallery"><figure><img src="assets/comer_1.png" alt="Neurito eating" data-alt-en="Neurito eating" data-alt-es="Neurito comiendo"><figcaption>Eat</figcaption></figure><figure><img src="assets/dormir_1.png" alt="Neurito sleeping" data-alt-en="Neurito sleeping" data-alt-es="Neurito durmiendo"><figcaption>Sleep</figcaption></figure><figure><img src="assets/jugar_1.png" alt="Neurito playing" data-alt-en="Neurito playing" data-alt-es="Neurito jugando"><figcaption>Play</figcaption></figure></div><p>The visual <strong>neutral</strong> state is a separate interface rule: hunger &lt; 0.4, energy &gt; 0.6, and boredom &lt; 0.4. Neutral is not a fourth output; the network still predicts only three actions.</p><pre><code>def visible_state(hunger, energy, boredom, prediction):
+    if hunger &lt; 0.4 and energy &gt; 0.6 and boredom &lt; 0.4:
+        return "neutral"  # interface rule, not a network output
+    return actions[prediction]</code></pre></section>
+          <section class="lesson-section" id="practice-en"><p class="eyebrow">8 | Run and investigate</p><h2>Run the project and change one thing</h2><p>Create a Python project, install NumPy and pygame-ce, put the provided PNG files in an <code>assets</code> folder beside <code>main.py</code>, then run:</p><pre><code>uv init neurito
+cd neurito
+uv add numpy pygame-ce
+uv run main.py</code></pre><p>Install as <code>pygame-ce</code>, import as <code>pygame</code>. Controls: H/J change hunger, E/D energy, A/S boredom, R randomizes needs, N restores the calm state, Esc exits.</p><h3>Experiments</h3><ul><li>Hold two needs constant and vary the third. When does the predicted action change?</li><li>Compare nearly tied priorities. How do Softmax outputs change?</li><li>Change hidden neurons from 6 to 3, 10, or 20; compare loss and test accuracy.</li><li>Change epochs or learning rate. Does training improve, stall, or become unstable?</li><li>What data and labels would a fourth action require?</li></ul><h3>Explain your results</h3><ol><li>How do weights differ from biases?</li><li>Why is tiredness <code>1 - energy</code>?</li><li>What do ReLU and Softmax each do?</li><li>Why can high accuracy be misleading?</li></ol><p class="asset-link"><a href="assets/">Download Neurito image assets</a></p></section>
+        </div>
+        <div class="lesson-content" data-content="es" hidden>
+          <section class="lesson-section" id="problem-es"><p class="eyebrow">1 | Entradas y acciones</p><h2>¿Qué decisión debe tomar Neurito?</h2><p>Neurito tiene tres necesidades, representadas con números entre 0 y 1. El hambre y el aburrimiento aumentan con sus valores; la energía funciona al contrario: poca energía significa cansancio. La red recibe estas mediciones y predice una de tres acciones.</p><div class="neurito-needs"><article><span class="need-symbol hunger">H</span><h3>Hambre</h3><p>0 = nada de hambre<br>1 = mucha hambre</p></article><article><span class="need-symbol energy">E</span><h3>Energía</h3><p>0 = agotado<br>1 = energía completa</p></article><article><span class="need-symbol boredom">A</span><h3>Aburrimiento</h3><p>0 = nada aburrido<br>1 = muy aburrido</p></article></div><p>Por ejemplo, <code>[0.75, 0.20, 0.40]</code> significa mucha hambre, poca energía y aburrimiento moderado. ¿Qué acción debería tener prioridad? Los ejemplos usan una política sencilla: comparar hambre, cansancio (<code>1 - energía</code>) y aburrimiento; elegir la necesidad más intensa.</p><figure class="lesson-figure"><div class="need-action-flow" role="img" aria-label="Tres necesidades entran a una red neuronal y producen una acción"><span>Hambre</span><span>Energía</span><span>Aburrimiento</span><b>→</b><strong>Red neuronal</strong><b>→</b><span class="action-pill">Comer · Dormir · Jugar</span></div><figcaption>Las mismas entradas crean las respuestas de ejemplo y alimentan las predicciones del modelo.</figcaption></figure></section>
+          <section class="lesson-section" id="neuron-es"><p class="eyebrow">2 | Suma ponderada</p><h2>¿Qué calcula una neurona artificial?</h2><p>Una neurona multiplica cada entrada por un <strong>peso</strong>, suma un <strong>sesgo</strong> y transforma el resultado mediante una función de activación. Los pesos controlan la influencia de cada entrada; el sesgo desplaza la suma.</p><div class="math-block">z = x₁w₁ + x₂w₂ + x₃w₃ + b<br>ReLU(z) = max(0, z)</div><p>Con entradas 0.8, 0.2, 0.5; pesos 0.7, -0.5, 0.3; y sesgo 0.1:</p><div class="math-block">z = 0.8×0.7 + 0.2×(-0.5) + 0.5×0.3 + 0.1 = 0.71<br>ReLU(0.71) = 0.71</div><p>Este 0.71 es una activación, no una probabilidad del 71 % de comer. Una neurona no ha elegido la acción; la red necesita varias neuronas y tres valores de salida.</p><pre><code>hunger, energy, boredom = 0.8, 0.2, 0.5
+w1, w2, w3, bias = 0.7, -0.5, 0.3, 0.1
+z = hunger * w1 + energy * w2 + boredom * w3 + bias
+activation = max(0, z)
+print(activation)  # 0.71</code></pre></section>
+          <section class="lesson-section" id="network-es"><p class="eyebrow">3 | 3 → 6 → 3</p><h2>¿Cómo se conectan las neuronas?</h2><p>Neurito tiene tres entradas, seis neuronas ocultas y tres neuronas de salida. Cada neurona oculta combina las entradas con sus propios pesos y sesgo, y aplica ReLU. La capa de salida asigna puntuaciones a Comer, Dormir y Jugar.</p><figure class="lesson-figure"><div class="network-visual"><svg id="networkDiagramEs" class="network-diagram" viewBox="0 0 900 430" role="img"></svg></div><figcaption>Cada línea es una conexión con un peso aprendido. El diagrama muestra la arquitectura, no los valores actuales de los pesos.</figcaption></figure><div class="table-wrap"><table><thead><tr><th>Parámetro</th><th>Forma</th><th>Significado</th></tr></thead><tbody><tr><td><code>W1</code></td><td>(3, 6)</td><td>3 entradas a 6 neuronas ocultas</td></tr><tr><td><code>b1</code></td><td>(1, 6)</td><td>Sesgo de cada neurona oculta</td></tr><tr><td><code>W2</code></td><td>(6, 3)</td><td>6 neuronas ocultas a 3 salidas</td></tr><tr><td><code>b2</code></td><td>(1, 3)</td><td>Sesgo de cada salida</td></tr></tbody></table></div><p>Los pesos comienzan con valores aleatorios pequeños. La red aún no tiene un comportamiento útil aprendido: el entrenamiento ajusta pesos y sesgos a partir de ejemplos.</p></section>
+          <section class="lesson-section" id="forward-es"><p class="eyebrow">4 | Predicción</p><h2>De las necesidades a la acción: propagación hacia adelante</h2><p>La propagación hacia adelante lleva las entradas por las capas. En NumPy, <code>@</code> significa multiplicación matricial. ReLU transforma los valores ocultos; Softmax convierte las tres puntuaciones finales en valores positivos que suman 1.</p><pre><code>z1 = data @ W1 + b1
+a1 = relu(z1)
+z2 = a1 @ W2 + b2
+probabilities = softmax(z2)</code></pre><div class="math-block">softmax(zᵢ) = exp(zᵢ) / Σⱼ exp(zⱼ)</div><p>Si las salidas son Comer 0.70, Dormir 0.20 y Jugar 0.10, el modelo elige Comer porque tiene el valor mayor. Son probabilidades del modelo, no garantías ni medidas del hambre. <code>argmax</code> selecciona el índice de la salida mayor.</p><aside class="callout"><strong>Dos tareas distintas:</strong> ReLU agrega una transformación no lineal en la capa oculta; Softmax hace comparables los resultados finales.</aside></section>
+          <section class="lesson-section" id="training-es"><p class="eyebrow">5 | Aprender con ejemplos</p><h2>¿Cómo cambia la red durante el entrenamiento?</h2><p>El proyecto genera 3000 filas sintéticas con necesidades aleatorias. Una política sencilla produce las etiquetas al comparar hambre, cansancio (<code>1 - energía</code>) y aburrimiento. La red practica reproducir estas respuestas; la regla que crea etiquetas no selecciona la acción durante el juego.</p><pre><code>np.random.seed(42)
+X = np.random.rand(3000, 3)
+needs = np.column_stack((X[:, 0], 1 - X[:, 1], X[:, 2]))
+y = np.argmax(needs, axis=1)</code></pre><p>La semilla permite repetir la muestra. Si la energía vale 0.1, el cansancio vale 0.9; la etiqueta es Dormir si 0.9 es la prioridad mayor. La <strong>entropía cruzada</strong> mide cuánta probabilidad asigna el modelo a la respuesta correcta. La retropropagación usa derivadas y la regla de la cadena para calcular cambios; el descenso de gradiente actualiza los pesos para reducir la pérdida.</p><div class="math-block">w_nuevo = w_anterior - η × ∂L/∂w</div><p>La tasa de aprendizaje η controla el tamaño del paso; no es un porcentaje de información aprendida. Una época recorre todos los ejemplos. El proyecto de referencia usa 1200 épocas y actualizaciones de lote completo.</p><figure class="lesson-figure"><div class="training-flow" role="img" aria-label="Ciclo de entrenamiento: ejemplos, predicción, pérdida, retropropagación y actualización de parámetros"><span>Ejemplos</span><b>→</b><span>Propagación</span><b>→</b><span>Predicción</span><b>→</b><span>Pérdida</span><b>→</b><span>Retropropagación</span><b>→</b><span>Actualizar pesos</span></div><figcaption>Los parámetros actualizados se usan en la propagación siguiente. El ciclo se repite.</figcaption></figure></section>
+          <section class="lesson-section" id="evaluation-es"><p class="eyebrow">6 | Probar casos nuevos</p><h2>¿Qué nos dice una precisión alta?</h2><p>Después del entrenamiento, el modelo predice 1000 situaciones recién generadas. Las predicciones se comparan con etiquetas de la misma política sintética.</p><pre><code>test_data = np.random.rand(1000, 3)
+expected = label_policy(test_data)
+predicted = np.argmax(predict(test_data), axis=1)
+accuracy = np.mean(predicted == expected)
+print(f"Accuracy: {accuracy:.2%}")</code></pre><p>Una precisión del 99.4 % significaría 994 coincidencias en 1000 casos de prueba. Muestra cuánto imita el modelo esta política en casos sintéticos nuevos. No demuestra inteligencia general, conocimiento de una mascota real ni que la política sea adecuada.</p><aside class="callout"><strong>La evaluación depende de la respuesta esperada.</strong> Una precisión alta puede significar que el modelo aprendió muy bien una regla simplista.</aside></section>
+          <section class="lesson-section" id="pet-es"><p class="eyebrow">7 | La predicción se vuelve visible</p><h2>Conectar el modelo con Neurito</h2><p>Pygame muestra barras de necesidades, puntuaciones y animaciones con sprites. La acción predicha elige Comer, Dormir o Jugar. Los cuadros cambian cada 500 ms. Las imágenes hacen visible la decisión; no son datos de entrenamiento de la red neuronal.</p><div class="sprite-gallery"><figure><img src="assets/comer_1.png" alt="Neurito comiendo" data-alt-en="Neurito eating" data-alt-es="Neurito comiendo"><figcaption>Comer</figcaption></figure><figure><img src="assets/dormir_1.png" alt="Neurito durmiendo" data-alt-en="Neurito sleeping" data-alt-es="Neurito durmiendo"><figcaption>Dormir</figcaption></figure><figure><img src="assets/jugar_1.png" alt="Neurito jugando" data-alt-en="Neurito playing" data-alt-es="Neurito jugando"><figcaption>Jugar</figcaption></figure></div><p>El estado visual <strong>neutral</strong> es una regla independiente de la interfaz: hambre &lt; 0.4, energía &gt; 0.6 y aburrimiento &lt; 0.4. Neutral no es una cuarta salida; la red predice solo tres acciones.</p><pre><code>def visible_state(hunger, energy, boredom, prediction):
+    if hunger &lt; 0.4 and energy &gt; 0.6 and boredom &lt; 0.4:
+        return "neutral"  # regla visual, no salida de la red
+    return actions[prediction]</code></pre></section>
+          <section class="lesson-section" id="practice-es"><p class="eyebrow">8 | Ejecutar e investigar</p><h2>Ejecutar el proyecto y cambiar algo</h2><p>Crea un proyecto de Python, instala NumPy y pygame-ce, coloca los PNG en una carpeta <code>assets</code> junto a <code>main.py</code> y ejecuta:</p><pre><code>uv init neurito
+cd neurito
+uv add numpy pygame-ce
+uv run main.py</code></pre><p>Instala <code>pygame-ce</code> e impórtalo como <code>pygame</code>. Controles: H/J cambian el hambre, E/D la energía, A/S el aburrimiento, R genera valores aleatorios, N recupera el estado tranquilo y Esc cierra.</p><h3>Experimentos</h3><ul><li>Mantén dos necesidades fijas y varía la tercera. ¿Cuándo cambia la acción predicha?</li><li>Compara prioridades casi iguales. ¿Cómo cambian las salidas de Softmax?</li><li>Cambia la capa oculta de 6 a 3, 10 o 20 neuronas; compara pérdida y precisión.</li><li>Cambia las épocas o la tasa de aprendizaje. ¿El entrenamiento mejora, se estanca o se vuelve inestable?</li><li>¿Qué datos y etiquetas requeriría una cuarta acción?</li></ul><h3>Explica tus resultados</h3><ol><li>¿En qué se diferencian pesos y sesgos?</li><li>¿Por qué el cansancio es <code>1 - energía</code>?</li><li>¿Qué hace ReLU y qué hace Softmax?</li><li>¿Por qué una precisión alta puede ser engañosa?</li></ol><p class="asset-link"><a href="assets/">Descargar recursos gráficos de Neurito</a></p></section>
+        </div>
+        <div class="lesson-content shared-code">
+          <section class="lesson-section">
+            <p class="eyebrow" data-i18n="codeKicker">Runnable example</p>
+            <h2 data-i18n="codeTitle">Complete program: train the network and animate Neurito</h2>
+            <p data-i18n="codeIntro">This self-contained example trains a 3–6–3 network, evaluates it, loads the supplied sprites, and connects predictions to a Pygame window. Choose the interface language on the LANGUAGE line.</p>
+            <details><summary data-i18n="codeDetails">Show complete Python program</summary><pre><code>from pathlib import Path
+
+import numpy as np
+import pygame
+
+LANGUAGE = "en"  # Change to "es" for Spanish interface text.
+TEXT = {
+    "en": {
+        "title": "NEURITO - MY ARTIFICIAL BRAIN",
+        "hunger": "Hunger", "energy": "Energy", "boredom": "Boredom",
+        "eat": "EAT", "sleep": "SLEEP", "play": "PLAY", "neutral": "CALM",
+        "accuracy": "Test accuracy against synthetic policy",
+        "controls1": "H/J: hunger +/-    E/D: energy +/-",
+        "controls2": "A/S: boredom +/-    R: random",
+        "controls3": "N: calm state    ESC: quit",
+    },
+    "es": {
+        "title": "NEURITO - MI CEREBRO ARTIFICIAL",
+        "hunger": "Hambre", "energy": "Energía", "boredom": "Aburrimiento",
+        "eat": "COMER", "sleep": "DORMIR", "play": "JUGAR", "neutral": "NEUTRAL",
+        "accuracy": "Precisión frente a la política sintética",
+        "controls1": "H/J: hambre +/-    E/D: energía +/-",
+        "controls2": "A/S: aburrimiento +/-    R: aleatorio",
+        "controls3": "N: estado tranquilo    ESC: salir",
+    },
+}
+labels = TEXT[LANGUAGE]
+actions = ("eat", "sleep", "play")
+
+# Synthetic examples follow a simple priority policy.
+np.random.seed(42)
+X = np.random.rand(3000, 3)
+targets = np.argmax(np.column_stack((X[:, 0], 1 - X[:, 1], X[:, 2])), axis=1)
+W1 = np.random.randn(3, 6) * 0.5
+b1 = np.zeros((1, 6))
+W2 = np.random.randn(6, 3) * 0.5
+b2 = np.zeros((1, 3))
+
+
+def relu(values):
+    return np.maximum(0, values)
+
+
+def softmax(values):
+    exp_values = np.exp(values - np.max(values, axis=1, keepdims=True))
+    return exp_values / np.sum(exp_values, axis=1, keepdims=True)
+
+
+def predict(data):
+    hidden = relu(data @ W1 + b1)
+    return softmax(hidden @ W2 + b2)
+
+
+# Full-batch gradient descent.
+for epoch in range(1200):
+    z1 = X @ W1 + b1
+    hidden = relu(z1)
+    probabilities = softmax(hidden @ W2 + b2)
+    count = len(X)
+    delta2 = probabilities.copy()
+    delta2[np.arange(count), targets] -= 1
+    delta2 /= count
+    grad_W2 = hidden.T @ delta2
+    grad_b2 = np.sum(delta2, axis=0, keepdims=True)
+    delta1 = (delta2 @ W2.T) * (z1 &gt; 0)
+    grad_W1 = X.T @ delta1
+    grad_b1 = np.sum(delta1, axis=0, keepdims=True)
+    W1 -= 0.1 * grad_W1
+    b1 -= 0.1 * grad_b1
+    W2 -= 0.1 * grad_W2
+    b2 -= 0.1 * grad_b2
+
+test = np.random.rand(1000, 3)
+test_targets = np.argmax(
+    np.column_stack((test[:, 0], 1 - test[:, 1], test[:, 2])), axis=1
+)
+accuracy = np.mean(np.argmax(predict(test), axis=1) == test_targets)
+print(f"{labels['accuracy']}: {accuracy:.2%}")
+
+pygame.init()
+screen = pygame.display.set_mode((900, 600))
+pygame.display.set_caption("Neurito")
+clock = pygame.time.Clock()
+font = pygame.font.SysFont(None, 30)
+small_font = pygame.font.SysFont(None, 23)
+asset_dir = Path(__file__).resolve().parent / "assets"
+pet_size = (330, 330)
+
+
+def load_frames(names):
+    return [
+        pygame.transform.smoothscale(
+            pygame.image.load(str(asset_dir / name)).convert_alpha(), pet_size
+        )
+        for name in names
+    ]
+
+
+frames = {
+    "neutral": load_frames(["neutral_1.png", "neutral_2.png", "neutral_3.png"]),
+    "eat": load_frames(["comer_1.png", "comer_2.png"]),
+    "sleep": load_frames(["dormir_1.png", "dormir_2.png"]),
+    "play": load_frames(["jugar_1.png", "jugar_2.png"]),
+}
+needs = [0.2, 0.9, 0.2]
+current_state = "neutral"
+frame_index = 0
+last_frame_time = pygame.time.get_ticks()
+running = True
+
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                running = False
+            elif event.key == pygame.K_h:
+                needs[0] = min(1, needs[0] + 0.1)
+            elif event.key == pygame.K_j:
+                needs[0] = max(0, needs[0] - 0.1)
+            elif event.key == pygame.K_e:
+                needs[1] = min(1, needs[1] + 0.1)
+            elif event.key == pygame.K_d:
+                needs[1] = max(0, needs[1] - 0.1)
+            elif event.key == pygame.K_a:
+                needs[2] = min(1, needs[2] + 0.1)
+            elif event.key == pygame.K_s:
+                needs[2] = max(0, needs[2] - 0.1)
+            elif event.key == pygame.K_r:
+                needs = list(np.random.rand(3))
+            elif event.key == pygame.K_n:
+                needs = [0.2, 0.9, 0.2]
+
+    probabilities = predict(np.array([needs]))[0]
+    action = actions[int(np.argmax(probabilities))]
+    if needs[0] &lt; 0.4 and needs[1] &gt; 0.6 and needs[2] &lt; 0.4:
+        state = "neutral"  # Display rule; the network has three outputs.
+    else:
+        state = action
+
+    now = pygame.time.get_ticks()
+    if state != current_state:
+        current_state, frame_index, last_frame_time = state, 0, now
+    elif now - last_frame_time &gt;= 500:
+        frame_index = (frame_index + 1) % len(frames[state])
+        last_frame_time = now
+
+    screen.fill((250, 245, 252))
+    title = font.render(labels["title"], True, (55, 45, 75))
+    screen.blit(title, (45, 28))
+
+    colors = [(235, 125, 75), (70, 175, 115), (105, 125, 225)]
+    for index, key in enumerate(("hunger", "energy", "boredom")):
+        value = needs[index]
+        y = 125 + index * 95
+        text = small_font.render(
+            f"{labels[key]}: {value * 100:.0f}%", True, (35, 40, 55)
+        )
+        screen.blit(text, (50, y - 27))
+        pygame.draw.rect(screen, (215, 220, 230), (50, y, 290, 22), border_radius=7)
+        pygame.draw.rect(
+            screen, colors[index], (50, y, int(290 * value), 22), border_radius=7
+        )
+
+    pet = frames[state][frame_index]
+    screen.blit(pet, pet.get_rect(center=(650, 235)))
+    screen.blit(font.render(labels[state], True, (65, 50, 85)), (585, 420))
+    for index, action_name in enumerate(actions):
+        score = small_font.render(
+            f"{labels[action_name]}: {probabilities[index] * 100:.1f}%",
+            True, (55, 50, 75)
+        )
+        screen.blit(score, (50, 390 + index * 28))
+
+    screen.blit(small_font.render(labels["controls1"], True, (70, 70, 90)), (50, 495))
+    screen.blit(small_font.render(labels["controls2"], True, (70, 70, 90)), (50, 525))
+    screen.blit(small_font.render(labels["controls3"], True, (70, 70, 90)), (50, 555))
+    pygame.display.flip()
+    clock.tick(30)
+
+pygame.quit()</code></pre></details>
+          </section>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer"><span data-i18n="footer">Class 07 | Artificial Intelligence</span><a href="#top" data-i18n="top">Back to top</a></footer>
+    <script src="lesson.js?v=class-07-neurito"></script>
+  </body>
+</html>
